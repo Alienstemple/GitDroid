@@ -1,4 +1,4 @@
-package com.example.gitdroid
+package com.example.gitdroid.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
