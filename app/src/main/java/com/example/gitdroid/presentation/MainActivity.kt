@@ -1,5 +1,6 @@
 package com.example.gitdroid.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.gitdroid.databinding.ActivityMainBinding
@@ -12,6 +13,12 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
+        startApp()
 
+    }
+
+    private fun startApp() {
+        intent = Intent(this, StartAppActivity::class.java)
+        startActivity(intent)
     }
 }
