@@ -1,6 +1,6 @@
 package com.example.gitdroid.models.domain
 
-data class Repository(
+data class GHRepository(
 
     val id: Number,
     val node_id: String,

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties("true")
-data class RepositoryData(
+data class GHRepositoryData(
     @JsonProperty("id") val id: Number,
     @JsonProperty("node_id") val node_id: String,
     val name: String,
