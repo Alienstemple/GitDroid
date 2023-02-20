@@ -6,9 +6,12 @@ import com.example.gitdroid.models.domain.GHRepository
 class NetworkService(private val githubApiService: GithubApiService) {
     suspend fun getReposByUser(name: String): List<GHRepository> {
         Log.d(TAG, "NetworkService called with: name = $name")
-        githubApiService.getReposByUser(name)
-        val resultList: List<GHRepository> = emptyList()
-        return resultList
+
+        githubApiService.getReposByUser(name).body()?.let {
+            Log.d(TAG, "From network we have: $it")
+            return it
+        }
+        return emptyList()
     }
 
     companion object {
