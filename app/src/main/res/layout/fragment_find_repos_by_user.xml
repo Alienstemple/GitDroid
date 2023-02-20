@@ -26,4 +26,16 @@
         android:layout_marginTop="4dp"
         android:hint="Name"
         tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/getBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GET" />
+
+    <TextView
+        android:id="@+id/resultEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="result" />
 </LinearLayout>
