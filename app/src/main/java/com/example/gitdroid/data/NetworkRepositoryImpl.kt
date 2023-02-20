@@ -8,8 +8,7 @@ import com.example.gitdroid.models.domain.GHRepository
 class NetworkRepositoryImpl(private val networkService: NetworkService): NetworkRepository {
     override suspend fun getReposByUser(name: String): List<GHRepository> {
         Log.d(TAG, "getReposByUser() called with: name = $name")
-//        val resultList = networkService
-        val resultList: List<GHRepository> = emptyList()
+        val resultList = networkService.getReposByUser(name)
         return resultList
     }
 
