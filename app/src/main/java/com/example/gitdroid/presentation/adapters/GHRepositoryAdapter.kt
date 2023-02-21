@@ -4,9 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gitdroid.databinding.GhRepositoryItemBinding
 import com.example.gitdroid.models.domain.GHRepository
 
-class GHRepositoryAdapter() :
+class GHRepositoryAdapter :
     RecyclerView.Adapter<GHRepositoryAdapter.ViewHolder>() {
 
     private val repoList = mutableListOf<GHRepository>()
@@ -14,7 +15,7 @@ class GHRepositoryAdapter() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d(TAG, "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
 
-        val binding = GHRepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = GhRepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -32,29 +33,22 @@ class GHRepositoryAdapter() :
         notifyDataSetChanged()
     }
 
-    class ViewHolder(binding: GHRepositoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(binding: GhRepositoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private val tickerItemBinding = binding
 
-        fun bind(tickerItem: TickerOutput) =
+        fun bind(repoItem: GHRepository) =
             with(tickerItemBinding) {
-                Log.d(TAG, "bind() called ${tickerItem.name}")
-
-                tickerNameTv.text = tickerItem.name
-                Picasso.get()
-                    .load("https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg")  // tickerItem.logo
-                    .into(tickerIcon)
-                cTv.text = tickerItem.c.toString()
-                dTv.text = tickerItem.d.toString()
-                dpTv.text = tickerItem.dp.toString()
-
-                itemView.setOnClickListener {
-                    clickListener.onItemClicked(tickerItem)
-                }
+                Log.d(TAG, "bind() called ${repoItem.name}")
+                repoNameTv.text = repoItem.name
+                repoLanguageTv.text = repoItem.language
+                repoUpdatedTv.text = repoItem.updated_at
+                issuesTv.text = "${repoItem.open_issues_count.toString()} issues"
+                issuesBtn // TODO onItemClick
             }
     }
 
     companion object {
-        const val TAG = "TickAdaptLog"
+        const val TAG = "GHRepoAdaptLog"
     }
 }
