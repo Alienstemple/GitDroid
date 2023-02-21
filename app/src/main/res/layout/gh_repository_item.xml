@@ -39,7 +39,7 @@
         android:id="@+id/repoUpdatedTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="140dp"
         android:layout_marginTop="40dp"
         android:padding="6dp"
         android:text="Last update"
@@ -50,7 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:text="Issues" />
+        android:text="Issues"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/issuesTv"

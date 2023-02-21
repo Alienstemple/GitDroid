@@ -42,7 +42,7 @@ class FindReposByUserFragment : Fragment() {
             ViewModelProvider(this,
                 RepositoryViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
         // Init adapter for recycler
-//        initAdapter()
+        initAdapter()
         // Init observer
         setupObserver(repositoryViewModel)
 
@@ -59,18 +59,17 @@ class FindReposByUserFragment : Fragment() {
         repositoryViewModel.repoList.observe(viewLifecycleOwner) { repoList ->
             repoList?.let {
                 // Обновляем Recycler View
-                binding.resultEditText.text = it.toString()
-//                tickerAdapter.setList(it)
+                ghRepositoryAdapter.setList(it)
             }
         }
     }
 
-//    private fun initAdapter() {
-//        tickerAdapter = TickersAdapter(this)
-//        mainBinding.tickersRecycler.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//        mainBinding.tickersRecycler.adapter = tickerAdapter
-//    }
+    private fun initAdapter() {
+        ghRepositoryAdapter = GHRepositoryAdapter()
+        binding.repoListRecycler.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.repoListRecycler.adapter = ghRepositoryAdapter
+    }
 
     companion object {
         const val TAG = "FindRepByUserFragLog"
