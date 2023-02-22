@@ -7,36 +7,36 @@
     android:padding="6dp">
 
     <ImageView
-        android:id="@+id/repoIcon"
+        android:id="@+id/issueIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        app:srcCompat="@drawable/icon_repository" />
+        app:srcCompat="@drawable/icon_issue" />
 
     <TextView
-        android:id="@+id/repoNameTv"
+        android:id="@+id/issueTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:padding="6dp"
-        android:text="Repository Name"
+        android:text="Issue title"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/repoLanguageTv"
+        android:id="@+id/userTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="40dp"
         android:padding="6dp"
-        android:text="Repo language"
+        android:text="Issue user"
         android:textColor="@color/teal_900"
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/repoUpdatedTv"
+        android:id="@+id/issueUpdatedTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="140dp"
@@ -46,20 +46,20 @@
         android:textColor="@color/black" />
 
     <Button
-        android:id="@+id/issuesBtn"
+        android:id="@+id/detailsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:text="Issues"
+        android:text="Detailes"
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/issuesTv"
+        android:id="@+id/commentsTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:paddingRight="4dp"
         android:paddingBottom="2dp"
-        android:text="Num of issues" />
+        android:text="Num of comments" />
 
 </androidx.cardview.widget.CardView>

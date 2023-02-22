@@ -51,9 +51,9 @@ class ListIssuesFragment : Fragment() {
         setGetIssuesByUserAndRepositoryOnClickListener(issuesViewModel)
     }
 
-    private fun setGetIssuesByUserAndRepositoryOnClickListener(repositoryViewModel: RepositoryViewModel) = with(binding) {
+    private fun setGetIssuesByUserAndRepositoryOnClickListener(issuesViewModel: IssuesViewModel) = with(binding) {
         getBtn.setOnClickListener {
-            repositoryViewModel.getReposByUser(userNameEditText.text.toString())
+            issuesViewModel.getIssueByUserAndRepository(userNameEditText.text.toString(), repoEditText.text.toString())
         }
     }
 
@@ -68,9 +68,9 @@ class ListIssuesFragment : Fragment() {
 
     private fun initAdapter() {
         issuesAdapter = IssuesAdapter()
-        binding.repoListRecycler.layoutManager =
+        binding.issueListRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        binding.repoListRecycler.adapter = issuesAdapter
+        binding.issueListRecycler.adapter = issuesAdapter
     }
 
     companion object {
