@@ -9,7 +9,7 @@ import com.example.gitdroid.domain.GithubInteractor
 import com.example.gitdroid.models.domain.Issue
 import kotlinx.coroutines.launch
 
-class IssueViewModel (private val githubInteractor: GithubInteractor) : ViewModel() {
+class IssuesViewModel (private val githubInteractor: GithubInteractor) : ViewModel() {
 
         private val _issueList = MutableLiveData<List<Issue>>()
         val issueList: LiveData<List<Issue>> = _issueList
