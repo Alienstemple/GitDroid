@@ -42,8 +42,9 @@ class IssuesAdapter :
             with(issueItemBinding) {
                 Log.d(TAG, "bind() called ${issueItem.title}")
                 issueTitleTv.text = issueItem.title
-                userTv.text = issueItem.body
+                userTv.text = issueItem.user.login
                 issueUpdatedTv.text = issueItem.updated_at
+                commentsTv.text = "${issueItem.comments} comments"
                 detailsBtn // TODO onItemClick
             }
     }

@@ -8,6 +8,7 @@ import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.databinding.ActivityStartAppBinding
 import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
+import com.example.gitdroid.presentation.fragments.ListIssuesFragment
 
 class StartAppActivity : AppCompatActivity(), Navigation {
     private lateinit var startAppActivityBinding: ActivityStartAppBinding
@@ -23,7 +24,8 @@ class StartAppActivity : AppCompatActivity(), Navigation {
     }
 
     override fun openFindReposByUser() {
-        launchFragment(FindReposByUserFragment.newInstance())
+//        launchFragment(FindReposByUserFragment.newInstance())
+        launchFragment(ListIssuesFragment.newInstance())
     }
 
     private fun launchFragment(fragment: Fragment) {
