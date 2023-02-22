@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
@@ -15,8 +14,7 @@ import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.vm.RepositoryViewModel
-import com.example.gitdroid.presentation.vm.RepositoryViewModelFactory
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.example.gitdroid.presentation.vm.ViewModelFactory
 
 class FindReposByUserFragment : Fragment() {
 
@@ -40,7 +38,7 @@ class FindReposByUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val repositoryViewModel: RepositoryViewModel =
             ViewModelProvider(this,
-                RepositoryViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
+                ViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
         // Init adapter for recycler
         initAdapter()
         // Init observer
