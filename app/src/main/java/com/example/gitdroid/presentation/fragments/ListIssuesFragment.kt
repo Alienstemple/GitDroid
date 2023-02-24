@@ -14,13 +14,21 @@ import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.databinding.FragmentListIssuesBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
+import com.example.gitdroid.domain.NetworkRepository
+import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.adapters.IssuesAdapter
 import com.example.gitdroid.presentation.vm.IssuesViewModel
 import com.example.gitdroid.presentation.vm.RepositoryViewModel
 import com.example.gitdroid.presentation.vm.ViewModelFactory
 
+private const val ARG_PARAM1 = "user"
+private const val ARG_PARAM2 = "repository"
+
 class ListIssuesFragment : Fragment() {
+
+    private lateinit var user: String
+    private lateinit var repository: String
 
     private lateinit var binding: FragmentListIssuesBinding
     private lateinit var issuesAdapter: IssuesAdapter
@@ -29,6 +37,14 @@ class ListIssuesFragment : Fragment() {
 
     private val networkRepository = NetworkRepositoryImpl(networkService)
     private val githubInteractor = GithubInteractorImpl(networkRepository)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            user = it.getString(ARG_PARAM1).toString()
+            repository = it.getString(ARG_PARAM2).toString()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,11 +67,16 @@ class ListIssuesFragment : Fragment() {
         setGetIssuesByUserAndRepositoryOnClickListener(issuesViewModel)
     }
 
-    private fun setGetIssuesByUserAndRepositoryOnClickListener(issuesViewModel: IssuesViewModel) = with(binding) {
-        getBtn.setOnClickListener {
-            issuesViewModel.getIssueByUserAndRepository(userNameEditText.text.toString(), repoEditText.text.toString())
+    private fun setGetIssuesByUserAndRepositoryOnClickListener(issuesViewModel: IssuesViewModel) =
+        with(binding) {
+
+            issuesViewModel.getIssueByUserAndRepository(user, repository)
+
+//            getBtn.setOnClickListener {
+//                issuesViewModel.getIssueByUserAndRepository(userNameEditText.text.toString(),
+//                    repoEditText.text.toString())
+//            }
         }
-    }
 
     private fun setupObserver(issuesViewModel: IssuesViewModel) {
         issuesViewModel.issueList.observe(viewLifecycleOwner) { repoList ->
@@ -77,7 +98,12 @@ class ListIssuesFragment : Fragment() {
         const val TAG = "IssuesFragLog"
 
         @JvmStatic
-        fun newInstance() =
-            ListIssuesFragment()
+        fun newInstance(user: String, repository: String) =
+            ListIssuesFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, user)
+                    putString(ARG_PARAM2, repository)
+                }
+            }
     }
 }

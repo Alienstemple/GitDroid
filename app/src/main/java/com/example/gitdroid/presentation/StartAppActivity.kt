@@ -38,7 +38,7 @@ class StartAppActivity : AppCompatActivity(), Navigation, RepositoryItemClickLis
     }
 
     override fun onItemClicked(ghRepository: GHRepository) {
-        launchFragment(ListIssuesFragment.newInstance()) // TODO pass ghRepository
+        launchFragment(ListIssuesFragment.newInstance(ghRepository.owner.login, ghRepository.name))
     }
 
     companion object {
