@@ -13,6 +13,7 @@ import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
+import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 import com.example.gitdroid.presentation.vm.RepositoryViewModel
 import com.example.gitdroid.presentation.vm.ViewModelFactory
 
@@ -63,7 +64,7 @@ class FindReposByUserFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        ghRepositoryAdapter = GHRepositoryAdapter()
+        ghRepositoryAdapter = GHRepositoryAdapter(activity as RepositoryItemClickListener)
         binding.repoListRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.repoListRecycler.adapter = ghRepositoryAdapter
