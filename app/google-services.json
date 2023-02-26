@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "470143469813",
+    "project_id": "gitdroid-760e4",
+    "storage_bucket": "gitdroid-760e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470143469813:android:818681935395513ddc1dbc",
+        "android_client_info": {
+          "package_name": "com.example.gitdroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470143469813-8atkmlhk4otacj75c8dbojt1t027qbk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs12PyhNdpVjvX_Kt3VE62caZh-EVDbgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470143469813-8atkmlhk4otacj75c8dbojt1t027qbk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
