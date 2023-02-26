@@ -11,13 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/enterEmailEditText"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="240dp"
+            android:hint="Enter email"
+            app:layout_constraintEnd_toEndOf="@+id/authBtn"
+            app:layout_constraintStart_toStartOf="@+id/authBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
-            android:id="@+id/StartAppBtn"
+            android:id="@+id/authBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start app"
+            android:backgroundTint="#fff"
+            android:drawableLeft="@drawable/icon_github_small"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
+            android:textColor="#000"
+            android:text="Authorize on GitHub"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/enterEmailEditText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
