@@ -16,6 +16,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                appAuthRedirectScheme: "com.example.gitdroid.oauth"
+        ]
     }
 
     buildTypes {
@@ -91,4 +95,7 @@ dependencies {
 
     // Material
     implementation 'com.google.android.material:material:1.8.0'
+
+    //AppAuth
+    implementation 'net.openid:appauth:0.9.1'
 }
