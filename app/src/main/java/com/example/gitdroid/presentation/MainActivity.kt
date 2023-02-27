@@ -11,6 +11,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
@@ -71,7 +75,8 @@ class MainActivity : AppCompatActivity() {
 
             authBtn.setOnClickListener {
                 if (TextUtils.isEmpty(mainBinding.enterEmailEditText.text.toString())) {
-                    Toast.makeText(this@MainActivity, "Enter your github id", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "Enter your github id", Toast.LENGTH_LONG)
+                        .show()
                 } else {
                     signInWithGithubProvider()
                 }
@@ -82,6 +87,44 @@ class MainActivity : AppCompatActivity() {
 
     private fun signInWithGithubProvider() {
 
+        // There's something already here! Finish the sign-in for your user.
+        val pendingResultTask: Task<AuthResult>? = auth.pendingAuthResult
+        if (pendingResultTask != null) {
+            pendingResultTask
+                .addOnSuccessListener {
+                    // User is signed in.
+                    Toast.makeText(this, "User exist", Toast.LENGTH_LONG).show()
+                }
+                .addOnFailureListener {
+                    // Handle failure.
+                    Toast.makeText(this, "Error : $it", Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "Error : $it")
+                }
+        } else {
+
+            auth.startActivityForSignInWithProvider( /* activity= */this, provider.build())
+                .addOnSuccessListener(
+                    OnSuccessListener<AuthResult?> {
+                        // User is signed in.
+                        // retrieve the current user
+                        firebaseUser = auth.currentUser!!
+
+                        // navigate to HomePageActivity after successful login
+                        val intent = Intent(this, HomePageActivity::class.java)
+
+                        // send github user name from MainActivity to HomePageActivity
+                        intent.putExtra("githubUserName", firebaseUser.displayName)
+                        this.startActivity(intent)
+                        Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
+
+                    })
+                .addOnFailureListener(
+                    OnFailureListener {
+                        // Handle failure.
+                        Toast.makeText(this, "Error : $it", Toast.LENGTH_LONG).show()
+                        Log.d(TAG, "Error : $it")
+                    })
+        }
     }
 
     private fun startApp() {
