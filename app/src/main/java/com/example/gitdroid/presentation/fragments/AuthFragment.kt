@@ -65,7 +65,7 @@ class AuthFragment : Fragment() {
 //        loginButton.isVisible = !isLoading
 //        loginProgress.isVisible = isLoading
 //    }
-//
+
     private fun openAuthPage(intent: Intent) {
         getAuthResponse.launch(intent)
     }
