@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item1"
-        android:title="Item1" />
+        android:id="@+id/searchItem"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search" />
     <item
-        android:id="@+id/item2"
-        android:title="Item2" />
+        android:id="@+id/myProjItem"
+        android:title="My projects" />
+    <item
+        android:id="@+id/repoAndIssItem"
+        android:title="Repos and issues" />
+    <item
+        android:id="@+id/settingsItem"
+        android:title="Settings" />
 </menu>

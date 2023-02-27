@@ -19,29 +19,35 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        toggle = ActionBarDrawerToggle(this,
-            mainBinding.drawerLayout,
-            R.string.open_nav_drawer,
-            R.string.close_nav_drawer)
-        mainBinding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        with(mainBinding) {
+            // Action Drawer Menu
+            toggle = ActionBarDrawerToggle(this@MainActivity,
+                drawerLayout,
+                R.string.open_nav_drawer,
+                R.string.close_nav_drawer)
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mainBinding.navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.item1 -> {
-                    Log.d(TAG, "Item 1 selected")
+            navView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.searchItem -> {
+                        Log.d(TAG, "Item 1 selected")
+                    }
+                    R.id.myProjItem -> {
+                        Log.d(TAG, "Item 2 selected")
+                    }
+                    R.id.repoAndIssItem -> {
+                        Log.d(TAG, "Item 3 selected")
+                    }
+                    R.id.settingsItem -> {
+                        Log.d(TAG, "Item 4 selected")
+                    }
                 }
-                R.id.item2 -> {
-                    Log.d(TAG, "Item 2 selected")
-                }
+                true
             }
-            true
         }
-
-//        startApp()
-
     }
 
     private fun startApp() {
