@@ -1,14 +1,13 @@
 package com.example.gitdroid.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.google.android.gms.tasks.OnFailureListener
@@ -18,6 +17,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainBinding
@@ -108,6 +108,15 @@ class MainActivity : AppCompatActivity() {
                         // User is signed in.
                         // retrieve the current user
                         firebaseUser = auth.currentUser!!
+
+                        var token: String
+                        firebaseUser.getIdToken(false)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    token = task.result.token!!
+                                    Log.d(TAG, "Task is successful, token = $token")
+                                }
+                            }
 
                         // navigate to HomePageActivity after successful login
                         val intent = Intent(this, HomePageActivity::class.java)
