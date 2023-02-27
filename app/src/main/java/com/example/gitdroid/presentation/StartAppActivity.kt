@@ -25,6 +25,10 @@ class StartAppActivity : AppCompatActivity(), Navigation, RepositoryItemClickLis
         }
     }
 
+    override fun openAuth() {
+//        TODO("Not yet implemented")
+    }
+
     override fun openFindReposByUser() {
         launchFragment(FindReposByUserFragment.newInstance())
     }

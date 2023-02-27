@@ -7,10 +7,14 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.example.gitdroid.presentation.fragments.AuthFragment
+import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
+import com.example.gitdroid.presentation.misc.Navigation
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -48,18 +52,37 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
+
+        // Launch authorization
+        openAuth()
     }
 
-    private fun startApp() {
-        intent = Intent(this, StartAppActivity::class.java)
-        startActivity(intent)
-    }
+//    private fun startApp() {
+//        intent = Intent(this, StartAppActivity::class.java)
+//        startActivity(intent)
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun openAuth() {
+        launchFragment(AuthFragment.newInstance())
+    }
+
+    override fun openFindReposByUser() {
+        launchFragment(FindReposByUserFragment.newInstance())
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        Log.d(StartAppActivity.TAG, "Transact with name ${fragment::class.java.simpleName}")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.mainActFragmContainer, fragment)
+            .addToBackStack(fragment::class.java.simpleName)
+            .commit()
     }
 
     companion object {
