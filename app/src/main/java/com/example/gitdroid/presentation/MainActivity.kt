@@ -1,32 +1,26 @@
 package com.example.gitdroid.presentation
 
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.example.gitdroid.models.domain.GHRepository
+import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.fragments.AuthFragment
 import com.example.gitdroid.presentation.fragments.CodeSearchFragment
 import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
 import com.example.gitdroid.presentation.fragments.HelloFragment
 import com.example.gitdroid.presentation.misc.Navigation
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.OAuthCredential
-import com.google.firebase.auth.OAuthProvider
+import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 
 
-class MainActivity : AppCompatActivity(), Navigation {
+class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListener {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -101,6 +95,15 @@ class MainActivity : AppCompatActivity(), Navigation {
             .replace(R.id.mainActFragmContainer, fragment)
             .addToBackStack(fragment::class.java.simpleName)
             .commit()
+    }
+
+    override fun onItemClicked(searchResultItem: SearchResultItem) {
+        // Open chrome custom tab
+        Log.d(TAG, "On item clicked: ${searchResultItem.repository.name}")
+        val url = searchResultItem.html_url
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(this, Uri.parse(url))
     }
 
     companion object {

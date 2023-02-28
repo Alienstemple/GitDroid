@@ -9,9 +9,13 @@ class NetworkService(private val githubApiService: GithubApiService, private val
 
     suspend fun getCodeSearch(searchQuery: String): SearchResult {
         Log.d(TAG, "NetworkService called with: searchQuery = $searchQuery")
-        val token = sessionManager.fetchAuthToken().toString()
+        val token = "Bearer ${sessionManager.fetchAuthToken().toString()}"
         Log.d(TAG, "Token fetched: $token")
-        githubApiService.getCodeSearch(token, searchQuery).body()?.let {
+        val result = githubApiService.getCodeSearch(token, searchQuery)
+        Log.d(TAG, "From network we have: ${result.code()} ${result.isSuccessful} ${
+            result.body().toString()
+        }")
+        result.body()?.let {
             Log.d(TAG, "From network we have: $it")
             return it
         }

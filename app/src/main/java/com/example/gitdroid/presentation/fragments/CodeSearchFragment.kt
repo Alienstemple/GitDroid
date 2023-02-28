@@ -11,6 +11,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
@@ -18,14 +19,19 @@ import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentCodeSearchBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
+import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
+import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
+import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 import com.example.gitdroid.presentation.vm.RepositoryViewModel
+import com.example.gitdroid.presentation.vm.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.ViewModelFactory
 
 class CodeSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentCodeSearchBinding
 
+    private lateinit var searchResultViewModel: SearchResultViewModel
     private lateinit var searchResultAdapter: SearchResultAdapter
 
     private lateinit var networkService: NetworkService
@@ -46,29 +52,37 @@ class CodeSearchFragment : Fragment() {
         networkService = NetworkService(GithubApiService.getInstance(), SessionManager(context))
         networkRepository = NetworkRepositoryImpl(networkService)
         githubInteractor = GithubInteractorImpl(networkRepository)
-        val repositoryViewModel: RepositoryViewModel =
+        searchResultViewModel =
             ViewModelProvider(this,
-                ViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
+                ViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Init adapter for recycler
-//        initAdapter()
-//        // Init observer
-//        setupObserver(repositoryViewModel)
-
-        // TODO onClick -- chrome custom tab
-//        setGetReposByUserOnClickListener(repositoryViewModel)
+        initAdapter()
+        // Init observer
+        setupObserver(searchResultViewModel)
 
         binding.goBtn.setOnClickListener {
-
-            val url = "https://github.com/jeremych1000/ee3-dsd/blob/e2fa7010534f350c48a5462967c84161d4e8e72b/T8_combined_func2/hello_world.archive.rpt"  // "https://google.com/"
-
-            val builder = CustomTabsIntent.Builder()
-            val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(requireActivity(), Uri.parse(url))
+            searchResultViewModel.getCodeSearch(binding.enterSearchQueryEditText.text.toString())
         }
+    }
+
+    private fun setupObserver(searchResultViewModel: SearchResultViewModel) {
+        searchResultViewModel.searchResultItems.observe(viewLifecycleOwner) { searchResItemsList ->
+            searchResItemsList?.let {
+                // Обновляем Recycler View
+                searchResultAdapter.setList(it)
+            }
+        }
+    }
+
+    private fun initAdapter() {
+        searchResultAdapter = SearchResultAdapter(activity as SearchResultItemClickListener)
+        binding.searchResultsRecycler.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.searchResultsRecycler.adapter = searchResultAdapter
     }
 
     companion object {

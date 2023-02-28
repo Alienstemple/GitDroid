@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.FragmentHelloBinding
 import com.example.gitdroid.databinding.FragmentListIssuesBinding
+import com.example.gitdroid.presentation.misc.navigation
 
 private const val ARG_USERNAME = "userName"
 private const val ARG_AVATAR_URL = "avatarUrl"
@@ -32,6 +33,14 @@ class HelloFragment : Fragment() {
     ): View {
         binding = FragmentHelloBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.searchBtn.setOnClickListener {
+            navigation().openCodeSearch()
+        }
     }
 
     companion object {
