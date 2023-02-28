@@ -8,8 +8,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
+import com.example.gitdroid.presentation.misc.Navigation
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
@@ -20,7 +23,7 @@ import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -33,55 +36,61 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        with(mainBinding) {
-            // Action Drawer Menu
-            toggle = ActionBarDrawerToggle(this@MainActivity,
-                drawerLayout,
-                R.string.open_nav_drawer,
-                R.string.close_nav_drawer)
-            drawerLayout.addDrawerListener(toggle)
-            toggle.syncState()
+        initNavDrawer()
 
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        authWithFirebase()
+    }
 
-            navView.setNavigationItemSelectedListener {
-                when (it.itemId) {
-                    R.id.searchItem -> {
-                        Log.d(TAG, "Item 1 selected")
-                    }
-                    R.id.myProjItem -> {
-                        Log.d(TAG, "Item 2 selected")
-                    }
-                    R.id.repoAndIssItem -> {
-                        Log.d(TAG, "Item 3 selected")
-                    }
-                    R.id.settingsItem -> {
-                        Log.d(TAG, "Item 4 selected")
-                    }
-                }
-                true
+    private fun authWithFirebase() = with(mainBinding) {
+        // Authorization
+        auth = FirebaseAuth.getInstance()
+
+        provider.addCustomParameter("login", enterEmailEditText.text.toString())
+
+        val scopes: ArrayList<String?> = object : ArrayList<String?>() {
+            init {
+                add("user:email")
             }
+        }
+        provider.scopes = scopes
 
-            // Authorization
-            auth = FirebaseAuth.getInstance()
+        authBtn.setOnClickListener {
+            if (TextUtils.isEmpty(mainBinding.enterEmailEditText.text.toString())) {
+                Toast.makeText(this@MainActivity, "Enter your github id", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                signInWithGithubProvider()
+            }
+        }
+    }
 
-            provider.addCustomParameter("login", enterEmailEditText.text.toString())
+    private fun initNavDrawer() = with(mainBinding) {
+        // Action Drawer Menu
+        toggle = ActionBarDrawerToggle(this@MainActivity,
+            drawerLayout,
+            R.string.open_nav_drawer,
+            R.string.close_nav_drawer)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
-            val scopes: ArrayList<String?> = object : ArrayList<String?>() {
-                init {
-                    add("user:email")
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.searchItem -> {
+                    Log.d(TAG, "Item 1 selected")
+                }
+                R.id.myProjItem -> {
+                    Log.d(TAG, "Item 2 selected")
+                }
+                R.id.repoAndIssItem -> {
+                    Log.d(TAG, "Item 3 selected")
+                }
+                R.id.settingsItem -> {
+                    Log.d(TAG, "Item 4 selected")
                 }
             }
-            provider.scopes = scopes
-
-            authBtn.setOnClickListener {
-                if (TextUtils.isEmpty(mainBinding.enterEmailEditText.text.toString())) {
-                    Toast.makeText(this@MainActivity, "Enter your github id", Toast.LENGTH_LONG)
-                        .show()
-                } else {
-                    signInWithGithubProvider()
-                }
-            }
+            true
         }
 
     }
@@ -110,28 +119,14 @@ class MainActivity : AppCompatActivity() {
                         // retrieve the current user
                         firebaseUser = auth.currentUser!!
 
-//                        var token: String
-//                        firebaseUser.getIdToken(false)
-//                            .addOnCompleteListener { task ->
-//                                if (task.isSuccessful) {
-//                                    token = task.result.token!!
-//                                    Log.d(TAG, "Task is successful, token = $token")
-//                                }
-//                            }
-
                         val accessToken = (it.credential as OAuthCredential).accessToken
                         val idToken = (it.credential as OAuthCredential).idToken
                         Log.d(TAG, "Access token = $accessToken")
                         Log.d(TAG, "Id token = $idToken")
 
-                        // navigate to HomePageActivity after successful login
-                        val intent = Intent(this, HomePageActivity::class.java)
+                        // Launch hello fragment
 
-                        // send github user name from MainActivity to HomePageActivity
-                        intent.putExtra("githubUserName", firebaseUser.displayName)
-                        this.startActivity(intent)
                         Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
-
                     })
                 .addOnFailureListener(
                     OnFailureListener {
@@ -142,16 +137,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun startApp() {
-        intent = Intent(this, StartAppActivity::class.java)
-        startActivity(intent)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun openFindReposByUser() {
+        launchFragment(FindReposByUserFragment.newInstance())
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        Log.d(StartAppActivity.TAG, "Transact with name ${fragment::class.java.simpleName}")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.search_repos_by_user_frag_container, fragment)
+            .addToBackStack(fragment::class.java.simpleName)
+            .commit()
     }
 
     companion object {
