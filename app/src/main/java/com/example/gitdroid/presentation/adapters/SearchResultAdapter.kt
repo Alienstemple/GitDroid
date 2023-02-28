@@ -42,7 +42,7 @@ class SearchResultAdapter(private val searchResultItemClickListener: SearchResul
         fun bind(searchResultItem: SearchResultItem, clickListener: SearchResultItemClickListener) =
             with(searchResItemBinding) {
                 Log.d(TAG, "bind() called ${searchResultItem.name}")
-                resultRepoNameTv.text = searchResultItem.repository.name
+                resultRepoNameTv.text = searchResultItem.repository.full_name
                 itemView.setOnClickListener {
                     clickListener.onItemClicked(searchResultItem)
                 }
