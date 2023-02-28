@@ -14,8 +14,8 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@android:drawable/ic_menu_search"
         android:hint="Enter search query"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/goBtn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -35,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enterSearchQueryEditText" />
+        app:layout_constraintTop_toBottomOf="@id/enterSearchQueryEditText"
+        tools:listitem="@layout/search_result_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
