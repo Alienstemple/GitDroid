@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 
 
@@ -94,6 +95,8 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     // User is signed in.
                     Toast.makeText(this, "User exist", Toast.LENGTH_LONG).show()
+                    val accessToken = (it.credential as OAuthCredential).accessToken
+                    Log.d(TAG, "Access token = $accessToken")
                 }
                 .addOnFailureListener {
                     // Handle failure.
