@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentAuthBinding
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.misc.navigation
@@ -89,6 +90,9 @@ class AuthFragment : Fragment() {
                         val idToken = (it.credential as OAuthCredential).idToken
                         Log.d(MainActivity.TAG, "Access token = $accessToken")
                         Log.d(MainActivity.TAG, "Id token = $idToken")
+
+                        // Save access token in shared prefs
+                        SessionManager(requireContext()).saveAuthToken(accessToken.toString())
 
                         // TODO add avatar url
                         navigation().openHello(firebaseUser.displayName.toString(), "")
