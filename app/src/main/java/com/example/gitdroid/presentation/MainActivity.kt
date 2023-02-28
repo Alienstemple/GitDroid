@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.presentation.fragments.AuthFragment
+import com.example.gitdroid.presentation.fragments.CodeSearchFragment
 import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
 import com.example.gitdroid.presentation.fragments.HelloFragment
 import com.example.gitdroid.presentation.misc.Navigation
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity(), Navigation {
             when (it.itemId) {
                 R.id.searchItem -> {
                     Log.d(TAG, "Item 1 selected")
+                    openCodeSearch()
                 }
                 R.id.myProjItem -> {
                     Log.d(TAG, "Item 2 selected")
@@ -75,6 +77,10 @@ class MainActivity : AppCompatActivity(), Navigation {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun openCodeSearch() {
+        launchFragment(CodeSearchFragment.newInstance())
     }
 
     override fun openAuth() {

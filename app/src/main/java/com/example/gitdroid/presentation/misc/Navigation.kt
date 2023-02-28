@@ -7,6 +7,7 @@ fun Fragment.navigation(): Navigation {
 }
 
 interface Navigation {
+    fun openCodeSearch()
     fun openAuth()
     fun openHello(userName: String, avatarUrl: String)
     fun openFindReposByUser()

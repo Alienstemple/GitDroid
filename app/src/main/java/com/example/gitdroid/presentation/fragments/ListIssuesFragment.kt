@@ -11,6 +11,7 @@ import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.databinding.FragmentListIssuesBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
@@ -33,7 +34,7 @@ class ListIssuesFragment : Fragment() {
     private lateinit var binding: FragmentListIssuesBinding
     private lateinit var issuesAdapter: IssuesAdapter
 
-    private val networkService = NetworkService(GithubApiService.getInstance())
+    private val networkService = NetworkService(GithubApiService.getInstance(), SessionManager(requireContext()))
 
     private val networkRepository = NetworkRepositoryImpl(networkService)
     private val githubInteractor = GithubInteractorImpl(networkRepository)

@@ -5,8 +5,16 @@ import com.example.gitdroid.data.converters.GHRepositoryConverter
 import com.example.gitdroid.domain.NetworkRepository
 import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Issue
+import com.example.gitdroid.models.domain.SearchResult
 
 class NetworkRepositoryImpl(private val networkService: NetworkService): NetworkRepository {
+    override suspend fun getCodeSearch(searchQuery: String): SearchResult {
+        Log.d(TAG, "getCodeSearch() called with: searchQuery = $searchQuery")
+
+        val searchResult = networkService.getCodeSearch(searchQuery)
+        return searchResult
+    }
+
     override suspend fun getReposByUser(name: String): List<GHRepository> {
         Log.d(TAG, "getReposByUser() called with: name = $name")
         val resultList = networkService.getReposByUser(name)

@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/enterEmailEditText"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="42dp"
         android:layout_marginTop="240dp"
         android:hint="Enter email"
         app:layout_constraintEnd_toEndOf="@+id/authBtn"

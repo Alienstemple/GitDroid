@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
@@ -22,7 +23,7 @@ class FindReposByUserFragment : Fragment() {
     private lateinit var binding: FragmentFindReposByUserBinding
     private lateinit var ghRepositoryAdapter: GHRepositoryAdapter
 
-    private val networkService = NetworkService(GithubApiService.getInstance())
+    private val networkService = NetworkService(GithubApiService.getInstance(), SessionManager(requireContext()))
 
     private val networkRepository = NetworkRepositoryImpl(networkService)
     private val githubInteractor = GithubInteractorImpl(networkRepository)
