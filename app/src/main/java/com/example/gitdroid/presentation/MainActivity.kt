@@ -95,8 +95,6 @@ class MainActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     // User is signed in.
                     Toast.makeText(this, "User exist", Toast.LENGTH_LONG).show()
-                    val accessToken = (it.credential as OAuthCredential).accessToken
-                    Log.d(TAG, "Access token = $accessToken")
                 }
                 .addOnFailureListener {
                     // Handle failure.
@@ -112,14 +110,19 @@ class MainActivity : AppCompatActivity() {
                         // retrieve the current user
                         firebaseUser = auth.currentUser!!
 
-                        var token: String
-                        firebaseUser.getIdToken(false)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    token = task.result.token!!
-                                    Log.d(TAG, "Task is successful, token = $token")
-                                }
-                            }
+//                        var token: String
+//                        firebaseUser.getIdToken(false)
+//                            .addOnCompleteListener { task ->
+//                                if (task.isSuccessful) {
+//                                    token = task.result.token!!
+//                                    Log.d(TAG, "Task is successful, token = $token")
+//                                }
+//                            }
+
+                        val accessToken = (it.credential as OAuthCredential).accessToken
+                        val idToken = (it.credential as OAuthCredential).idToken
+                        Log.d(TAG, "Access token = $accessToken")
+                        Log.d(TAG, "Id token = $idToken")
 
                         // navigate to HomePageActivity after successful login
                         val intent = Intent(this, HomePageActivity::class.java)
