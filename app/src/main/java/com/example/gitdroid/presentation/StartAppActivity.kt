@@ -12,7 +12,7 @@ import com.example.gitdroid.presentation.fragments.ListIssuesFragment
 import com.example.gitdroid.presentation.misc.Navigation
 import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 
-class StartAppActivity : AppCompatActivity(), Navigation, RepositoryItemClickListener {
+class StartAppActivity : AppCompatActivity(), RepositoryItemClickListener {
     private lateinit var startAppActivityBinding: ActivityStartAppBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,24 +21,12 @@ class StartAppActivity : AppCompatActivity(), Navigation, RepositoryItemClickLis
         setContentView(startAppActivityBinding.root)
 
         startAppActivityBinding.findAllReposByUsernameBtn.setOnClickListener {
-            openFindReposByUser()
+//            openFindReposByUser()
         }
     }
 
-    override fun openFindReposByUser() {
-        launchFragment(FindReposByUserFragment.newInstance())
-    }
-
-    private fun launchFragment(fragment: Fragment) {
-        Log.d(TAG, "Transact with name ${fragment::class.java.simpleName}")
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.search_repos_by_user_frag_container, fragment)
-            .addToBackStack(fragment::class.java.simpleName)
-            .commit()
-    }
-
     override fun onItemClicked(ghRepository: GHRepository) {
-        launchFragment(ListIssuesFragment.newInstance(ghRepository.owner.login, ghRepository.name))
+//        launchFragment(ListIssuesFragment.newInstance(ghRepository.owner.login, ghRepository.name))
     }
 
     companion object {

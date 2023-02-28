@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.example.gitdroid.presentation.fragments.AuthFragment
 import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
+import com.example.gitdroid.presentation.fragments.HelloFragment
 import com.example.gitdroid.presentation.misc.Navigation
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -27,10 +29,6 @@ class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
-    private lateinit var firebaseUser: FirebaseUser
-    private lateinit var auth: FirebaseAuth
-    private val provider = OAuthProvider.newBuilder("github.com")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,30 +36,7 @@ class MainActivity : AppCompatActivity(), Navigation {
 
         initNavDrawer()
 
-        authWithFirebase()
-    }
-
-    private fun authWithFirebase() = with(mainBinding) {
-        // Authorization
-        auth = FirebaseAuth.getInstance()
-
-        provider.addCustomParameter("login", enterEmailEditText.text.toString())
-
-        val scopes: ArrayList<String?> = object : ArrayList<String?>() {
-            init {
-                add("user:email")
-            }
-        }
-        provider.scopes = scopes
-
-        authBtn.setOnClickListener {
-            if (TextUtils.isEmpty(mainBinding.enterEmailEditText.text.toString())) {
-                Toast.makeText(this@MainActivity, "Enter your github id", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                signInWithGithubProvider()
-            }
-        }
+        openAuth()
     }
 
     private fun initNavDrawer() = with(mainBinding) {
@@ -95,53 +70,19 @@ class MainActivity : AppCompatActivity(), Navigation {
 
     }
 
-    private fun signInWithGithubProvider() {
-
-        // There's something already here! Finish the sign-in for your user.
-        val pendingResultTask: Task<AuthResult>? = auth.pendingAuthResult
-        if (pendingResultTask != null) {
-            pendingResultTask
-                .addOnSuccessListener {
-                    // User is signed in.
-                    Toast.makeText(this, "User exist", Toast.LENGTH_LONG).show()
-                }
-                .addOnFailureListener {
-                    // Handle failure.
-                    Toast.makeText(this, "Error : $it", Toast.LENGTH_LONG).show()
-                    Log.d(TAG, "Error : $it")
-                }
-        } else {
-
-            auth.startActivityForSignInWithProvider( /* activity= */this, provider.build())
-                .addOnSuccessListener(
-                    OnSuccessListener<AuthResult?> {
-                        // User is signed in.
-                        // retrieve the current user
-                        firebaseUser = auth.currentUser!!
-
-                        val accessToken = (it.credential as OAuthCredential).accessToken
-                        val idToken = (it.credential as OAuthCredential).idToken
-                        Log.d(TAG, "Access token = $accessToken")
-                        Log.d(TAG, "Id token = $idToken")
-
-                        // Launch hello fragment
-
-                        Toast.makeText(this, "Login Successfully", Toast.LENGTH_LONG).show()
-                    })
-                .addOnFailureListener(
-                    OnFailureListener {
-                        // Handle failure.
-                        Toast.makeText(this, "Error : $it", Toast.LENGTH_LONG).show()
-                        Log.d(TAG, "Error : $it")
-                    })
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun openAuth() {
+        launchFragment(AuthFragment.newInstance())
+    }
+
+    override fun openHello(userName: String, avatarUrl: String) {
+        launchFragment(HelloFragment.newInstance(userName, avatarUrl))
     }
 
     override fun openFindReposByUser() {
@@ -151,7 +92,7 @@ class MainActivity : AppCompatActivity(), Navigation {
     private fun launchFragment(fragment: Fragment) {
         Log.d(StartAppActivity.TAG, "Transact with name ${fragment::class.java.simpleName}")
         supportFragmentManager.beginTransaction()
-            .replace(R.id.search_repos_by_user_frag_container, fragment)
+            .replace(R.id.mainActFragmContainer, fragment)
             .addToBackStack(fragment::class.java.simpleName)
             .commit()
     }
