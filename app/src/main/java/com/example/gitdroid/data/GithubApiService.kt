@@ -2,6 +2,7 @@ package com.example.gitdroid.data
 
 import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Issue
+import com.example.gitdroid.models.domain.SearchResult
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,7 +13,7 @@ import retrofit2.http.Path
 interface GithubApiService {
 
     @GET("search/code")
-    suspend fun getCodeSearch(@Header("Authorization") token: String, @Path("q") searchQuery: String): Response<List<GHRepository>>
+    suspend fun getCodeSearch(@Header("Authorization") token: String, @Path("q") searchQuery: String): Response<SearchResult>
 
     @GET("users/{user}/repos")
     suspend fun getReposByUser(@Path("user") user: String): Response<List<GHRepository>>
