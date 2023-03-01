@@ -2,6 +2,7 @@ package com.example.gitdroid.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
+import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
@@ -24,6 +26,8 @@ import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 class ProjectsFragment : Fragment() {
 
@@ -63,6 +67,14 @@ class ProjectsFragment : Fragment() {
         binding.addBtn.setOnClickListener {
             // TODO move to VM
 //            projectsViewModel.addNewProject(binding.enterNewProjNameEditText.text.toString())
+
+            val database = FirebaseDatabase.getInstance()
+            val databaseReference = database.getReference("projects")
+            val firstProject = Project("firstProject", listOf("result 1", "result 2", "result 3"))
+            databaseReference.child(firstProject.name).setValue(firstProject.searchResList)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Posted to DB: ${firstProject.toString()}")
+                }
         }
     }
 
