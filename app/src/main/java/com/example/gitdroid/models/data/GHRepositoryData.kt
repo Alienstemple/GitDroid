@@ -1,14 +1,10 @@
 package com.example.gitdroid.models.data
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-
-@JsonIgnoreProperties("true")
 data class GHRepositoryData(
-    @JsonProperty("id") val id: Number,
-    @JsonProperty("node_id") val node_id: String,
+    val id: Number,
+    val node_id: String,
     val name: String,
-    val full_name: String,
+    val full_name: String,  // TODO fullName serialize
     val private: Boolean,
     val html_url: String,
     val description: String,

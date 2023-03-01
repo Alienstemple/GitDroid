@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.GithubInteractor
 import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SearchResultViewModel (private val githubInteractor: GithubInteractor) : ViewModel() {
@@ -18,7 +19,8 @@ class SearchResultViewModel (private val githubInteractor: GithubInteractor) : V
     fun getCodeSearch(searchQuery: String) {
         Log.d(TAG, "getCodeSearch() called with: searchQuery = $searchQuery")
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d(RepositoryViewModel.TAG, Thread.currentThread().toString())
             val searchResult = githubInteractor.getCodeSearch(searchQuery)
             _searchResultItems.postValue(searchResult.items)
         }

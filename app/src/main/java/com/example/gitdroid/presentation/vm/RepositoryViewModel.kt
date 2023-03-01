@@ -18,6 +18,7 @@ class RepositoryViewModel (private val githubInteractor: GithubInteractor) : Vie
         Log.d(TAG, "getReposByUser() called with: userName = $userName")
 
         viewModelScope.launch {
+
             val resultList = githubInteractor.getReposByUser(userName)
             _repoList.postValue(resultList)
         }
