@@ -2,7 +2,6 @@ package com.example.gitdroid.presentation.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.gitdroid.domain.GithubInteractor
 import com.example.gitdroid.domain.ProjectsInteractor
 
 class ProjectsViewModelFactory(val projectsInteractor: ProjectsInteractor) :
