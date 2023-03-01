@@ -9,12 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gitdroid.data.GithubApiService
-import com.example.gitdroid.data.NetworkRepositoryImpl
-import com.example.gitdroid.data.NetworkService
-import com.example.gitdroid.data.SessionManager
+import com.example.gitdroid.data.*
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
+import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
 import com.example.gitdroid.models.domain.Project
@@ -28,6 +26,10 @@ import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class ProjectsFragment : Fragment() {
 
@@ -68,13 +70,14 @@ class ProjectsFragment : Fragment() {
             // TODO move to VM
 //            projectsViewModel.addNewProject(binding.enterNewProjNameEditText.text.toString())
 
-            val database = FirebaseDatabase.getInstance()
-            val databaseReference = database.getReference("projects")
             val firstProject = Project("firstProject", listOf("result 1", "result 2", "result 3"))
-            databaseReference.child(firstProject.name).setValue(firstProject.searchResList)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Posted to DB: ${firstProject.toString()}")
-                }
+            val firebaseRepository = ProjectsFirebaseRepositoryImpl()
+
+            CoroutineScope(Dispatchers.IO).launch {
+                Log.d(TAG, "In coro scope, before adding project")
+                firebaseRepository.addProject(firstProject)
+            }
+
         }
     }
 
