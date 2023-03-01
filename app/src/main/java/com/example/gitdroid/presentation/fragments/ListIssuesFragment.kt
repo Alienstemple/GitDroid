@@ -7,21 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.data.SessionManager
-import com.example.gitdroid.databinding.FragmentFindReposByUserBinding
 import com.example.gitdroid.databinding.FragmentListIssuesBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
-import com.example.gitdroid.domain.NetworkRepository
-import com.example.gitdroid.models.domain.GHRepository
-import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.adapters.IssuesAdapter
 import com.example.gitdroid.presentation.vm.IssuesViewModel
-import com.example.gitdroid.presentation.vm.RepositoryViewModel
-import com.example.gitdroid.presentation.vm.ViewModelFactory
+import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 
 private const val ARG_PARAM1 = "user"
 private const val ARG_PARAM2 = "repository"
@@ -59,7 +53,7 @@ class ListIssuesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val issuesViewModel: IssuesViewModel =
             ViewModelProvider(this,
-                ViewModelFactory(githubInteractor))[IssuesViewModel::class.java]
+                GithubViewModelFactory(githubInteractor))[IssuesViewModel::class.java]
         // Init adapter for recycler
         initAdapter()
         // Init observer

@@ -1,31 +1,23 @@
 package com.example.gitdroid.presentation.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabColorSchemeParams
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentCodeSearchBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
-import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
-import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
-import com.example.gitdroid.presentation.vm.RepositoryViewModel
 import com.example.gitdroid.presentation.vm.SearchResultViewModel
-import com.example.gitdroid.presentation.vm.ViewModelFactory
+import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 
 class CodeSearchFragment : Fragment() {
 
@@ -54,7 +46,7 @@ class CodeSearchFragment : Fragment() {
         githubInteractor = GithubInteractorImpl(networkRepository)
         searchResultViewModel =
             ViewModelProvider(this,
-                ViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
+                GithubViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

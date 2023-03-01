@@ -12,15 +12,13 @@ import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.example.gitdroid.presentation.fragments.AuthFragment
-import com.example.gitdroid.presentation.fragments.CodeSearchFragment
-import com.example.gitdroid.presentation.fragments.FindReposByUserFragment
-import com.example.gitdroid.presentation.fragments.HelloFragment
+import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
+import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 
 
-class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListener {
+class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListener, ProjectItemClickListener {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -53,6 +51,7 @@ class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListe
                 }
                 R.id.myProjItem -> {
                     Log.d(TAG, "Item 2 selected")
+                    openProjects()
                 }
                 R.id.repoAndIssItem -> {
                     Log.d(TAG, "Item 3 selected")
@@ -71,6 +70,10 @@ class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListe
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun openProjects() {
+        launchFragment(ProjectsFragment.newInstance())
     }
 
     override fun openCodeSearch() {

@@ -16,7 +16,7 @@ import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.presentation.adapters.GHRepositoryAdapter
 import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 import com.example.gitdroid.presentation.vm.RepositoryViewModel
-import com.example.gitdroid.presentation.vm.ViewModelFactory
+import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 
 class FindReposByUserFragment : Fragment() {
 
@@ -40,7 +40,7 @@ class FindReposByUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val repositoryViewModel: RepositoryViewModel =
             ViewModelProvider(this,
-                ViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
+                GithubViewModelFactory(githubInteractor))[RepositoryViewModel::class.java]
         // Init adapter for recycler
         initAdapter()
         // Init observer

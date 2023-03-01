@@ -7,6 +7,7 @@ fun Fragment.navigation(): Navigation {
 }
 
 interface Navigation {
+    fun openProjects()
     fun openCodeSearch()
     fun openAuth()
     fun openHello(userName: String, avatarUrl: String)

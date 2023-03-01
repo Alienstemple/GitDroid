@@ -41,6 +41,10 @@ class HelloFragment : Fragment() {
         binding.searchBtn.setOnClickListener {
             navigation().openCodeSearch()
         }
+
+        binding.myProjBtn.setOnClickListener {
+            navigation().openProjects()
+        }
     }
 
     companion object {
