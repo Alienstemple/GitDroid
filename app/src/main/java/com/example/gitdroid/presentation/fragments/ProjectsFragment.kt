@@ -38,7 +38,7 @@ class ProjectsFragment : Fragment() {
     private lateinit var projectsViewModel: ProjectsViewModel
     private lateinit var projectsAdapter: ProjectsAdapter
 
-    // TODO DbService, DbRepo, ProjectsInteractor
+    private lateinit var projectsFirebaseRepository: ProjectsFirebaseRepository
     private lateinit var projectsInteractor: ProjectsInteractor
 
     override fun onCreateView(
