@@ -43,6 +43,10 @@ class SearchResultAdapter(private val searchResultItemClickListener: SearchResul
             with(searchResItemBinding) {
                 Log.d(TAG, "bind() called ${searchResultItem.name}")
                 resultRepoNameTv.text = searchResultItem.repository.full_name
+                addToProjectBtn.setOnClickListener {
+                    Log.d(TAG, "Add to project")
+//                    launchDialogFragment()
+                }
                 itemView.setOnClickListener {
                     clickListener.onItemClicked(searchResultItem)
                 }
