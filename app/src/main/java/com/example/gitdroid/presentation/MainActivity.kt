@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.models.domain.GHRepository
+import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
@@ -107,6 +108,11 @@ class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListe
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent = builder.build()
         customTabsIntent.launchUrl(this, Uri.parse(url))
+    }
+
+    override fun onItemClicked(project: Project) {
+        Log.d(TAG, "On item clicked: ${project.name}")
+        // TODO открыть выпадающий список
     }
 
     companion object {

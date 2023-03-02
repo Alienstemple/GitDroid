@@ -78,16 +78,16 @@ class ProjectsFragment : Fragment() {
         projectsViewModel.projectList.observe(viewLifecycleOwner) { projectItemsList ->
             projectItemsList?.let {
                 // Обновляем Recycler View
-//                projectsAdapter.setList(it)
+                projectsAdapter.setList(it)
             }
         }
     }
 
     private fun initAdapter() {
-//        projectsAdapter = ProjectsAdapter(activity as ProjectItemClickListener)
-//        binding.projectsRecycler.layoutManager =
-//            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-//        binding.projectsRecycler.adapter = projectsAdapter
+        projectsAdapter = ProjectsAdapter(activity as ProjectItemClickListener)
+        binding.projectsRecycler.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.projectsRecycler.adapter = projectsAdapter
     }
 
     companion object {
