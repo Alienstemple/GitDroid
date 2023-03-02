@@ -13,7 +13,8 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
 
     override suspend fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: projectName = $projectName")
-        val newProject = Project(projectName, emptyList())
+//        val newProject = Project(projectName, emptyList())
+        val newProject = Project(projectName, listOf("sample 1", "sample 2"))
         projectsFirebaseRepository.addProject(newProject)
     }
 

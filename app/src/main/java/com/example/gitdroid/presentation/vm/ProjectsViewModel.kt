@@ -24,7 +24,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
             val projects = mutableListOf<Project>()
             snapshot.children.map {
                 Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
-                projects.add(Project(it.value.toString(), listOf("sample 1", "sample 2")))
+                projects.add(it.getValue(Project::class.java) ?: Project("", emptyList()))  // TODO создание сделать норм
             }
             _projectList.postValue(projects)   // Обновленные данные - в LiveData
         }

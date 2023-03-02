@@ -32,9 +32,10 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "In addProject in repo")
             val result = MutableLiveData<Project>()
+
             val projectId = databaseReference.push().key.toString()
             Log.d(TAG, "ProjectId = $projectId")
-            Log.d(TAG, "ProjectName = ${project.name}")
+            Log.d(TAG, "Project = $project")
 
             databaseReference.child(projectId).setValue(project)
                 .addOnSuccessListener {
