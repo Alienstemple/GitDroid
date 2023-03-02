@@ -24,9 +24,9 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
             val projects = mutableListOf<Project>()
             snapshot.children.map {
                 Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
-//                        _projectList.postValue(updatedList)  // Обновленные данные - в LiveData
+                projects.add(Project(it.value.toString(), listOf("sample 1", "sample 2")))
             }
-
+            _projectList.postValue(projects)   // Обновленные данные - в LiveData
         }
 
         override fun onCancelled(error: DatabaseError) {
