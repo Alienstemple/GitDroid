@@ -1,15 +1,12 @@
 package com.example.gitdroid.data
 
+import android.graphics.ColorSpace.Model
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.models.domain.Project
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,6 +15,18 @@ import kotlinx.coroutines.withContext
 class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
     private val currentUserUid = Firebase.auth.currentUser!!.uid
     private val databaseReference = FirebaseDatabase.getInstance().getReference("users").child(currentUserUid)
+
+    private var listener: ValueEventListener? = null
+
+    override fun addListener(valueEventListener: ValueEventListener) {
+        listener = valueEventListener
+        databaseReference.addValueEventListener(listener!!)
+        Log.d(TAG, "Listener added to firebase repo!")
+    }
+
+    fun removeListener() {
+        listener?.let { databaseReference.removeEventListener(it) }
+    }
 
     override suspend fun addProject(project: Project): MutableLiveData<Project> =
         withContext(Dispatchers.IO) {

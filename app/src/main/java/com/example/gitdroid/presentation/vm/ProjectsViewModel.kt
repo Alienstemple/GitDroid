@@ -7,13 +7,38 @@ import com.example.gitdroid.domain.GithubInteractor
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor): ViewModel() {
+class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : ViewModel() {
 
     private val _projectList = MutableLiveData<List<Project>>()
     val projectList: LiveData<List<Project>> = _projectList
+
+    private val listener = object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            Log.d(TAG, "Data changed!")
+            val projects = mutableListOf<Project>()
+            snapshot.children.map {
+                Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
+//                        _projectList.postValue(updatedList)  // Обновленные данные - в LiveData
+            }
+
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            Log.d(TAG, "Database error: ${error.code} ${error.message}")
+        }
+    }
+
+    init {
+        // При инициализации VM создаем listener и передаем в interactor - Firebase repo
+        Log.d(TAG, "Init Projects VM: before adding listener")
+        projectsInteractor.addListener(listener)
+    }
 
     fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: userName = $projectName")
@@ -22,8 +47,12 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor): Vie
 
             projectsInteractor.addProject(projectName)
 
-//            _projectList.postValue(updatedList)  // Получить обновленные данные (потом заменить на listener)
+
         }
+    }
+
+    override fun onCleared() {
+        // TODO remove listener
     }
 
     companion object {
