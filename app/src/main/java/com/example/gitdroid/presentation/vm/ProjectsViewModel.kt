@@ -7,6 +7,7 @@ import com.example.gitdroid.domain.GithubInteractor
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
+import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -44,10 +45,14 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         Log.d(TAG, "addProject() called with: userName = $projectName")
 
         viewModelScope.launch(Dispatchers.IO) {
-
             projectsInteractor.addProject(projectName)
+        }
+    }
 
-
+    fun updateProject(projectName: String, searchResultItem: SearchResultItem) {
+        Log.d(TAG, "updateProject() called with: projectName = $projectName")
+        viewModelScope.launch(Dispatchers.IO) {
+            projectsInteractor.updateProject(projectName, searchResultItem)
         }
     }
 

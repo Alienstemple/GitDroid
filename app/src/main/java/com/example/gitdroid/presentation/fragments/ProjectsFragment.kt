@@ -16,6 +16,7 @@ import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
+import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.MainActivity
@@ -67,8 +68,12 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         binding.addBtn.setOnClickListener {
 
             CoroutineScope(Dispatchers.IO).launch {
-                Log.d(TAG, "In coro scope, before adding project")
-                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
+                // TODO only for test
+                Log.d(TAG, "In coro scope, before updating project")
+                projectsViewModel.updateProject("howdy", SearchResultItem("name", "", "url", GHRepository(), 0.0F))
+
+//                Log.d(TAG, "In coro scope, before adding project")
+//                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
             }
 
         }
