@@ -65,15 +65,9 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         setupObserver(projectsViewModel)
 
         binding.addBtn.setOnClickListener {
-            // TODO move to VM
-//            projectsViewModel.addNewProject(binding.enterNewProjNameEditText.text.toString())
-
-            val firstProject = Project("firstProject", listOf("result 1", "result 2", "result 3"))
-            val firebaseRepository = ProjectsFirebaseRepositoryImpl()
 
             CoroutineScope(Dispatchers.IO).launch {
                 Log.d(TAG, "In coro scope, before adding project")
-//                firebaseRepository.addProject(firstProject)
                 projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
             }
 
