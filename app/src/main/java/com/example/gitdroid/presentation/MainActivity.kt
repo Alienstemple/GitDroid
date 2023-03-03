@@ -19,7 +19,7 @@ import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 
 
-class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListener, ProjectItemClickListener {
+class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -99,20 +99,6 @@ class MainActivity : AppCompatActivity(), Navigation, SearchResultItemClickListe
             .replace(R.id.mainActFragmContainer, fragment)
             .addToBackStack(fragment::class.java.simpleName)
             .commit()
-    }
-
-    override fun onItemClicked(searchResultItem: SearchResultItem) {
-        // Open chrome custom tab
-        Log.d(TAG, "On item clicked: ${searchResultItem.repository.name}")
-        val url = searchResultItem.html_url
-        val builder = CustomTabsIntent.Builder()
-        val customTabsIntent = builder.build()
-        customTabsIntent.launchUrl(this, Uri.parse(url))
-    }
-
-    override fun onItemClicked(project: Project) {
-        Log.d(TAG, "On item clicked: ${project.name}")
-        // TODO открыть выпадающий список
     }
 
     companion object {

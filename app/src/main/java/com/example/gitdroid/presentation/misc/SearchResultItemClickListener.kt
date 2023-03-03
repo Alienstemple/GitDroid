@@ -5,4 +5,5 @@ import com.example.gitdroid.models.domain.SearchResultItem
 
 interface SearchResultItemClickListener {
     fun onItemClicked(searchResultItem: SearchResultItem)
+    fun onAddToProjectClicked(searchResultItem: SearchResultItem)
 }

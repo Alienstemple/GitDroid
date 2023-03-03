@@ -1,10 +1,13 @@
 package com.example.gitdroid.presentation.fragments
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +17,14 @@ import com.example.gitdroid.data.NetworkService
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentCodeSearchBinding
 import com.example.gitdroid.domain.GithubInteractorImpl
+import com.example.gitdroid.models.domain.SearchResultItem
+import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 import com.example.gitdroid.presentation.vm.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.GithubViewModelFactory
 
-class CodeSearchFragment : Fragment() {
+class CodeSearchFragment : Fragment(), SearchResultItemClickListener {
 
     private lateinit var binding: FragmentCodeSearchBinding
 
@@ -71,10 +76,26 @@ class CodeSearchFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        searchResultAdapter = SearchResultAdapter(activity as SearchResultItemClickListener)
+        searchResultAdapter = SearchResultAdapter(this as SearchResultItemClickListener)
         binding.searchResultsRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.searchResultsRecycler.adapter = searchResultAdapter
+    }
+
+    override fun onItemClicked(searchResultItem: SearchResultItem) {
+        // Open chrome custom tab
+        Log.d(MainActivity.TAG, "On item clicked: ${searchResultItem.repository.name}")
+        val url = searchResultItem.html_url
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(url))
+    }
+
+    override fun onAddToProjectClicked(searchResultItem: SearchResultItem) {
+        Log.d(ProjectsFragment.TAG, "onAddToProjectClicked() called with: searchResultItem = $searchResultItem")
+        // Get list of projects
+        // Alert dialog with recycler
+        // Item selected - call projectViewModel -- add
     }
 
     companion object {
