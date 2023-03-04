@@ -1,7 +1,8 @@
 package com.example.gitdroid.models.domain
 
 data class Project(
-    val name: String = "",
+    var id: String = "",
+    var name: String = "",
 //    val searchResList: List<String> = emptyList()  // TODO search results
-    val searchResList: List<SearchResultItem> = emptyList()
+    var searchResList: List<SearchResultItem> = emptyList()
 )

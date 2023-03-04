@@ -33,6 +33,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             Log.d(TAG, "In addProject in repo")
 
             val projectId = databaseReference.push().key.toString()
+            project.id = projectId
             Log.d(TAG, "ProjectId = $projectId")
             Log.d(TAG, "Project = $project")
 
@@ -57,7 +58,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
 
         Log.d(TAG, "Project outside of listener: $currentProject")
 
-        val modifiedProject = Project(currentProject.second.name,
+        val modifiedProject = Project(currentProject.second.id, currentProject.second.name,
             currentProject.second.searchResList + searchResultItem)
 
         databaseReference.child(currentProject.first).setValue(modifiedProject)
