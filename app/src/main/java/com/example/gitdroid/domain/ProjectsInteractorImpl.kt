@@ -18,10 +18,10 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
         projectsFirebaseRepository.addProject(newProject)
     }
 
-    override suspend fun updateProject(projectName: String, searchResultItem: SearchResultItem) {
-        Log.d(TAG,
-            "updateProject() called with: projectName = $projectName, searchResultItem = $searchResultItem")
-        projectsFirebaseRepository.updateProject(projectName, searchResultItem)
+    override suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
+
+        // TODO Get Project from local database
+        projectsFirebaseRepository.updateProject(Project())
     }
 
     companion object {
