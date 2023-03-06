@@ -26,9 +26,8 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
 
         val retreivedProject = projectsRoomRepository.getProjectById(projectId)
         Log.d(TAG, "Retreived project = $retreivedProject")
-        retreivedProject.searchResList += searchResultItem
         Log.d(TAG, "Retreived project with new SearchResItem = $retreivedProject")
-        projectsFirebaseRepository.updateProject(retreivedProject)
+        projectsFirebaseRepository.updateProject(retreivedProject, searchResultItem)
     }
 
     companion object {

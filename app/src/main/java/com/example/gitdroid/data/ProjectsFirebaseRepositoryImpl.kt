@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
+import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
@@ -48,16 +49,35 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             project
         }
 
-    override suspend fun updateProject(project: Project) {
+    override suspend fun updateProject(project: Project, searchResultItem: SearchResultItem) {
         Log.d(TAG, "updateProject() called with: project = $project")
 
-        databaseReference.child(project.id).setValue(project)
-            .addOnSuccessListener {
-                Log.d(TAG, "Project updated successfully: $project")
-            }
-            .addOnFailureListener {
-                Log.d(TAG, "Error while updating project")
-            }
+        databaseReference.child(project.id).child("searchResList")
+            .addListenerForSingleValueEvent( object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val searchResList = mutableListOf<SearchResultItem>()
+                    snapshot.children.map {
+                        searchResList.add(it.getValue(SearchResultItem::class.java) ?: SearchResultItem())
+                    }
+                    Log.d(TAG, "Old search res list: $searchResList")
+                    searchResList.add(searchResultItem)  // Adding new item to retreived list
+                    Log.d(TAG, "New search res list: $searchResList")
+
+                    databaseReference.child(project.id).child("searchResList")
+                        .setValue(searchResList)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Search res list updated successfully")
+                        }
+                        .addOnFailureListener {
+                            Log.d(TAG, "Error while updating search res list")
+                        }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d(TAG, "Database error while updating project!")
+                }
+
+            })
     }
 
     override suspend fun deleteProject(projectName: String) /* Что вернуть? Рез-т пустой */ =
