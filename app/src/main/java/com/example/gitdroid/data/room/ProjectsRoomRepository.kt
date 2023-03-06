@@ -8,7 +8,7 @@ class ProjectsRoomRepository(private val projectDao: ProjectDao) {
 
     fun getAllProjects(): LiveData<List<Project>> = projectDao.getAllProjects()
 
-    fun getProjectById(id: String): LiveData<Project> = projectDao.getProjectById(id)
+    fun getProjectById(id: String): Project = projectDao.getProjectById(id)
 
     suspend fun addProject(project: Project) {
         projectDao.addProject(project)

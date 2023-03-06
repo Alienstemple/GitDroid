@@ -75,11 +75,11 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
             CoroutineScope(Dispatchers.IO).launch {
                 // TODO only for test
-//                Log.d(TAG, "In coro scope, before updating project")
-//                projectsViewModel.updateProject("howdy", SearchResultItem("name", "", "url", GHRepository(), 0.0F))
+                Log.d(TAG, "In coro scope, before updating project")
+                projectsViewModel.updateProject("-NPq--YbgCTGAtX8Ejs_", SearchResultItem("name", "", "url", GHRepository(), 0.0F))
 
-                Log.d(TAG, "In coro scope, before adding project")
-                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
+//                Log.d(TAG, "In coro scope, before adding project")
+//                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
             }
 
         }

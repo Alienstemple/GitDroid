@@ -24,8 +24,11 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
 
     override suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
 
-        // TODO Get Project from local database
-        projectsFirebaseRepository.updateProject(Project())
+        val retreivedProject = projectsRoomRepository.getProjectById(projectId)
+        Log.d(TAG, "Retreived project = $retreivedProject")
+        retreivedProject.searchResList += searchResultItem
+        Log.d(TAG, "Retreived project with new SearchResItem = $retreivedProject")
+        projectsFirebaseRepository.updateProject(retreivedProject)
     }
 
     companion object {

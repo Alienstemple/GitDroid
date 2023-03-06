@@ -1,7 +1,7 @@
 package com.example.gitdroid.models.data
 
 data class GHRepositoryData(
-    val id: Number,
+    val id: Long,
     val node_id: String,
     val name: String,
     val full_name: String,  // TODO fullName serialize
@@ -54,7 +54,7 @@ data class GHRepositoryData(
     val clone_url: String,
     val svn_url: String,
     val homepage: String,
-    val size: Number,
+    val size: Long,
     val stargazers_count: Int,
     val watchers_count: Int,
     val language: String,

@@ -15,7 +15,7 @@ interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addAllProjects(projects: List<Project>)
     @Query("SELECT * FROM projects WHERE id=:id")
-    fun getProjectById(id: String): LiveData<Project>  // TODO что должен вернуть?
+    fun getProjectById(id: String): Project  // TODO что лучше вернуть?
     @Query("DELETE FROM projects")
     suspend fun deleteAll()
     @Query("SELECT * FROM projects")

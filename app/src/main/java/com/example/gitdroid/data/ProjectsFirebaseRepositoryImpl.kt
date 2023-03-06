@@ -49,7 +49,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         }
 
     override suspend fun updateProject(project: Project) {
-        Log.d(TAG, "updateProject() FirebaseRepo called")
+        Log.d(TAG, "updateProject() called with: project = $project")
 
         databaseReference.child(project.id).setValue(project)
             .addOnSuccessListener {

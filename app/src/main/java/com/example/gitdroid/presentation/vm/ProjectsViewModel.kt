@@ -49,10 +49,10 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         }
     }
 
-    fun updateProject(projectName: String, searchResultItem: SearchResultItem) {
-        Log.d(TAG, "updateProject() called with: projectName = $projectName")
+    fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
+        Log.d(TAG, "updateProject() called with: projectId = $projectId")
         viewModelScope.launch(Dispatchers.IO) {
-            projectsInteractor.updateProject(projectName, searchResultItem)
+            projectsInteractor.updateProject(projectId, searchResultItem)
         }
     }
 
