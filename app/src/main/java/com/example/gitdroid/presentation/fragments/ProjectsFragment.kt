@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.data.*
+import com.example.gitdroid.data.room.ProjectDatabase
+import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.ProjectsInteractor
@@ -38,6 +40,8 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     private lateinit var projectsAdapter: ProjectsAdapter
 
     private lateinit var projectsFirebaseRepository: ProjectsFirebaseRepository
+
+    private lateinit var projectsRoomRepository: ProjectsRoomRepository
     private lateinit var projectsInteractor: ProjectsInteractor
 
     override fun onCreateView(
@@ -51,8 +55,10 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
+        val dao = ProjectDatabase.getDatabaseClient(context).projectDao()
         projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
-        projectsInteractor = ProjectsInteractorImpl(projectsFirebaseRepository)
+        projectsRoomRepository = ProjectsRoomRepository(dao)
+        projectsInteractor = ProjectsInteractorImpl(projectsFirebaseRepository, projectsRoomRepository)
         projectsViewModel =
             ViewModelProvider(this,
                 ProjectsViewModelFactory(projectsInteractor))[ProjectsViewModel::class.java]

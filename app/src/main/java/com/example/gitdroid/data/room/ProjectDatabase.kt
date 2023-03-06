@@ -15,7 +15,7 @@ abstract class ProjectDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: ProjectDatabase? = null
 
-        fun getDataseClient(context: Context): ProjectDatabase {
+        fun getDatabaseClient(context: Context): ProjectDatabase {
 
             if (INSTANCE != null) return INSTANCE!!
 
