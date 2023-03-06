@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 
 
 class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
-    private val currentUserUid = Firebase.auth.currentUser!!.uid
+    private val currentUserUid = Firebase.auth.currentUser!!.uid  // FIXME NPE if user is not registered
     private val databaseReference =
         FirebaseDatabase.getInstance().getReference("users").child(currentUserUid)
 
