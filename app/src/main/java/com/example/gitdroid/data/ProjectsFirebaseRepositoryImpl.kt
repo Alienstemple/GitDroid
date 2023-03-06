@@ -28,7 +28,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         listener?.let { databaseReference.removeEventListener(it) }
     }
 
-    override suspend fun addProject(project: Project) {
+    override suspend fun addProject(project: Project): Project =
         withContext(Dispatchers.IO) {
             Log.d(TAG, "In addProject in repo")
 
@@ -44,9 +44,9 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
                 .addOnFailureListener {
                     Log.d(TAG, "Error while inserting project")
                 }
-        // TODO save to local db!
+
+            project
         }
-    }
 
     override suspend fun updateProject(project: Project) {
         Log.d(TAG, "updateProject() FirebaseRepo called")
