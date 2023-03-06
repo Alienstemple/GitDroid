@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.data.*
@@ -26,6 +28,7 @@ import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
+import com.example.gitdroid.presentation.misc.navigation
 import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -36,13 +39,9 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private lateinit var binding: FragmentProjectsBinding
 
-    private lateinit var projectsViewModel: ProjectsViewModel
+    private lateinit var projectsSharedViewModel: ProjectsViewModel
+
     private lateinit var projectsAdapter: ProjectsAdapter
-
-    private lateinit var projectsFirebaseRepository: ProjectsFirebaseRepository
-
-    private lateinit var projectsRoomRepository: ProjectsRoomRepository
-    private lateinit var projectsInteractor: ProjectsInteractor
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,14 +53,7 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        val dao = ProjectDatabase.getDatabaseClient(context).projectDao()
-        projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
-        projectsRoomRepository = ProjectsRoomRepository(dao)
-        projectsInteractor = ProjectsInteractorImpl(projectsFirebaseRepository, projectsRoomRepository)
-        projectsViewModel =
-            ViewModelProvider(this,
-                ProjectsViewModelFactory(projectsInteractor))[ProjectsViewModel::class.java]
+        projectsSharedViewModel = navigation().getProjectsVm()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,14 +61,15 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         // Init adapter for recycler
         initAdapter()
         // Init observer
-        setupObserver(projectsViewModel)
+        setupObserver(projectsSharedViewModel)
 
         binding.addBtn.setOnClickListener {
 
             CoroutineScope(Dispatchers.IO).launch {
                 // TODO only for test
                 Log.d(TAG, "In coro scope, before updating project")
-                projectsViewModel.updateProject("-NPq--YbgCTGAtX8Ejs_", SearchResultItem("name", "", "url", GHRepository(), 0.0F))
+                projectsSharedViewModel.updateProject("-NPq--YbgCTGAtX8Ejs_",
+                    SearchResultItem("name", "", "url", GHRepository(), 0.0F))
 
 //                Log.d(TAG, "In coro scope, before adding project")
 //                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())

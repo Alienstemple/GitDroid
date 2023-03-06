@@ -21,8 +21,10 @@ import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
+import com.example.gitdroid.presentation.misc.navigation
 import com.example.gitdroid.presentation.vm.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.GithubViewModelFactory
+import com.example.gitdroid.presentation.vm.ProjectsViewModel
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener {
 
@@ -34,6 +36,8 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener {
     private lateinit var networkService: NetworkService
     private lateinit var networkRepository: NetworkRepositoryImpl
     private lateinit var githubInteractor: GithubInteractorImpl
+
+    private lateinit var projectSharedViewModel: ProjectsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +56,8 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener {
         searchResultViewModel =
             ViewModelProvider(this,
                 GithubViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
+
+        projectSharedViewModel = navigation().getProjectsVm()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,7 +99,12 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener {
 
     override fun onAddToProjectClicked(searchResultItem: SearchResultItem) {
         Log.d(ProjectsFragment.TAG, "onAddToProjectClicked() called with: searchResultItem = $searchResultItem")
-        // Get list of projects
+
+        projectSharedViewModel.testMethod()
+        projectSharedViewModel.projectList
+
+
+    // Get list of projects
         // Alert dialog with recycler
         // Item selected - call projectViewModel -- add
     }

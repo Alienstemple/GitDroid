@@ -41,6 +41,10 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         projectsInteractor.addListener(listener)
     }
 
+    fun testMethod() {  // For testin shared vm
+        Log.d(TAG, "testMethod() called")
+    }
+
     fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: userName = $projectName")
 
