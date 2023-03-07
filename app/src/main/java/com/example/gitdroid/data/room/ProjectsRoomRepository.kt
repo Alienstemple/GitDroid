@@ -3,10 +3,11 @@ package com.example.gitdroid.data.room
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.gitdroid.models.domain.Project
+import kotlinx.coroutines.flow.Flow
 
 class ProjectsRoomRepository(private val projectDao: ProjectDao) {
 
-    fun getAllProjects(): LiveData<List<Project>> = projectDao.getAllProjects()
+    fun getAllProjects(): Flow<List<Project>> = projectDao.getAllProjects()
 
     fun getProjectById(id: String): Project = projectDao.getProjectById(id)
 

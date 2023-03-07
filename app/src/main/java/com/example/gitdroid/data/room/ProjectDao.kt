@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.gitdroid.models.domain.Project
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -15,9 +16,9 @@ interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addAllProjects(projects: List<Project>)
     @Query("SELECT * FROM projects WHERE id=:id")
-    fun getProjectById(id: String): Project  // TODO что лучше вернуть?
+    fun getProjectById(id: String): Project
     @Query("DELETE FROM projects")
     suspend fun deleteAll()
     @Query("SELECT * FROM projects")
-    fun getAllProjects(): LiveData<List<Project>>
+    fun getAllProjects(): Flow<List<Project>>
 }

@@ -35,6 +35,16 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
         projectsFirebaseRepository.deleteProject(projectId)
     }
 
+    override suspend fun deleteAllProjects() {
+        Log.d(TAG, "deleteAllProjects() called")
+        projectsRoomRepository.deleteAll()
+    }
+
+    override suspend fun addAllProjects(projects: List<Project>) {
+        Log.d(TAG, "addAllProjects() called with: projects = $projects")
+        projectsRoomRepository.addAllProjects(projects)
+    }
+
     companion object {
         const val TAG = "ProjInteractLog"
     }

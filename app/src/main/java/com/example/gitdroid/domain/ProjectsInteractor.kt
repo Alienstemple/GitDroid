@@ -11,4 +11,6 @@ interface ProjectsInteractor {
     suspend fun addProject(projectName: String)
     suspend fun updateProject(projectName: String, searchResultItem: SearchResultItem)
     suspend fun deleteProject(projectId: String)
+    suspend fun addAllProjects(projects: List<Project>)
+    suspend fun deleteAllProjects()
 }

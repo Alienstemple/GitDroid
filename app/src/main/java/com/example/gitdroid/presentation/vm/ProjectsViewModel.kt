@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
 class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : ViewModel() {
@@ -28,6 +29,11 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
                 projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
             }
             _projectList.postValue(projects)   // Обновленные данные - в LiveData
+            viewModelScope.launch(IO) {
+                projectsInteractor.deleteAllProjects()
+                projectsInteractor.addAllProjects(projects)
+            }
+
         }
 
         override fun onCancelled(error: DatabaseError) {
