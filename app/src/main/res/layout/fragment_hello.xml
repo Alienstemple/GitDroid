@@ -59,7 +59,7 @@
         android:text="My projects" />
 
     <Button
-        android:id="@+id/repoAndIssBtn"
+        android:id="@+id/reposAndIssBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="90dp"

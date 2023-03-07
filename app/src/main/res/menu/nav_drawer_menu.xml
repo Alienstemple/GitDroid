@@ -8,8 +8,8 @@
         android:id="@+id/myProjItem"
         android:title="My projects" />
     <item
-        android:id="@+id/repoAndIssItem"
-        android:title="Repos and issues" />
+        android:id="@+id/logoutItem"
+        android:title="Logout" />
     <item
         android:id="@+id/settingsItem"
         android:title="Settings" />

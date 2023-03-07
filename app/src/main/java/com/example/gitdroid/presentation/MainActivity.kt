@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gitdroid.R
 import com.example.gitdroid.data.ProjectsFirebaseRepositoryImpl
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.data.room.ProjectDatabase
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.databinding.ActivityMainBinding
@@ -18,8 +20,10 @@ import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
 import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
+import com.example.gitdroid.presentation.misc.navigation
 import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -97,14 +101,30 @@ class MainActivity : AppCompatActivity(), Navigation {
             when (it.itemId) {
                 R.id.searchItem -> {
                     Log.d(TAG, "Item 1 selected")
-                    openCodeSearch()
+                    if (checkAuthorized()) {
+                        openCodeSearch()
+                    } else {
+                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                    }
                 }
                 R.id.myProjItem -> {
                     Log.d(TAG, "Item 2 selected")
-                    openProjects()
+                    if (checkAuthorized()) {
+                        openProjects()
+                    } else {
+                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                    }
                 }
-                R.id.repoAndIssItem -> {
-                    Log.d(TAG, "Item 3 selected")
+                R.id.logoutItem -> {
+                    Log.d(TAG, "Logout selected")
+                    if (checkAuthorized()) {
+                        FirebaseAuth.getInstance().signOut()  // TODO повторяющийся код вынести
+                        SessionManager(this@MainActivity).removeAuthToken()
+                        Log.d(TAG, "Logout success")
+                        openAuth()
+                    } else {
+                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                    }
                 }
                 R.id.settingsItem -> {
                     Log.d(TAG, "Item 4 selected")

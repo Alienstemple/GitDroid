@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gitdroid.R
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentHelloBinding
 import com.example.gitdroid.databinding.FragmentListIssuesBinding
 import com.example.gitdroid.presentation.MainActivity
@@ -51,7 +52,7 @@ class HelloFragment : Fragment() {
 
         binding.logoutBtn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            // TODO session manager - remove access token from SharedPrefs
+            SessionManager(requireContext()).removeAuthToken()
             Log.d(MainActivity.TAG, "Logout success")
             navigation().openAuth()
         }
