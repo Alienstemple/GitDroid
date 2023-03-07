@@ -1,12 +1,11 @@
 package com.example.gitdroid.presentation
 
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gitdroid.R
@@ -17,13 +16,8 @@ import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
-import com.example.gitdroid.models.domain.GHRepository
-import com.example.gitdroid.models.domain.Project
-import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
-import com.example.gitdroid.presentation.misc.ProjectItemClickListener
-import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
 
@@ -32,21 +26,32 @@ class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
-    private lateinit var projectsFirebaseRepository: ProjectsFirebaseRepository
-    private lateinit var projectsRoomRepository: ProjectsRoomRepository
-    private lateinit var projectsInteractor: ProjectsInteractor
-    private lateinit var projectsViewModel: ProjectsViewModel
+    private var projectsFirebaseRepository: ProjectsFirebaseRepository? = null
+    private var projectsRoomRepository: ProjectsRoomRepository? = null
+    private var projectsInteractor: ProjectsInteractor? = null
+    private var projectsViewModel: ProjectsViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate() called with: savedInstanceState = $savedInstanceState")
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
-
-        initViewModel()
 
         initNavDrawer()
 
         openAuth()
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d(TAG, "onNewIntent() called with: intent = $intent")
+        // Only if authorized
+        // if Bundle ret true
+        if (intent?.extras?.getBoolean("IS_AUTHORIZED") == true) {
+            Log.d(TAG, "IS_AUTHORIZED = true")
+            initViewModel()
+        }
     }
 
     private fun initViewModel() {
@@ -54,10 +59,13 @@ class MainActivity : AppCompatActivity(), Navigation {
         projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
         projectsRoomRepository = ProjectsRoomRepository(dao)
         projectsInteractor =
-            ProjectsInteractorImpl(projectsFirebaseRepository, projectsRoomRepository)
+            ProjectsInteractorImpl(projectsFirebaseRepository as ProjectsFirebaseRepository,
+                projectsRoomRepository as ProjectsRoomRepository)
+
         projectsViewModel =
             ViewModelProvider(this,
-                ProjectsViewModelFactory(projectsInteractor))[ProjectsViewModel::class.java]
+                ProjectsViewModelFactory(projectsInteractor as ProjectsInteractorImpl))[ProjectsViewModel::class.java]
+
     }
 
     private fun initNavDrawer() = with(mainBinding) {
@@ -100,7 +108,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun getProjectsVm(): ProjectsViewModel = projectsViewModel
+    override fun getProjectsVm(): ProjectsViewModel = projectsViewModel as ProjectsViewModel
 
     override fun openProjects() {
         launchFragment(ProjectsFragment.newInstance())

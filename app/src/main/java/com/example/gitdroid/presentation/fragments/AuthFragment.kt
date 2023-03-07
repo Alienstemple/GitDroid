@@ -1,5 +1,6 @@
 package com.example.gitdroid.presentation.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentAuthBinding
 import com.example.gitdroid.presentation.MainActivity
@@ -70,11 +72,12 @@ class AuthFragment : Fragment() {
                 .addOnSuccessListener {
                     // User is signed in.
                     Toast.makeText(context, "User exist", Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "User exist")
                 }
                 .addOnFailureListener {
                     // Handle failure.
                     Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
-                    Log.d(MainActivity.TAG, "Error : $it")
+                    Log.d(TAG, "Error : $it")
                 }
         } else {
 
@@ -95,7 +98,11 @@ class AuthFragment : Fragment() {
                         SessionManager(requireContext()).saveAuthToken(accessToken.toString())
 
                         // TODO add avatar url
-                        navigation().openHello(firebaseUser.displayName.toString(), "")
+//                        navigation().openHello(firebaseUser.displayName.toString(), "")
+                        Log.d(TAG, "Before starting MainActivity")
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        intent.putExtra("IS_AUTHORIZED", true)
+                        startActivity(intent)
 
                         Toast.makeText(context, "Login Successfully", Toast.LENGTH_LONG).show()
                     })
@@ -109,6 +116,7 @@ class AuthFragment : Fragment() {
     }
 
     companion object {
+        const val TAG = "AuthFragmLog"
         @JvmStatic
         fun newInstance() =
             AuthFragment()
