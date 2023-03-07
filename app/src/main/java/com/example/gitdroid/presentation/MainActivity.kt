@@ -20,6 +20,8 @@ import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
 import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity(), Navigation {
@@ -39,19 +41,31 @@ class MainActivity : AppCompatActivity(), Navigation {
 
         initNavDrawer()
 
-        openAuth()
-
+        if (checkAuthorized()) {
+            val username = Firebase.auth.currentUser?.displayName.toString()
+            Log.d(TAG, "Already authorized! Username in MainAct = $username")
+            initViewModel()
+            openHello(username)
+        } else {
+            Log.d(TAG, "Not yet authorized!")
+            openAuth()
+        }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         Log.d(TAG, "onNewIntent() called with: intent = $intent")
-        // Only if authorized
-        // if Bundle ret true
         if (intent?.extras?.getBoolean("IS_AUTHORIZED") == true) {
             Log.d(TAG, "IS_AUTHORIZED = true")
             initViewModel()
+            openHello(Firebase.auth.currentUser?.displayName.toString())
         }
+    }
+
+    private fun checkAuthorized(): Boolean {
+        if (Firebase.auth.currentUser != null)
+            return true
+        return false
     }
 
     private fun initViewModel() {
@@ -122,8 +136,8 @@ class MainActivity : AppCompatActivity(), Navigation {
         launchFragment(AuthFragment.newInstance())
     }
 
-    override fun openHello(userName: String, avatarUrl: String) {
-        launchFragment(HelloFragment.newInstance(userName, avatarUrl))
+    override fun openHello(userName: String) {
+        launchFragment(HelloFragment.newInstance(userName))
     }
 
     override fun openFindReposByUser() {

@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class AuthFragment : Fragment() {
 
@@ -97,8 +99,9 @@ class AuthFragment : Fragment() {
                         // Save access token in shared prefs
                         SessionManager(requireContext()).saveAuthToken(accessToken.toString())
 
-                        // TODO add avatar url
-//                        navigation().openHello(firebaseUser.displayName.toString(), "")
+                        val username = auth.currentUser?.displayName.toString()
+                        Log.d(TAG, "Username in AuthFrag = $username")
+
                         Log.d(TAG, "Before starting MainActivity")
                         val intent = Intent(requireContext(), MainActivity::class.java)
                         intent.putExtra("IS_AUTHORIZED", true)
