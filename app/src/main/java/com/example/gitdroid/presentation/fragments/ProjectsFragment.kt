@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.data.*
 import com.example.gitdroid.data.room.ProjectDatabase
@@ -76,18 +77,29 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private fun setupObserver(projectsViewModel: ProjectsViewModel) {
         projectsViewModel.projectList.observe(viewLifecycleOwner) { projectItemsList ->
-            projectItemsList?.let {
-                // Обновляем Recycler View
-                projectsAdapter.setList(it)
+            if (projectItemsList != null) {
+                Log.d(TAG, "Loading from Firebase.")
+                projectsAdapter.setList(projectItemsList)
             }
         }
     }
 
     private fun initAdapter() {
+        Log.d(TAG, "initAdapter() called")
         projectsAdapter = ProjectsAdapter(this as ProjectItemClickListener)
         binding.projectsRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.projectsRecycler.adapter = projectsAdapter
+
+        if (projectsAdapter.itemCount == 0) {
+            Log.d(TAG, "Error in Firebase. Loading from local DB (collect flow).")
+            lifecycle.coroutineScope.launch {
+                projectsSharedViewModel.allProjects().collect {
+                    projectsAdapter.setList(it)
+                }
+            }
+        }
+
     }
 
     override fun onItemClicked(project: Project) {

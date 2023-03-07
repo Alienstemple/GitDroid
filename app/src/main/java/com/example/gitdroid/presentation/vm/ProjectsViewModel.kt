@@ -1,11 +1,11 @@
 package com.example.gitdroid.presentation.vm
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
-import com.example.gitdroid.domain.GithubInteractor
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.ProjectsInteractor
-import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.DataSnapshot
@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : ViewModel() {
@@ -45,6 +46,10 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         // При инициализации VM создаем listener и передаем в interactor - Firebase repo
         Log.d(TAG, "Init Projects VM: before adding listener")
         projectsInteractor.addListener(listener)
+    }
+
+    fun allProjects(): Flow<List<Project>> {
+        return projectsInteractor.getAllProjects()
     }
 
     fun addProject(projectName: String) {

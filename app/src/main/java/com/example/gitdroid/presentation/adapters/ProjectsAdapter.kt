@@ -30,6 +30,8 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
 
     override fun getItemCount() = projectList.size
 
+    fun isListNull() = projectList == null
+
     fun setList(newList: List<Project>) {
         projectList.apply {  // TODO DiffUtil
             clear()
