@@ -1,5 +1,6 @@
 package com.example.gitdroid.presentation.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,6 +13,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentAuthBinding
+import com.example.gitdroid.domain.AuthRepository
+import com.example.gitdroid.domain.AuthRepositoryImpl
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.misc.navigation
 import com.google.android.gms.tasks.OnFailureListener
@@ -25,9 +28,7 @@ class AuthFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthBinding
 
-    private lateinit var firebaseUser: FirebaseUser
-    private lateinit var auth: FirebaseAuth
-    private val provider = OAuthProvider.newBuilder("github.com")
+    private lateinit var authRepository: AuthRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,84 +38,22 @@ class AuthFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        authWithFirebase()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        authRepository = AuthRepositoryImpl(context, requireActivity())
     }
 
-    private fun authWithFirebase() = with(binding) {
-        // Authorization
-        auth = FirebaseAuth.getInstance()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        provider.addCustomParameter("login", enterEmailEditText.text.toString())
-
-        val scopes: ArrayList<String?> = object : ArrayList<String?>() {
-            init {
-                add("user:email")
-            }
-        }
-        provider.scopes = scopes
-
-        authBtn.setOnClickListener {
-            if (TextUtils.isEmpty(enterEmailEditText.text.toString())) {
+        binding.authBtn.setOnClickListener {
+            val email = binding.enterEmailEditText.text.toString()
+            if (TextUtils.isEmpty(email)) {
                 Toast.makeText(context, "Enter your github id", Toast.LENGTH_LONG)
                     .show()
             } else {
-                signInWithGithubProvider()
+                authRepository.signInWithGithubProvider(email)
             }
-        }
-    }
-
-    private fun signInWithGithubProvider() {
-
-        // There's something already here! Finish the sign-in for your user.
-        val pendingResultTask: Task<AuthResult>? = auth.pendingAuthResult
-        if (pendingResultTask != null) {
-            pendingResultTask
-                .addOnSuccessListener {
-                    // User is signed in.
-                    Toast.makeText(context, "User exist", Toast.LENGTH_LONG).show()
-                    Log.d(TAG, "User exist")
-                }
-                .addOnFailureListener {
-                    // Handle failure.
-                    Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
-                    Log.d(TAG, "Error : $it")
-                }
-        } else {
-
-            auth.startActivityForSignInWithProvider( /* activity= */requireActivity(),
-                provider.build())
-                .addOnSuccessListener(
-                    OnSuccessListener<AuthResult?> {
-                        // User is signed in.
-                        // retrieve the current user
-                        firebaseUser = auth.currentUser!!
-
-                        val accessToken = (it.credential as OAuthCredential).accessToken
-                        val idToken = (it.credential as OAuthCredential).idToken
-                        Log.d(MainActivity.TAG, "Access token = $accessToken")
-                        Log.d(MainActivity.TAG, "Id token = $idToken")
-
-                        // Save access token in shared prefs
-                        SessionManager(requireContext()).saveAuthToken(accessToken.toString())
-
-                        val username = auth.currentUser?.displayName.toString()  // FIXME null
-                        Log.d(TAG, "Username in AuthFrag = $username")
-
-                        Log.d(TAG, "Before starting MainActivity")
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        intent.putExtra("IS_AUTHORIZED", true)
-                        startActivity(intent)
-
-                        Toast.makeText(context, "Login Successfully", Toast.LENGTH_LONG).show()
-                    })
-                .addOnFailureListener(
-                    OnFailureListener {
-                        // Handle failure.
-                        Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
-                        Log.d(MainActivity.TAG, "Error : $it")
-                    })
         }
     }
 
