@@ -65,16 +65,16 @@ class AuthRepositoryImpl(
 
                         val accessToken = (it.credential as OAuthCredential).accessToken
                         val idToken = (it.credential as OAuthCredential).idToken
-                        Log.d(MainActivity.TAG, "Access token = $accessToken")
-                        Log.d(MainActivity.TAG, "Id token = $idToken")
+                        Log.d(TAG, "Access token = $accessToken")
+                        Log.d(TAG, "Id token = $idToken")
 
                         // Save access token in shared prefs
                         SessionManager(context).saveAuthToken(accessToken.toString())
 
-                        val username = auth.currentUser?.displayName.toString()  // FIXME null
-                        Log.d(AuthFragment.TAG, "Username in AuthFrag = $username")
+                        val username = firebaseUser.displayName.toString()  // FIXME null
+                        Log.d(TAG, "Username in AuthFrag = $username")
 
-                        Log.d(AuthFragment.TAG, "Before starting MainActivity")
+                        Log.d(TAG, "Before starting MainActivity")
                         val intent = Intent(context, MainActivity::class.java)
                         intent.putExtra("IS_AUTHORIZED", true)
                         context.startActivity(intent)
@@ -84,8 +84,12 @@ class AuthRepositoryImpl(
                     OnFailureListener {
                         // Handle failure.
                         Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
-                        Log.d(MainActivity.TAG, "Error : $it")
+                        Log.d(TAG, "Error : $it")
                     })
         }
+    }
+
+    companion object {
+        const val TAG = "AuthRepoLog"
     }
 }
