@@ -30,6 +30,11 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
         projectsFirebaseRepository.updateProject(retreivedProject, searchResultItem)
     }
 
+    override suspend fun deleteProject(projectId: String) {
+        Log.d(TAG, "deleteProject() called with: projectId = $projectId")
+        projectsFirebaseRepository.deleteProject(projectId)
+    }
+
     companion object {
         const val TAG = "ProjInteractLog"
     }

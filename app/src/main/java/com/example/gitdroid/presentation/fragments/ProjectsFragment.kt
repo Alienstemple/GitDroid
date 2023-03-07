@@ -66,13 +66,9 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         binding.addBtn.setOnClickListener {
 
             CoroutineScope(Dispatchers.IO).launch {
-                // TODO only for test
-                Log.d(TAG, "In coro scope, before updating project")
-                projectsSharedViewModel.updateProject("-NPq--YbgCTGAtX8Ejs_",
-                    SearchResultItem("name", "", "url", GHRepository(), 0.0F))
 
-//                Log.d(TAG, "In coro scope, before adding project")
-//                projectsViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
+                Log.d(TAG, "In coro scope, before adding project")
+                projectsSharedViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
             }
 
         }
@@ -97,6 +93,11 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     override fun onItemClicked(project: Project) {
         Log.d(MainActivity.TAG, "On item clicked: ${project.name}")
         // TODO открыть выпадающий список
+    }
+
+    override fun onDeleteClicked(project: Project) {
+        Log.d(TAG, "onDeleteClicked() called with: project = $project")
+        projectsSharedViewModel.deleteProject(project.id)
     }
 
     companion object {

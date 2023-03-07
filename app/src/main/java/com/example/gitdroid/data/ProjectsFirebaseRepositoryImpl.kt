@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 
 
 class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
-    private val currentUserUid = Firebase.auth.currentUser!!.uid  // FIXME NPE if user is not registered
+    private val currentUserUid = Firebase.auth.currentUser!!.uid
     private val databaseReference =
         FirebaseDatabase.getInstance().getReference("users").child(currentUserUid)
 
@@ -53,11 +53,12 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         Log.d(TAG, "updateProject() called with: project = $project")
 
         databaseReference.child(project.id).child("searchResList")
-            .addListenerForSingleValueEvent( object : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val searchResList = mutableListOf<SearchResultItem>()
                     snapshot.children.map {
-                        searchResList.add(it.getValue(SearchResultItem::class.java) ?: SearchResultItem())
+                        searchResList.add(it.getValue(SearchResultItem::class.java)
+                            ?: SearchResultItem())
                     }
                     Log.d(TAG, "Old search res list: $searchResList")
                     searchResList.add(searchResultItem)  // Adding new item to retreived list
@@ -80,10 +81,15 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             })
     }
 
-    override suspend fun deleteProject(projectName: String) /* Что вернуть? Рез-т пустой */ =
-        withContext(Dispatchers.IO) {
-            // Firebase logic
-        }
+    override suspend fun deleteProject(projectId: String) { /* Что вернуть? Рез-т пустой */
+        databaseReference.child(projectId).removeValue()
+            .addOnSuccessListener {
+                Log.d(TAG, "Project deleted successfully")
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "Error while deleting project")
+            }
+    }
 
     companion object {
         const val TAG = "ProjFireRepoLog"

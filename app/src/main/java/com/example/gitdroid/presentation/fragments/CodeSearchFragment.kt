@@ -114,7 +114,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
         selectedSearchResult = searchResultItem  // Init selected search result
 
-        projectSharedViewModel.testMethod()
         projectSharedViewModel.projectList
 
         val dialogBox = Dialog(requireContext())

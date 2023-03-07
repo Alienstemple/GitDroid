@@ -41,10 +41,6 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         projectsInteractor.addListener(listener)
     }
 
-    fun testMethod() {  // For testin shared vm
-        Log.d(TAG, "testMethod() called")
-    }
-
     fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: userName = $projectName")
 
@@ -57,6 +53,13 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         Log.d(TAG, "updateProject() called with: projectId = $projectId")
         viewModelScope.launch(Dispatchers.IO) {
             projectsInteractor.updateProject(projectId, searchResultItem)
+        }
+    }
+
+    fun deleteProject(projectId: String) {
+        Log.d(TAG, "deleteProject() called with: projectId = $projectId")
+        viewModelScope.launch(Dispatchers.IO) {
+            projectsInteractor.deleteProject(projectId)
         }
     }
 
