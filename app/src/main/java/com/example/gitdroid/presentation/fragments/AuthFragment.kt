@@ -99,7 +99,7 @@ class AuthFragment : Fragment() {
                         // Save access token in shared prefs
                         SessionManager(requireContext()).saveAuthToken(accessToken.toString())
 
-                        val username = auth.currentUser?.displayName.toString()
+                        val username = auth.currentUser?.displayName.toString()  // FIXME null
                         Log.d(TAG, "Username in AuthFrag = $username")
 
                         Log.d(TAG, "Before starting MainActivity")
