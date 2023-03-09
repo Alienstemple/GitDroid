@@ -15,6 +15,7 @@ import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.data.room.ProjectDatabase
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.databinding.ActivityMainBinding
+import com.example.gitdroid.di.DaggerAppComponent
 import com.example.gitdroid.domain.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.ProjectsInteractor
 import com.example.gitdroid.domain.ProjectsInteractorImpl
