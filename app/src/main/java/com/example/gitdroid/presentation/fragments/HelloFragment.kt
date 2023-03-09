@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.example.gitdroid.R
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentHelloBinding
-import com.example.gitdroid.databinding.FragmentListIssuesBinding
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.misc.navigation
 import com.google.firebase.auth.FirebaseAuth
