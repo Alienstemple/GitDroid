@@ -25,10 +25,6 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         Log.d(TAG, "Listener added to firebase repo!")
     }
 
-    fun removeListener() {
-        listener?.let { databaseReference.removeEventListener(it) }
-    }
-
     override suspend fun addProject(project: Project): Project =
         withContext(Dispatchers.IO) {
             Log.d(TAG, "In addProject in repo")

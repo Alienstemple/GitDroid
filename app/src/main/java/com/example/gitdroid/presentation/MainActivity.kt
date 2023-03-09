@@ -160,12 +160,8 @@ class MainActivity : AppCompatActivity(), Navigation {
         launchFragment(HelloFragment.newInstance(userName))
     }
 
-    override fun openFindReposByUser() {
-        launchFragment(FindReposByUserFragment.newInstance())
-    }
-
     private fun launchFragment(fragment: Fragment) {
-        Log.d(StartAppActivity.TAG, "Transact with name ${fragment::class.java.simpleName}")
+        Log.d(TAG, "Transact with name ${fragment::class.java.simpleName}")
         supportFragmentManager.beginTransaction()
             .replace(R.id.mainActFragmContainer, fragment)
             .addToBackStack(fragment::class.java.simpleName)

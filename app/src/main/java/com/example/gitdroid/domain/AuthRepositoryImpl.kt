@@ -79,12 +79,11 @@ class AuthRepositoryImpl(
                     context.startActivity(intent)
 
                 }
-                .addOnFailureListener(
-                    OnFailureListener {
-                        // Handle failure.
-                        Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
-                        Log.d(TAG, "Error : $it")
-                    })
+                .addOnFailureListener {
+                    // Handle failure.
+                    Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
+                    Log.d(TAG, "Error : $it")
+                }
         }
     }
 

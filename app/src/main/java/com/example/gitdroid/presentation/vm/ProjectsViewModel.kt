@@ -74,10 +74,6 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         }
     }
 
-    override fun onCleared() {
-        // TODO remove listener
-    }
-
     companion object {
         const val TAG = "RepoVMLog"
     }

@@ -4,12 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gitdroid.databinding.GhRepositoryItemBinding
 import com.example.gitdroid.databinding.ProjectItemBinding
-import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
-import com.example.gitdroid.presentation.misc.RepositoryItemClickListener
 
 class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickListener) :
     RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
@@ -29,8 +26,6 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
     }
 
     override fun getItemCount() = projectList.size
-
-    fun isListNull() = projectList == null
 
     fun setList(newList: List<Project>) {
         projectList.apply {  // TODO DiffUtil

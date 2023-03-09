@@ -1,7 +1,6 @@
 package com.example.gitdroid.data
 
 import com.example.gitdroid.models.domain.GHRepository
-import com.example.gitdroid.models.domain.Issue
 import com.example.gitdroid.models.domain.SearchResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,12 +17,6 @@ interface GithubApiService {
 
     @GET("search/code")
     suspend fun getCodeSearch(@Header("Authorization") token: String, @Query("q") searchQuery: String): Response<SearchResult>
-
-    @GET("users/{user}/repos")
-    suspend fun getReposByUser(@Path("user") user: String): Response<List<GHRepository>>
-
-    @GET("repos/{user}/{repo}/issues")
-    suspend fun getIssuesByUserAndRepository(@Path("user") user: String, @Path("repo") repo: String): Response<List<Issue>>
 
     companion object {
         var retrofitService: GithubApiService? = null

@@ -13,5 +13,4 @@ interface Navigation {
     fun openCodeSearch()
     fun openAuth()
     fun openHello(userName: String)
-    fun openFindReposByUser()
 }
