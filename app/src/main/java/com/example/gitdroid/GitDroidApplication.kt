@@ -6,6 +6,6 @@ import com.example.gitdroid.di.DaggerAppComponent
 
 class GitDroidApplication: Application() {
     val appComponent: AppComponent by lazy {
-        DaggerAppComponent.create() // TODO Factory, applicationContext
+        DaggerAppComponent.factory().create(applicationContext)
     }
 }
