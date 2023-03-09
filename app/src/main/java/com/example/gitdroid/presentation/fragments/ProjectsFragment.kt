@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.MainActivity
@@ -24,7 +27,9 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private lateinit var binding: FragmentProjectsBinding
 
-    private lateinit var projectsSharedViewModel: ProjectsViewModel
+    private val projectsSharedViewModel: ProjectsViewModel by activityViewModels {
+        (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+    }
 
     private lateinit var projectsAdapter: ProjectsAdapter
 
@@ -34,11 +39,6 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     ): View {
         binding = FragmentProjectsBinding.inflate(layoutInflater)
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        projectsSharedViewModel = navigation().getProjectsVm()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

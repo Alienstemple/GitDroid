@@ -8,7 +8,6 @@ fun Fragment.navigation(): Navigation {
 }
 
 interface Navigation {
-    fun getProjectsVm() : ProjectsViewModel
     fun openProjects()
     fun openCodeSearch()
     fun openAuth()

@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
@@ -45,7 +47,9 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     private lateinit var networkRepository: NetworkRepositoryImpl
     private lateinit var githubInteractor: GithubInteractorImpl
 
-    private lateinit var projectSharedViewModel: ProjectsViewModel
+    private val projectSharedViewModel: ProjectsViewModel by activityViewModels {
+        (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+    }
 
     private lateinit var selectedSearchResult: SearchResultItem
 
@@ -68,7 +72,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
             ViewModelProvider(this,
                 GithubViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
 
-        projectSharedViewModel = navigation().getProjectsVm()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

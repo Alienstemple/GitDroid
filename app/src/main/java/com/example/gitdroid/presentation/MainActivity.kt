@@ -35,12 +35,9 @@ class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
-    //    private var projectsFirebaseRepository: ProjectsFirebaseRepository? = null
-//    private var projectsRoomRepository: ProjectsRoomRepository? = null
-//    private var projectsInteractor: ProjectsInteractor? = null
-    private val projectsViewModel: ProjectsViewModel by viewModels {
-        (application as GitDroidApplication).appComponent.projectsViewModelFactory()
-    }
+//    private val projectsViewModel: ProjectsViewModel by viewModels {
+//        (application as GitDroidApplication).appComponent.projectsViewModelFactory()
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +50,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         if (checkAuthorized()) {
             val username = Firebase.auth.currentUser?.displayName.toString()
             Log.d(TAG, "Already authorized! Username in MainAct = $username")
-            initViewModel()
             openHello(username)
         } else {
             Log.d(TAG, "Not yet authorized!")
@@ -66,7 +62,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         Log.d(TAG, "onNewIntent() called with: intent = $intent")
         if (intent?.extras?.getBoolean("IS_AUTHORIZED") == true) {
             Log.d(TAG, "IS_AUTHORIZED = true")
-            initViewModel()
             openHello(Firebase.auth.currentUser?.displayName.toString())
         }
     }
@@ -75,20 +70,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         if (Firebase.auth.currentUser != null)
             return true
         return false
-    }
-
-    private fun initViewModel() {
-//        val dao = ProjectDatabase.getDatabaseClient(this).projectDao()
-//        projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
-//        projectsRoomRepository = ProjectsRoomRepository(dao)
-//        projectsInteractor =
-//            ProjectsInteractorImpl(projectsFirebaseRepository as ProjectsFirebaseRepository,
-//                projectsRoomRepository as ProjectsRoomRepository)
-//
-//        projectsViewModel =
-//            ViewModelProvider(this,
-//                ProjectsViewModelFactory(projectsInteractor as ProjectsInteractorImpl))[ProjectsViewModel::class.java]
-
     }
 
     private fun initNavDrawer() = with(mainBinding) {
@@ -152,8 +133,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun getProjectsVm(): ProjectsViewModel = projectsViewModel as ProjectsViewModel
 
     override fun openProjects() {
         launchFragment(ProjectsFragment.newInstance())
