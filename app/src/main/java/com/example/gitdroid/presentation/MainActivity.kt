@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.R
 import com.example.gitdroid.data.ProjectsFirebaseRepositoryImpl
 import com.example.gitdroid.data.SessionManager
@@ -33,10 +35,12 @@ class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
 
-    private var projectsFirebaseRepository: ProjectsFirebaseRepository? = null
-    private var projectsRoomRepository: ProjectsRoomRepository? = null
-    private var projectsInteractor: ProjectsInteractor? = null
-    private var projectsViewModel: ProjectsViewModel? = null
+    //    private var projectsFirebaseRepository: ProjectsFirebaseRepository? = null
+//    private var projectsRoomRepository: ProjectsRoomRepository? = null
+//    private var projectsInteractor: ProjectsInteractor? = null
+    private val projectsViewModel: ProjectsViewModel by viewModels {
+        (application as GitDroidApplication).appComponent.projectsViewModelFactory()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,16 +78,16 @@ class MainActivity : AppCompatActivity(), Navigation {
     }
 
     private fun initViewModel() {
-        val dao = ProjectDatabase.getDatabaseClient(this).projectDao()
-        projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
-        projectsRoomRepository = ProjectsRoomRepository(dao)
-        projectsInteractor =
-            ProjectsInteractorImpl(projectsFirebaseRepository as ProjectsFirebaseRepository,
-                projectsRoomRepository as ProjectsRoomRepository)
-
-        projectsViewModel =
-            ViewModelProvider(this,
-                ProjectsViewModelFactory(projectsInteractor as ProjectsInteractorImpl))[ProjectsViewModel::class.java]
+//        val dao = ProjectDatabase.getDatabaseClient(this).projectDao()
+//        projectsFirebaseRepository = ProjectsFirebaseRepositoryImpl()
+//        projectsRoomRepository = ProjectsRoomRepository(dao)
+//        projectsInteractor =
+//            ProjectsInteractorImpl(projectsFirebaseRepository as ProjectsFirebaseRepository,
+//                projectsRoomRepository as ProjectsRoomRepository)
+//
+//        projectsViewModel =
+//            ViewModelProvider(this,
+//                ProjectsViewModelFactory(projectsInteractor as ProjectsInteractorImpl))[ProjectsViewModel::class.java]
 
     }
 
@@ -105,7 +109,9 @@ class MainActivity : AppCompatActivity(), Navigation {
                     if (checkAuthorized()) {
                         openCodeSearch()
                     } else {
-                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity,
+                            "You are not authorized!",
+                            Toast.LENGTH_LONG).show()
                     }
                 }
                 R.id.myProjItem -> {
@@ -113,7 +119,9 @@ class MainActivity : AppCompatActivity(), Navigation {
                     if (checkAuthorized()) {
                         openProjects()
                     } else {
-                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity,
+                            "You are not authorized!",
+                            Toast.LENGTH_LONG).show()
                     }
                 }
                 R.id.logoutItem -> {
@@ -124,7 +132,9 @@ class MainActivity : AppCompatActivity(), Navigation {
                         Log.d(TAG, "Logout success")
                         openAuth()
                     } else {
-                        Toast.makeText(this@MainActivity, "You are not authorized!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity,
+                            "You are not authorized!",
+                            Toast.LENGTH_LONG).show()
                     }
                 }
                 R.id.settingsItem -> {
