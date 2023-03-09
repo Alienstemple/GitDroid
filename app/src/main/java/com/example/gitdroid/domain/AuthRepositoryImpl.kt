@@ -57,29 +57,28 @@ class AuthRepositoryImpl(
 
             auth.startActivityForSignInWithProvider( /* activity= */fragmentActivity,
                 provider.build())
-                .addOnSuccessListener(
-                    OnSuccessListener<AuthResult?> {
-                        // User is signed in.
-                        // retrieve the current user
-                        firebaseUser = auth.currentUser!!
+                .addOnSuccessListener {
+                    // User is signed in.
+                    // retrieve the current user
+                    firebaseUser = auth.currentUser!!
 
-                        val accessToken = (it.credential as OAuthCredential).accessToken
-                        val idToken = (it.credential as OAuthCredential).idToken
-                        Log.d(TAG, "Access token = $accessToken")
-                        Log.d(TAG, "Id token = $idToken")
+                    val accessToken = (it.credential as OAuthCredential).accessToken
+                    val idToken = (it.credential as OAuthCredential).idToken
+                    Log.d(TAG, "Access token = $accessToken")
+                    Log.d(TAG, "Id token = $idToken")
 
-                        // Save access token in shared prefs
-                        SessionManager(context).saveAuthToken(accessToken.toString())
+                    // Save access token in shared prefs
+                    SessionManager(context).saveAuthToken(accessToken.toString())
 
-                        val username = firebaseUser.displayName.toString()  // FIXME null
-                        Log.d(TAG, "Username in AuthFrag = $username")
+                    val username = firebaseUser.displayName.toString()  // FIXME null
+                    Log.d(TAG, "Username in AuthFrag = $username")
 
-                        Log.d(TAG, "Before starting MainActivity")
-                        val intent = Intent(context, MainActivity::class.java)
-                        intent.putExtra("IS_AUTHORIZED", true)
-                        context.startActivity(intent)
+                    Log.d(TAG, "Before starting MainActivity")
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.putExtra("IS_AUTHORIZED", true)
+                    context.startActivity(intent)
 
-                    })
+                }
                 .addOnFailureListener(
                     OnFailureListener {
                         // Handle failure.
