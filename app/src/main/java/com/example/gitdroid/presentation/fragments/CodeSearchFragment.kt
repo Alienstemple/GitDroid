@@ -80,7 +80,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
     override fun onItemClicked(searchResultItem: SearchResultItem) {
         // Open chrome custom tab
-        Log.d(MainActivity.TAG, "On item clicked: ${searchResultItem.repository.name}")
+        Log.d(MainActivity.TAG, "On item clicked: ${searchResultItem.repository.repoName}")
         val url = searchResultItem.html_url
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent = builder.build()

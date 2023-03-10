@@ -1,4 +1,4 @@
-package com.example.gitdroid.models.domain
+package com.example.gitdroid.presentation.vm.auth
 
 enum class AuthState {
     AUTHORIZED, UNAUTHORIZED

@@ -7,13 +7,10 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.ActivityAuthBinding
-import com.example.gitdroid.domain.auth.AuthRepositoryImpl
-import com.example.gitdroid.models.domain.AuthState
+import com.example.gitdroid.presentation.vm.auth.AuthState
 import com.example.gitdroid.presentation.vm.auth.AuthViewModel
-import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding

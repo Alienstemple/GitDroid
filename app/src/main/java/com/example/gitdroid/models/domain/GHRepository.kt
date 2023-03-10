@@ -1,8 +1,8 @@
 package com.example.gitdroid.models.domain
 
 data class GHRepository(
-    val id: Long = 0,
-    val name: String = "",
+    val repoId: Long = 0,
+    val repoName: String = "",
     val full_name: String = "",
     val owner: User = User(),
     val issue_comment_url: String = "",

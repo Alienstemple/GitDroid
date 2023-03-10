@@ -5,10 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gitdroid.domain.auth.AuthInteractor
-import com.example.gitdroid.models.domain.AuthState
-import com.example.gitdroid.models.domain.Project
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
 
@@ -18,8 +14,10 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     init {
         _authState.postValue(
             when(checkAuthorized()) {
-                true -> {AuthState.AUTHORIZED}
-                false -> {AuthState.UNAUTHORIZED}
+                true -> {
+                    AuthState.AUTHORIZED}
+                false -> {
+                    AuthState.UNAUTHORIZED}
             }
         )
     }
