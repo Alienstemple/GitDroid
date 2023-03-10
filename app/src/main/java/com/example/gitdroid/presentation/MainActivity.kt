@@ -38,13 +38,12 @@ class MainActivity : AppCompatActivity(), Navigation {
     }
 
     private fun logoutAuthFrag() {
+        Log.d(TAG, "logoutAuthFrag() called")
         val intent = Intent(this, AuthActivity::class.java)
         intent.putExtra("LOGOUT", true)
         startActivity(intent)
 //        finish()  // TODO
     }
-
-
 
     private fun initNavDrawer() = with(mainBinding) {
         // Action Drawer Menu

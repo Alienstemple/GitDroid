@@ -77,7 +77,6 @@ class AuthRepositoryImpl(
                 }
                 .addOnFailureListener {
                     // Handle failure.
-                    Toast.makeText(context, "Error : $it", Toast.LENGTH_LONG).show()
                     Log.d(TAG, "Error : $it")
                 }
         }
