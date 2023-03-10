@@ -8,9 +8,14 @@ import com.google.firebase.ktx.Firebase
 class AuthViewModel(/* // TODO private val authInteractor: AuthInteractor*/): ViewModel() {
 
     fun checkAuthorized(): Boolean {
-        // TODO в репозиторий
+        // TODO в интерактор
         if (Firebase.auth.currentUser != null)
             return true
         return false
     }
+
+    fun signInWithGithubProvider(email: String) {
+        // TODO в интерактор
+    }
+
 }

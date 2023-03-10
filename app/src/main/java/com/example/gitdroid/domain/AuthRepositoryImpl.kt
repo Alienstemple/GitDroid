@@ -4,18 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.presentation.MainActivity
-import com.example.gitdroid.presentation.fragments.AuthFragment
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class AuthRepositoryImpl(
     private val context: Context,
@@ -48,13 +41,12 @@ class AuthRepositoryImpl(
         if (pendingResultTask != null) {
             pendingResultTask
                 .addOnSuccessListener {
-                    Log.d(AuthFragment.TAG, "User exist")
+                    Log.d(TAG, "User exist")
                 }
                 .addOnFailureListener {
-                    Log.d(AuthFragment.TAG, "Error : $it")
+                    Log.d(TAG, "Error : $it")
                 }
         } else {
-
 
             auth.startActivityForSignInWithProvider( /* activity= */fragmentActivity,
                 provider.build())

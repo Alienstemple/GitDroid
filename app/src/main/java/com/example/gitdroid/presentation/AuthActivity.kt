@@ -1,15 +1,20 @@
 package com.example.gitdroid.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.GitDroidApplication
+import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.ActivityAuthBinding
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.domain.AuthRepositoryImpl
 import com.example.gitdroid.presentation.vm.AuthViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -21,7 +26,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     fun AuthRepositoryImpl.startActivityForSignInWithProvider(activity: FragmentActivity) {
-
+    // TODO extension method
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +36,34 @@ class AuthActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (authViewModel.checkAuthorized()) {
-           // open MainActivity
+            // Go to hello screen
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         } else {
-            // binding сюда перенесем
+            // set onClick for auth button
+            setOnClickAuth()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d(TAG, "onNewIntent() called with: intent = $intent")
+        if (intent?.extras?.getBoolean("LOGOUT") == true) {
+            FirebaseAuth.getInstance().signOut()  // TODO вынести отсюда!!!
+            SessionManager(this).removeAuthToken()
+            Log.d(MainActivity.TAG, "Logout success")
+        }
+    }
+
+    private fun setOnClickAuth() {
+        binding.authBtn.setOnClickListener {
+            val email = binding.enterEmailEditText.text.toString()
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(this, "Enter your github id", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                authViewModel.signInWithGithubProvider(email)
+            }
         }
     }
 

@@ -34,30 +34,17 @@ class MainActivity : AppCompatActivity(), Navigation {
 
         initNavDrawer()
 
-        if (checkAuthorized()) {
-            val username = Firebase.auth.currentUser?.displayName.toString()
-            Log.d(TAG, "Already authorized! Username in MainAct = $username")
-            openHello(username)
-        } else {
-            Log.d(TAG, "Not yet authorized!")
-            openAuth()
-        }
+        openHello()
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Log.d(TAG, "onNewIntent() called with: intent = $intent")
-        if (intent?.extras?.getBoolean("IS_AUTHORIZED") == true) {
-            Log.d(TAG, "IS_AUTHORIZED = true")
-            openHello(Firebase.auth.currentUser?.displayName.toString())
-        }
+    private fun logoutAuthFrag() {
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.putExtra("LOGOUT", true)
+        startActivity(intent)
+//        finish()  // TODO
     }
 
-    private fun checkAuthorized(): Boolean {
-        if (Firebase.auth.currentUser != null)
-            return true
-        return false
-    }
+
 
     private fun initNavDrawer() = with(mainBinding) {
         // Action Drawer Menu
@@ -74,36 +61,15 @@ class MainActivity : AppCompatActivity(), Navigation {
             when (it.itemId) {
                 R.id.searchItem -> {
                     Log.d(TAG, "Item 1 selected")
-                    if (checkAuthorized()) {
-                        openCodeSearch()
-                    } else {
-                        Toast.makeText(this@MainActivity,
-                            "You are not authorized!",
-                            Toast.LENGTH_LONG).show()
-                    }
+                    openCodeSearch()
                 }
                 R.id.myProjItem -> {
                     Log.d(TAG, "Item 2 selected")
-                    if (checkAuthorized()) {
-                        openProjects()
-                    } else {
-                        Toast.makeText(this@MainActivity,
-                            "You are not authorized!",
-                            Toast.LENGTH_LONG).show()
-                    }
+                    openProjects()
                 }
                 R.id.logoutItem -> {
                     Log.d(TAG, "Logout selected")
-                    if (checkAuthorized()) {
-                        FirebaseAuth.getInstance().signOut()  // TODO повторяющийся код вынести
-                        SessionManager(this@MainActivity).removeAuthToken()
-                        Log.d(TAG, "Logout success")
-                        openAuth()
-                    } else {
-                        Toast.makeText(this@MainActivity,
-                            "You are not authorized!",
-                            Toast.LENGTH_LONG).show()
-                    }
+                    logoutAuthFrag()
                 }
                 R.id.settingsItem -> {
                     Log.d(TAG, "Item 4 selected")
@@ -129,12 +95,12 @@ class MainActivity : AppCompatActivity(), Navigation {
         launchFragment(CodeSearchFragment.newInstance())
     }
 
-    override fun openAuth() {
-        launchFragment(AuthFragment.newInstance())
+    override fun openHello() {
+        launchFragment(HelloFragment.newInstance())
     }
 
-    override fun openHello(userName: String) {
-        launchFragment(HelloFragment.newInstance(userName))
+    override fun logout() {
+        logoutAuthFrag()
     }
 
     private fun launchFragment(fragment: Fragment) {
