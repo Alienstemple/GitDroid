@@ -1,24 +1,35 @@
 package com.example.gitdroid.presentation.vm.auth
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gitdroid.domain.auth.AuthInteractor
+import com.example.gitdroid.models.domain.AuthState
+import com.example.gitdroid.models.domain.Project
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthViewModel(private val authInteractor: AuthInteractor): ViewModel() {
+class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
 
-    fun checkAuthorized(): Boolean {
-        // TODO в интерактор
-        if (Firebase.auth.currentUser != null)
-            return true
-        return false
-    }
+    private val _authState = MutableLiveData<AuthState>()
+    val authState: LiveData<AuthState> = _authState
+
+    fun checkAuthorized(): Boolean = authInteractor.checkAuthorized() // TODO replace with LiveData listener
 
     fun signInWithGithubProvider(email: String) {
-        // TODO в интерактор
+        authInteractor.signInWithGithubProvider(email)
+        Log.d(TAG, "Sign In successfully, ${AuthState.AUTHORIZED}")
+        _authState.value = AuthState.AUTHORIZED
     }
 
     fun logout() {
+        authInteractor.logout()
+        Log.d(TAG, "Logout successfully, ${AuthState.UNAUTHORIZED}")
+        _authState.value = AuthState.UNAUTHORIZED
+    }
 
+    companion object {
+        const val TAG = "AuthVmLog"
     }
 }

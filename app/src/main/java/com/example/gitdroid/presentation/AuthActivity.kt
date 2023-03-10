@@ -11,7 +11,9 @@ import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.ActivityAuthBinding
 import com.example.gitdroid.domain.auth.AuthRepositoryImpl
+import com.example.gitdroid.models.domain.AuthState
 import com.example.gitdroid.presentation.vm.auth.AuthViewModel
+import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
@@ -20,9 +22,10 @@ class AuthActivity : AppCompatActivity() {
         (application as GitDroidApplication).appComponent.authViewModelFactory()
     }
 
-    fun AuthRepositoryImpl.startActivityForSignInWithProvider(activity: FragmentActivity) {
-    // TODO extension method
+    fun AuthRepositoryImpl.initFragmentActivity() = {
+
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +33,23 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (authViewModel.checkAuthorized()) {
-            // Go to hello screen
-            intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        } else {
-            // set onClick for auth button
-            setOnClickAuth()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        authViewModel.authState.observe(this) { authState ->
+            when (authState) {
+                AuthState.AUTHORIZED -> {
+                    Log.d(TAG, "State is authorized. Before starting MainActivity")
+                    // Go to hello screen
+                    intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+                AuthState.UNAUTHORIZED -> {
+                    Log.d(TAG, "State is UNauthorized. Before settingAuthClickListener")
+                    setOnClickAuth()
+                }
+            }
         }
     }
 
@@ -45,9 +58,6 @@ class AuthActivity : AppCompatActivity() {
         Log.d(TAG, "onNewIntent() called with: intent = $intent")
         if (intent?.extras?.getBoolean("LOGOUT") == true) {
             authViewModel.logout()
-//            FirebaseAuth.getInstance().signOut()  // TODO вынести отсюда!!!
-//            SessionManager(this).removeAuthToken()
-//            Log.d(MainActivity.TAG, "Logout success")
         }
     }
 

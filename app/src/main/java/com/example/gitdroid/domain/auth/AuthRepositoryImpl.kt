@@ -9,26 +9,30 @@ import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.presentation.MainActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class AuthRepositoryImpl(
     private val context: Context,
-    private val fragmentActivity: FragmentActivity,
 ) : AuthRepository {
     private lateinit var firebaseUser: FirebaseUser
-    private lateinit var auth: FirebaseAuth
+    private lateinit var fragmentActivity: FragmentActivity
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val provider = OAuthProvider.newBuilder(PROVIDER_ID)
 
     override fun checkAuthorized(): Boolean {
-
+        if (auth.currentUser != null)
+            return true
+        return false
     }
 
     override fun logout() {
-
+        auth.signOut()
+        SessionManager(context).removeAuthToken()
+        Log.d(MainActivity.TAG, "Logout success")
     }
 
     override fun signInWithGithubProvider(email: String) {
-
-        auth = FirebaseAuth.getInstance()
 
         provider.addCustomParameter("login", email)
 
@@ -70,15 +74,6 @@ class AuthRepositoryImpl(
 
                     // Save access token in shared prefs
                     SessionManager(context).saveAuthToken(accessToken.toString())
-
-                    val username = firebaseUser.displayName.toString()  // FIXME null
-                    Log.d(TAG, "Username in AuthFrag = $username")
-
-                    Log.d(TAG, "Before starting MainActivity")
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.putExtra("IS_AUTHORIZED", true)
-                    context.startActivity(intent)
-
                 }
                 .addOnFailureListener {
                     // Handle failure.
