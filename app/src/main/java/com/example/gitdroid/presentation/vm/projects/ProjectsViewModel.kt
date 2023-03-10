@@ -1,11 +1,11 @@
-package com.example.gitdroid.presentation.vm
+package com.example.gitdroid.presentation.vm.projects
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gitdroid.domain.ProjectsInteractor
+import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.DataSnapshot

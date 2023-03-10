@@ -1,4 +1,4 @@
-package com.example.gitdroid.domain
+package com.example.gitdroid.domain.auth
 
 import android.content.Context
 import android.content.Intent
@@ -16,7 +16,15 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
     private lateinit var firebaseUser: FirebaseUser
     private lateinit var auth: FirebaseAuth
-    private val provider = OAuthProvider.newBuilder("github.com")
+    private val provider = OAuthProvider.newBuilder(PROVIDER_ID)
+
+    override fun checkAuthorized(): Boolean {
+
+    }
+
+    override fun logout() {
+
+    }
 
     override fun signInWithGithubProvider(email: String) {
 
@@ -82,5 +90,6 @@ class AuthRepositoryImpl(
 
     companion object {
         const val TAG = "AuthRepoLog"
+        const val PROVIDER_ID = "github.com"
     }
 }

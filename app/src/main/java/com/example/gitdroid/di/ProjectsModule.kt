@@ -5,7 +5,9 @@ import com.example.gitdroid.data.*
 import com.example.gitdroid.data.room.ProjectDatabase
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
-import com.example.gitdroid.domain.*
+import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
+import com.example.gitdroid.domain.projects.ProjectsInteractor
+import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

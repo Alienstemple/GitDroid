@@ -1,8 +1,8 @@
-package com.example.gitdroid.presentation.vm
+package com.example.gitdroid.presentation.vm.projects
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.gitdroid.domain.ProjectsInteractor
+import com.example.gitdroid.domain.projects.ProjectsInteractor
 import javax.inject.Inject
 
 class ProjectsViewModelFactory @Inject constructor(private val projectsInteractor: ProjectsInteractor) :

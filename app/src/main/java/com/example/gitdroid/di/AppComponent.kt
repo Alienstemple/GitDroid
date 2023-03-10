@@ -4,9 +4,9 @@ import android.content.Context
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.fragments.CodeSearchFragment
 import com.example.gitdroid.presentation.fragments.ProjectsFragment
-import com.example.gitdroid.presentation.vm.AuthViewModelFactory
-import com.example.gitdroid.presentation.vm.ProjectsViewModelFactory
-import com.example.gitdroid.presentation.vm.SearchResultViewModelFactory
+import com.example.gitdroid.presentation.vm.auth.AuthViewModelFactory
+import com.example.gitdroid.presentation.vm.projects.ProjectsViewModelFactory
+import com.example.gitdroid.presentation.vm.search.SearchResultViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

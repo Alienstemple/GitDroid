@@ -1,12 +1,10 @@
 package com.example.gitdroid.presentation.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
@@ -17,8 +15,7 @@ import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
-import com.example.gitdroid.presentation.misc.navigation
-import com.example.gitdroid.presentation.vm.ProjectsViewModel
+import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

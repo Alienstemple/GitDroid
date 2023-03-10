@@ -1,11 +1,11 @@
-package com.example.gitdroid.presentation.vm
+package com.example.gitdroid.presentation.vm.auth
 
 import androidx.lifecycle.ViewModel
-import com.example.gitdroid.domain.ProjectsInteractor
+import com.example.gitdroid.domain.auth.AuthInteractor
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthViewModel(/* // TODO private val authInteractor: AuthInteractor*/): ViewModel() {
+class AuthViewModel(private val authInteractor: AuthInteractor): ViewModel() {
 
     fun checkAuthorized(): Boolean {
         // TODO в интерактор
@@ -18,4 +18,7 @@ class AuthViewModel(/* // TODO private val authInteractor: AuthInteractor*/): Vi
         // TODO в интерактор
     }
 
+    fun logout() {
+
+    }
 }

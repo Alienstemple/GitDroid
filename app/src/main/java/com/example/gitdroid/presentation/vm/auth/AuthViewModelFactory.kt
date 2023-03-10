@@ -1,8 +1,8 @@
-package com.example.gitdroid.presentation.vm
+package com.example.gitdroid.presentation.vm.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.gitdroid.domain.ProjectsInteractor
+import com.example.gitdroid.domain.projects.ProjectsInteractor
 import javax.inject.Inject
 
 class AuthViewModelFactory @Inject constructor(private val projectsInteractor: ProjectsInteractor) :

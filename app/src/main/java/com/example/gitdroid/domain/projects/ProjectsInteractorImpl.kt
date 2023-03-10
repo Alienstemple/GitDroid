@@ -1,8 +1,7 @@
-package com.example.gitdroid.domain
+package com.example.gitdroid.domain.projects
 
 import android.util.Log
 import com.example.gitdroid.data.room.ProjectsRoomRepository
-import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener

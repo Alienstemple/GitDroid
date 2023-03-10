@@ -1,12 +1,11 @@
-package com.example.gitdroid.presentation.vm
+package com.example.gitdroid.presentation.vm.search
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gitdroid.domain.GithubInteractor
-import com.example.gitdroid.models.domain.SearchResult
+import com.example.gitdroid.domain.search.GithubInteractor
 import com.example.gitdroid.models.domain.SearchResultItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

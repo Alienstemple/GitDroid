@@ -2,11 +2,10 @@ package com.example.gitdroid.di
 
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
-import com.example.gitdroid.data.ProjectsFirebaseRepositoryImpl
-import com.example.gitdroid.data.room.ProjectDatabase
-import com.example.gitdroid.data.room.ProjectsRoomRepository
-import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
-import com.example.gitdroid.domain.*
+import com.example.gitdroid.domain.auth.AuthInteractor
+import com.example.gitdroid.domain.auth.AuthInteractorImpl
+import com.example.gitdroid.domain.auth.AuthRepository
+import com.example.gitdroid.domain.auth.AuthRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

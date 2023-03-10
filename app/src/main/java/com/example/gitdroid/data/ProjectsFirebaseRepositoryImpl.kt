@@ -1,11 +1,9 @@
 package com.example.gitdroid.data
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.example.gitdroid.domain.ProjectsFirebaseRepository
+import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.example.gitdroid.presentation.vm.ProjectsViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase

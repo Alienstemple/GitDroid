@@ -9,14 +9,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.GitDroidApplication
-import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.ActivityAuthBinding
-import com.example.gitdroid.databinding.ActivityMainBinding
-import com.example.gitdroid.domain.AuthRepositoryImpl
-import com.example.gitdroid.presentation.vm.AuthViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.gitdroid.domain.auth.AuthRepositoryImpl
+import com.example.gitdroid.presentation.vm.auth.AuthViewModel
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
@@ -49,9 +44,10 @@ class AuthActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         Log.d(TAG, "onNewIntent() called with: intent = $intent")
         if (intent?.extras?.getBoolean("LOGOUT") == true) {
-            FirebaseAuth.getInstance().signOut()  // TODO вынести отсюда!!!
-            SessionManager(this).removeAuthToken()
-            Log.d(MainActivity.TAG, "Logout success")
+            authViewModel.logout()
+//            FirebaseAuth.getInstance().signOut()  // TODO вынести отсюда!!!
+//            SessionManager(this).removeAuthToken()
+//            Log.d(MainActivity.TAG, "Logout success")
         }
     }
 

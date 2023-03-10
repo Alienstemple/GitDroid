@@ -1,7 +1,6 @@
 package com.example.gitdroid.presentation.fragments
 
 import android.app.Dialog
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +11,10 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
-import com.example.gitdroid.data.GithubApiService
-import com.example.gitdroid.data.NetworkRepositoryImpl
-import com.example.gitdroid.data.NetworkService
-import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.FragmentCodeSearchBinding
 import com.example.gitdroid.databinding.ProjectsDialogBoxBinding
-import com.example.gitdroid.domain.GithubInteractorImpl
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.MainActivity
@@ -29,9 +22,8 @@ import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
-import com.example.gitdroid.presentation.vm.SearchResultViewModel
-import com.example.gitdroid.presentation.vm.SearchResultViewModelFactory
-import com.example.gitdroid.presentation.vm.ProjectsViewModel
+import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
+import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
 

@@ -1,7 +1,7 @@
 package com.example.gitdroid.data
 
 import android.util.Log
-import com.example.gitdroid.domain.NetworkRepository
+import com.example.gitdroid.domain.search.NetworkRepository
 import com.example.gitdroid.models.domain.SearchResult
 
 class NetworkRepositoryImpl(private val networkService: NetworkService): NetworkRepository {

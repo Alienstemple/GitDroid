@@ -1,4 +1,4 @@
-package com.example.gitdroid.domain
+package com.example.gitdroid.domain.search
 
 import com.example.gitdroid.models.domain.SearchResult
 

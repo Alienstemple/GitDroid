@@ -1,4 +1,4 @@
-package com.example.gitdroid.domain
+package com.example.gitdroid.domain.projects
 
 import androidx.lifecycle.MutableLiveData
 import com.example.gitdroid.models.domain.Project

@@ -1,4 +1,4 @@
-package com.example.gitdroid.domain
+package com.example.gitdroid.domain.projects
 
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
