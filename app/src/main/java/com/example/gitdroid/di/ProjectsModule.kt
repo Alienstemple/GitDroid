@@ -1,19 +1,18 @@
 package com.example.gitdroid.di
 
 import android.content.Context
-import com.example.gitdroid.data.ProjectsFirebaseRepositoryImpl
+import com.example.gitdroid.data.*
 import com.example.gitdroid.data.room.ProjectDatabase
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
-import com.example.gitdroid.domain.ProjectsFirebaseRepository
-import com.example.gitdroid.domain.ProjectsInteractor
-import com.example.gitdroid.domain.ProjectsInteractorImpl
+import com.example.gitdroid.domain.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class GeneralModule {
+class ProjectsModule {
+
     @Provides
     @Singleton
     fun providesProjectInteractor(

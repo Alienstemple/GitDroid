@@ -11,11 +11,10 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.gitdroid.GitDroidApplication
-import com.example.gitdroid.R
 import com.example.gitdroid.data.GithubApiService
 import com.example.gitdroid.data.NetworkRepositoryImpl
 import com.example.gitdroid.data.NetworkService
@@ -30,9 +29,8 @@ import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
-import com.example.gitdroid.presentation.misc.navigation
 import com.example.gitdroid.presentation.vm.SearchResultViewModel
-import com.example.gitdroid.presentation.vm.GithubViewModelFactory
+import com.example.gitdroid.presentation.vm.SearchResultViewModelFactory
 import com.example.gitdroid.presentation.vm.ProjectsViewModel
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
@@ -40,12 +38,10 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     private lateinit var binding: FragmentCodeSearchBinding
     private lateinit var dialogBinding: ProjectsDialogBoxBinding
 
-    private lateinit var searchResultViewModel: SearchResultViewModel
+    private val searchResultViewModel: SearchResultViewModel by viewModels {
+        (activity?.application as GitDroidApplication).appComponent.searchResultViewModelFactory()
+    }
     private lateinit var searchResultAdapter: SearchResultAdapter
-
-    private lateinit var networkService: NetworkService
-    private lateinit var networkRepository: NetworkRepositoryImpl
-    private lateinit var githubInteractor: GithubInteractorImpl
 
     private val projectSharedViewModel: ProjectsViewModel by activityViewModels {
         (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
@@ -60,18 +56,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         binding = FragmentCodeSearchBinding.inflate(layoutInflater)
         dialogBinding = ProjectsDialogBoxBinding.inflate(layoutInflater)
         return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        networkService = NetworkService(GithubApiService.getInstance(), SessionManager(context))
-        networkRepository = NetworkRepositoryImpl(networkService)
-        githubInteractor = GithubInteractorImpl(networkRepository)
-        searchResultViewModel =
-            ViewModelProvider(this,
-                GithubViewModelFactory(githubInteractor))[SearchResultViewModel::class.java]
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
