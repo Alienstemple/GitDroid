@@ -1,31 +1,16 @@
 package com.example.gitdroid.data.room
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.gitdroid.models.domain.Project
 import kotlinx.coroutines.flow.Flow
 
-class ProjectsRoomRepository(private val projectDao: ProjectDao) {
+interface ProjectsRoomRepository {
+    fun getAllProjects(): Flow<List<Project>>
 
-    fun getAllProjects(): Flow<List<Project>> = projectDao.getAllProjects()
+    fun getProjectById(id: String): Project
 
-    fun getProjectById(id: String): Project = projectDao.getProjectById(id)
+    suspend fun addProject(project: Project)
 
-    suspend fun addProject(project: Project) {
-        projectDao.addProject(project)
-        Log.d(TAG, "Sucessf added to Room: $project")
-    }
+    suspend fun addAllProjects(projects: List<Project>)
 
-    suspend fun addAllProjects(projects: List<Project>) {
-        projectDao.addAllProjects(projects)
-    }
-
-    suspend fun deleteAll() {
-        projectDao.deleteAll()
-    }
-
-    companion object {
-        const val TAG = "ProjRoomRepoLog"
-    }
+    suspend fun deleteAll()
 }
-

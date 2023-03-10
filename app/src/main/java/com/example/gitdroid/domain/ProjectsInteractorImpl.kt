@@ -1,15 +1,16 @@
 package com.example.gitdroid.domain
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.example.gitdroid.data.room.ProjectsRoomRepository
+import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.Flow
 
 class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFirebaseRepository,
-                             private val projectsRoomRepository: ProjectsRoomRepository): ProjectsInteractor {
+                             private val projectsRoomRepository: ProjectsRoomRepository
+): ProjectsInteractor {
 
     override fun addListener(listener: ValueEventListener) {
         projectsFirebaseRepository.addListener(listener)
