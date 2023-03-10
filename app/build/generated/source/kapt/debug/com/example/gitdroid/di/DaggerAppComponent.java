@@ -5,13 +5,16 @@ import android.content.Context;
 import com.example.gitdroid.data.NetworkService;
 import com.example.gitdroid.data.SessionManager;
 import com.example.gitdroid.data.room.ProjectsRoomRepository;
-import com.example.gitdroid.domain.search.GithubInteractor;
-import com.example.gitdroid.domain.search.NetworkRepository;
+import com.example.gitdroid.domain.auth.AuthInteractor;
+import com.example.gitdroid.domain.auth.AuthRepository;
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository;
 import com.example.gitdroid.domain.projects.ProjectsInteractor;
+import com.example.gitdroid.domain.search.GithubInteractor;
+import com.example.gitdroid.domain.search.NetworkRepository;
 import com.example.gitdroid.presentation.MainActivity;
 import com.example.gitdroid.presentation.fragments.CodeSearchFragment;
 import com.example.gitdroid.presentation.fragments.ProjectsFragment;
+import com.example.gitdroid.presentation.vm.auth.AuthViewModelFactory;
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModelFactory;
 import com.example.gitdroid.presentation.vm.search.SearchResultViewModelFactory;
 import dagger.internal.DaggerGenerated;
@@ -37,16 +40,20 @@ public final class DaggerAppComponent {
     @Override
     public AppComponent create(Context context) {
       Preconditions.checkNotNull(context);
-      return new AppComponentImpl(new ProjectsModule(), new SearchResultModule(), context);
+      return new AppComponentImpl(new ProjectsModule(), new SearchResultModule(), new AuthModule(), context);
     }
   }
 
   private static final class AppComponentImpl implements AppComponent {
     private final AppComponentImpl appComponentImpl = this;
 
-    private Provider<ProjectsFirebaseRepository> providesProjectsFirebaseRepositoryProvider;
-
     private Provider<Context> contextProvider;
+
+    private Provider<AuthRepository> providesAuthRepositoryProvider;
+
+    private Provider<AuthInteractor> providesAuthInteractorProvider;
+
+    private Provider<ProjectsFirebaseRepository> providesProjectsFirebaseRepositoryProvider;
 
     private Provider<ProjectsRoomRepository> providesProjectsRoomRepositoryProvider;
 
@@ -61,23 +68,32 @@ public final class DaggerAppComponent {
     private Provider<GithubInteractor> providesGithubInteractorProvider;
 
     private AppComponentImpl(ProjectsModule projectsModuleParam,
-        SearchResultModule searchResultModuleParam, Context contextParam) {
+        SearchResultModule searchResultModuleParam, AuthModule authModuleParam,
+        Context contextParam) {
 
-      initialize(projectsModuleParam, searchResultModuleParam, contextParam);
+      initialize(projectsModuleParam, searchResultModuleParam, authModuleParam, contextParam);
 
     }
 
     @SuppressWarnings("unchecked")
     private void initialize(final ProjectsModule projectsModuleParam,
-        final SearchResultModule searchResultModuleParam, final Context contextParam) {
-      this.providesProjectsFirebaseRepositoryProvider = DoubleCheck.provider(ProjectsModule_ProvidesProjectsFirebaseRepositoryFactory.create(projectsModuleParam));
+        final SearchResultModule searchResultModuleParam, final AuthModule authModuleParam,
+        final Context contextParam) {
       this.contextProvider = InstanceFactory.create(contextParam);
+      this.providesAuthRepositoryProvider = DoubleCheck.provider(AuthModule_ProvidesAuthRepositoryFactory.create(authModuleParam, contextProvider));
+      this.providesAuthInteractorProvider = DoubleCheck.provider(AuthModule_ProvidesAuthInteractorFactory.create(authModuleParam, providesAuthRepositoryProvider));
+      this.providesProjectsFirebaseRepositoryProvider = DoubleCheck.provider(ProjectsModule_ProvidesProjectsFirebaseRepositoryFactory.create(projectsModuleParam));
       this.providesProjectsRoomRepositoryProvider = DoubleCheck.provider(ProjectsModule_ProvidesProjectsRoomRepositoryFactory.create(projectsModuleParam, contextProvider));
       this.providesProjectInteractorProvider = DoubleCheck.provider(ProjectsModule_ProvidesProjectInteractorFactory.create(projectsModuleParam, providesProjectsFirebaseRepositoryProvider, providesProjectsRoomRepositoryProvider));
       this.providesSessionManagerProvider = DoubleCheck.provider(SearchResultModule_ProvidesSessionManagerFactory.create(searchResultModuleParam, contextProvider));
       this.providesNetworkServiceProvider = DoubleCheck.provider(SearchResultModule_ProvidesNetworkServiceFactory.create(searchResultModuleParam, providesSessionManagerProvider));
       this.providesNetworkRepositoryProvider = DoubleCheck.provider(SearchResultModule_ProvidesNetworkRepositoryFactory.create(searchResultModuleParam, providesNetworkServiceProvider));
       this.providesGithubInteractorProvider = DoubleCheck.provider(SearchResultModule_ProvidesGithubInteractorFactory.create(searchResultModuleParam, providesNetworkRepositoryProvider));
+    }
+
+    @Override
+    public AuthViewModelFactory authViewModelFactory() {
+      return new AuthViewModelFactory(providesAuthInteractorProvider.get());
     }
 
     @Override

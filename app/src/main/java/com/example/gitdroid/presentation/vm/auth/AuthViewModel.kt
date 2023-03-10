@@ -15,7 +15,16 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> = _authState
 
-    fun checkAuthorized(): Boolean = authInteractor.checkAuthorized() // TODO replace with LiveData listener
+    init {
+        _authState.postValue(
+            when(checkAuthorized()) {
+                true -> {AuthState.AUTHORIZED}
+                false -> {AuthState.UNAUTHORIZED}
+            }
+        )
+    }
+
+    private fun checkAuthorized(): Boolean = authInteractor.checkAuthorized()
 
     fun signInWithGithubProvider(email: String) {
         authInteractor.signInWithGithubProvider(email)

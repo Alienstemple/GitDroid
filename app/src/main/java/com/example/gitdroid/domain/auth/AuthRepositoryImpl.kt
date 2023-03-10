@@ -1,5 +1,6 @@
 package com.example.gitdroid.domain.auth
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -16,7 +17,6 @@ class AuthRepositoryImpl(
     private val context: Context,
 ) : AuthRepository {
     private lateinit var firebaseUser: FirebaseUser
-    private lateinit var fragmentActivity: FragmentActivity
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val provider = OAuthProvider.newBuilder(PROVIDER_ID)
 
@@ -60,7 +60,7 @@ class AuthRepositoryImpl(
                 }
         } else {
 
-            auth.startActivityForSignInWithProvider( /* activity= */fragmentActivity,
+            auth.startActivityForSignInWithProvider( /* activity= */context as Activity,
                 provider.build())
                 .addOnSuccessListener {
                     // User is signed in.

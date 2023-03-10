@@ -22,11 +22,6 @@ class AuthActivity : AppCompatActivity() {
         (application as GitDroidApplication).appComponent.authViewModelFactory()
     }
 
-    fun AuthRepositoryImpl.initFragmentActivity() = {
-
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate() called with: savedInstanceState = $savedInstanceState")

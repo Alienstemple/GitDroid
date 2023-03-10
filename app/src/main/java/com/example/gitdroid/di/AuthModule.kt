@@ -23,9 +23,8 @@ class AuthModule {
     @Provides
     @Singleton
     fun providesAuthRepository(
-        context: Context,
-        fragmentActivity: FragmentActivity
+        context: Context
     ): AuthRepository {
-        return AuthRepositoryImpl(context, fragmentActivity)
+        return AuthRepositoryImpl(context)
     }
 }
