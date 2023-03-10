@@ -55,6 +55,7 @@ class AuthRepositoryImpl(
                 }
         } else {
 
+
             auth.startActivityForSignInWithProvider( /* activity= */fragmentActivity,
                 provider.build())
                 .addOnSuccessListener {
