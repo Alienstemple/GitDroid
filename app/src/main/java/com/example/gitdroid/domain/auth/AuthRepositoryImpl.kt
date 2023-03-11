@@ -60,7 +60,7 @@ class AuthRepositoryImpl(
                 }
         } else {
 
-            auth.startActivityForSignInWithProvider( /* activity= */context as Activity,
+            auth.startActivityForSignInWithProvider( /* activity= */context as Activity,  // FIXME can't cast App context to Activity
                 provider.build())
                 .addOnSuccessListener {
                     // User is signed in.
