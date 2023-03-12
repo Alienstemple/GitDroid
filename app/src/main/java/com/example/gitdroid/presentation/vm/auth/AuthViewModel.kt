@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthInteractor
 
 class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
@@ -22,10 +23,15 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
         )
     }
 
-    private fun checkAuthorized(): Boolean = authInteractor.checkAuthorized()
+    private fun checkAuthorized(): Boolean {
+        Log.d(TAG, "Checking authorized")
+        return authInteractor.checkAuthorized()
+    }
 
-    fun signInWithGithubProvider(email: String) {
-        authInteractor.signInWithGithubProvider(email)
+    fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
+        Log.d(TAG,
+            "signInWithGithubProvider() called with: email = $email")
+        authInteractor.signInWithGithubProvider(email, authCallbackInstance)
         Log.d(TAG, "Sign In successfully, ${AuthState.AUTHORIZED}")
         _authState.value = AuthState.AUTHORIZED
     }

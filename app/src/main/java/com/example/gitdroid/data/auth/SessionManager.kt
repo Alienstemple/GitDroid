@@ -1,4 +1,4 @@
-package com.example.gitdroid.data
+package com.example.gitdroid.data.auth
 
 import android.content.Context
 import android.content.SharedPreferences

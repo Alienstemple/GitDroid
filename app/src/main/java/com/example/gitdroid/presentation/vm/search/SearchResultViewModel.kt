@@ -21,7 +21,7 @@ class SearchResultViewModel (private val githubInteractor: GithubInteractor) : V
         viewModelScope.launch(Dispatchers.IO) {
             Log.d(TAG, Thread.currentThread().toString())
             val searchResult = githubInteractor.getCodeSearch(searchQuery)
-            _searchResultItems.postValue(searchResult.items)
+            _searchResultItems.postValue(searchResult.searchResultItems)
         }
     }
 

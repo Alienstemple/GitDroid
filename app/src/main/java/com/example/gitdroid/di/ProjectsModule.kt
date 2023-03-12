@@ -1,7 +1,7 @@
 package com.example.gitdroid.di
 
 import android.content.Context
-import com.example.gitdroid.data.*
+import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
 import com.example.gitdroid.data.room.ProjectDatabase
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl

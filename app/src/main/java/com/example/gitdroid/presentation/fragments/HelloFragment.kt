@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.gitdroid.data.SessionManager
+import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.databinding.FragmentHelloBinding
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.misc.navigation

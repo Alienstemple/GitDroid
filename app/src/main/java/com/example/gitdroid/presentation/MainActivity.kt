@@ -4,18 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gitdroid.R
-import com.example.gitdroid.data.SessionManager
 import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.presentation.fragments.*
 import com.example.gitdroid.presentation.misc.Navigation
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity(), Navigation {

@@ -2,9 +2,9 @@
 package com.example.gitdroid.di;
 
 import android.content.Context;
-import com.example.gitdroid.data.NetworkService;
-import com.example.gitdroid.data.SessionManager;
+import com.example.gitdroid.data.auth.SessionManager;
 import com.example.gitdroid.data.room.ProjectsRoomRepository;
+import com.example.gitdroid.data.search.NetworkService;
 import com.example.gitdroid.domain.auth.AuthInteractor;
 import com.example.gitdroid.domain.auth.AuthRepository;
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository;

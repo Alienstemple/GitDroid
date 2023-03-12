@@ -9,8 +9,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.ActivityAuthBinding
+import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.presentation.vm.auth.AuthState
 import com.example.gitdroid.presentation.vm.auth.AuthViewModel
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthProvider
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
@@ -60,7 +65,15 @@ class AuthActivity : AppCompatActivity() {
                 Toast.makeText(this, "Enter your github id", Toast.LENGTH_LONG)
                     .show()
             } else {
-                authViewModel.signInWithGithubProvider(email)
+                Log.d(TAG, "Before calling VM for authorize")
+                authViewModel.signInWithGithubProvider(email, object : AuthCallback {
+                    override fun onRegister(a: FirebaseAuth, p: OAuthProvider): AuthResult {
+                        Log.d(TAG, "In onRegister callback")
+
+                        return Tasks.await(
+                            a.startActivityForSignInWithProvider(this@AuthActivity, p))
+                    }
+                })
             }
         }
     }

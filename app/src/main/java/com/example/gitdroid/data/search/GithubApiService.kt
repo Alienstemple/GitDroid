@@ -1,6 +1,5 @@
-package com.example.gitdroid.data
+package com.example.gitdroid.data.search
 
-import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.SearchResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,7 +8,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 

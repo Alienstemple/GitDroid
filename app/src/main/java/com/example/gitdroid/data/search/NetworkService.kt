@@ -1,6 +1,7 @@
-package com.example.gitdroid.data
+package com.example.gitdroid.data.search
 
 import android.util.Log
+import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.models.domain.SearchResult
 
 class NetworkService(private val githubApiService: GithubApiService, private val sessionManager: SessionManager) {
