@@ -16,22 +16,36 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> = _authState
 
-    init {
+//    init {
+//        Log.d(TAG, "Init AuthVMState")
+//        _authState.postValue(
+//            when (checkAuthorized()) {
+//                true -> {
+//                    Log.d(TAG, "Init AuthVMState, setting up to AUTHORIZED")
+//                    AuthState.AUTHORIZED
+//                }
+//                false -> {
+//                    Log.d(TAG, "Init AuthVMState, setting up to UNAUTHORIZED")
+//                    AuthState.UNAUTHORIZED
+//                }
+//            }
+//        )
+//    }
+
+    fun checkAuthorized() {
+        Log.d(TAG, "Checking authorized")
         _authState.postValue(
-            when (checkAuthorized()) {
+            when (authInteractor.checkAuthorized()) {
                 true -> {
+                    Log.d(TAG, "Init AuthVMState, setting up to AUTHORIZED")
                     AuthState.AUTHORIZED
                 }
                 false -> {
+                    Log.d(TAG, "Init AuthVMState, setting up to UNAUTHORIZED")
                     AuthState.UNAUTHORIZED
                 }
             }
         )
-    }
-
-    private fun checkAuthorized(): Boolean {
-        Log.d(TAG, "Checking authorized")
-        return authInteractor.checkAuthorized()
     }
 
     fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {

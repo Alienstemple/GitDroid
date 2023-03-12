@@ -36,22 +36,28 @@ class AuthActivity : AppCompatActivity() {
             Log.d(TAG, "Before calling VM logout")
             authViewModel.logout()
         }
-
+        Log.d(TAG, "Before setting up observer vm state is: ${authViewModel.authState.value}")
         setupObserver()
     }
 
     private fun setupObserver() {
+        Log.d(TAG, "In setup observer")
+        authViewModel.checkAuthorized()
         authViewModel.authState.observe(this) { authState ->
             when (authState) {
                 AuthState.AUTHORIZED -> {
                     Log.d(TAG, "State is authorized. Before starting MainActivity")
+                    Log.d(TAG, "Here vm state is: ${authViewModel.authState.value}")
                     // Go to hello screen
                     intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    return@observe
                 }
                 AuthState.UNAUTHORIZED -> {
                     Log.d(TAG, "State is UNauthorized. Before settingAuthClickListener")
+                    Log.d(TAG, "Here vm state is: ${authViewModel.authState.value}")
                     setOnClickAuth()
+                    return@observe
                 }
             }
         }
@@ -66,6 +72,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setOnClickAuth() {
+        Log.d(TAG, "Setting onClickAuth")
         binding.authBtn.setOnClickListener {
             val email = binding.enterEmailEditText.text.toString()
             if (TextUtils.isEmpty(email)) {
