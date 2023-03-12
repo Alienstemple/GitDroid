@@ -28,7 +28,7 @@ class AuthRepositoryImpl(
         Log.d(MainActivity.TAG, "Logout success")
     }
 
-    override fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
+    override suspend fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
         Log.d(TAG,
             "signInWithGithubProvider() called with: email = $email")
         provider.addCustomParameter("login", email)

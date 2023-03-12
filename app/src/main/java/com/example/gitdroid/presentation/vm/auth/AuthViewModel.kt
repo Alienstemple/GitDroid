@@ -4,8 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthInteractor
+import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
 
@@ -14,11 +18,13 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
 
     init {
         _authState.postValue(
-            when(checkAuthorized()) {
+            when (checkAuthorized()) {
                 true -> {
-                    AuthState.AUTHORIZED}
+                    AuthState.AUTHORIZED
+                }
                 false -> {
-                    AuthState.UNAUTHORIZED}
+                    AuthState.UNAUTHORIZED
+                }
             }
         )
     }
@@ -31,9 +37,11 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
         Log.d(TAG,
             "signInWithGithubProvider() called with: email = $email")
-        authInteractor.signInWithGithubProvider(email, authCallbackInstance)
-        Log.d(TAG, "Sign In successfully, ${AuthState.AUTHORIZED}")
-        _authState.value = AuthState.AUTHORIZED
+        viewModelScope.launch(Dispatchers.IO) {
+            authInteractor.signInWithGithubProvider(email, authCallbackInstance)
+            Log.d(TAG, "Sign In successfully, ${AuthState.AUTHORIZED}")
+            _authState.postValue(AuthState.AUTHORIZED)
+        }
     }
 
     fun logout() {
