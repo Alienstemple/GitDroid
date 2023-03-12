@@ -25,7 +25,7 @@ class AuthRepositoryImpl(
     override fun logout() {
         auth.signOut()
         SessionManager(context).removeAuthToken()
-        Log.d(MainActivity.TAG, "Logout success")
+        Log.d(TAG, "Logout success")
     }
 
     override suspend fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
