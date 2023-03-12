@@ -35,11 +35,7 @@ class HelloFragment : Fragment() {
         }
 
         binding.logoutBtn.setOnClickListener {
-            // TODO вынести!!!
-            FirebaseAuth.getInstance().signOut()
-            SessionManager(requireContext()).removeAuthToken()
-            Log.d(MainActivity.TAG, "Logout success")
-//            navigation().openAuth()
+            navigation().logout()
         }
     }
 

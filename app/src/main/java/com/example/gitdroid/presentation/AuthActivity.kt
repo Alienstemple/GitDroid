@@ -30,6 +30,13 @@ class AuthActivity : AppCompatActivity() {
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val authBool = intent?.extras?.getBoolean("LOGOUT")
+        Log.d(TAG, "Auth Bool from intent is: $authBool")
+        if (authBool == true) {
+            Log.d(TAG, "Before calling VM logout")
+            authViewModel.logout()
+        }
+
         setupObserver()
     }
 
