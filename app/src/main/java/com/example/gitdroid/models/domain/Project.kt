@@ -11,10 +11,10 @@ data class Project(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: String = "",
+    var projectId: String = "",
     @NonNull
     @ColumnInfo(name = "name")
-    var name: String = "",
+    var projectName: String = "",
 //    val searchResList: List<String> = emptyList()  // TODO search results
     @Ignore
     var searchResList: List<SearchResultItem> = emptyList()  // TODO как хранить search res в бд?

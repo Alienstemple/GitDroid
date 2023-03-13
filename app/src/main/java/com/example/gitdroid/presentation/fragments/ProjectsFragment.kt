@@ -84,13 +84,13 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     }
 
     override fun onItemClicked(project: Project) {
-        Log.d(MainActivity.TAG, "On item clicked: ${project.name}")
+        Log.d(MainActivity.TAG, "On item clicked: ${project.projectName}")
         // TODO открыть выпадающий список
     }
 
     override fun onDeleteClicked(project: Project) {
         Log.d(TAG, "onDeleteClicked() called with: project = $project")
-        projectsSharedViewModel.deleteProject(project.id)
+        projectsSharedViewModel.deleteProject(project.projectId)
     }
 
     companion object {

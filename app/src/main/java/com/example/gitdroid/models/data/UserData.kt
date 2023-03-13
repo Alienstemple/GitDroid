@@ -1,6 +1,8 @@
 package com.example.gitdroid.models.data
 
+import com.google.gson.annotations.SerializedName
+
 data class UserData(
-    val login: String,
-    val id: Int
+    @SerializedName("login") val login: String = "",
+    @SerializedName("id") val id: Int = 0
 )

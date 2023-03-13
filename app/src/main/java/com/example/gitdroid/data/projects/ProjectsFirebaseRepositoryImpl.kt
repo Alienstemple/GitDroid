@@ -28,7 +28,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             Log.d(TAG, "In addProject in repo")
 
             val projectId = databaseReference.push().key.toString()
-            project.id = projectId
+            project.projectId = projectId
             Log.d(TAG, "ProjectId = $projectId")
             Log.d(TAG, "Project = $project")
 
@@ -46,7 +46,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
     override suspend fun updateProject(project: Project, searchResultItem: SearchResultItem) {
         Log.d(TAG, "updateProject() called with: project = $project")
 
-        databaseReference.child(project.id).child("searchResList")
+        databaseReference.child(project.projectId).child("searchResList")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val searchResList = mutableListOf<SearchResultItem>()
@@ -58,7 +58,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
                     searchResList.add(searchResultItem)  // Adding new item to retreived list
                     Log.d(TAG, "New search res list: $searchResList")
 
-                    databaseReference.child(project.id).child("searchResList")
+                    databaseReference.child(project.projectId).child("searchResList")
                         .setValue(searchResList)
                         .addOnSuccessListener {
                             Log.d(TAG, "Search res list updated successfully")

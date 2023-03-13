@@ -41,8 +41,8 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
 
         fun bind(projectItem: Project, clickListener: ProjectItemClickListener) =
             with(projectItemBinding) {
-                Log.d(TAG, "bind() called ${projectItem.name}")
-                projectNameTv.text = projectItem.name
+                Log.d(TAG, "bind() called ${projectItem.projectName}")
+                projectNameTv.text = projectItem.projectName
 
                 itemView.setOnClickListener {
                     clickListener.onItemClicked(projectItem)

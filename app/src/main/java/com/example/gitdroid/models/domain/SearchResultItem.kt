@@ -1,9 +1,9 @@
 package com.example.gitdroid.models.domain
 
 data class SearchResultItem (
-    val name: String = "",  // имя файла
-    val path: String = "",  // путь к файлу
-    val html_url: String = "",
-    val repository: GHRepository = GHRepository(),
-    val score: Float = 0.0F  // оценка результата поиска
+    val fileName: String = "",  // имя файла
+    val filePath: String = "",  // путь к файлу
+    val htmlFileUrl: String = "",
+    val ghRepository: GHRepository = GHRepository(),
+    val searchResScore: Float = 0.0F  // оценка результата поиска
 )

@@ -1,6 +1,6 @@
 package com.example.gitdroid.models.domain
 
 data class User(
-    val login: String = "",
-    val id: Int = 0
+    val GhLogin: String = "",
+    val userId: Int = 0
 )

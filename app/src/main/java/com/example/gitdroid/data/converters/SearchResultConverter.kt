@@ -6,17 +6,13 @@ import com.example.gitdroid.models.domain.SearchResultItem
 
 class SearchResultConverter {
 
-//    fun convert(searchResultData: SearchResultData): SearchResult {
-//                return SearchResult (
-//                    totalResultCount = "",
-//                    incompleteResults = false,
-//                    searchResultItems = null  // Converter
-//                        )
-//    }
-//
-//    data class SearchResult(
-//        val totalResultCount: Long,
-//        val incompleteResults: Boolean,
-//        val searchResultItems: List<SearchResultItem>
-//    )
+    fun convert(searchResultData: SearchResultData): SearchResult {
+        return SearchResult(
+            totalResultCount = searchResultData.totalCount,
+            incompleteResults = searchResultData.incompleteResults,
+            searchResultItems = searchResultData.items.map {
+                SearchResultItemConverter().convert(it)
+            }
+        )
+    }
 }
