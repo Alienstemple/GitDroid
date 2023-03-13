@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
@@ -24,11 +27,8 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private lateinit var binding: FragmentProjectsBinding
 
-    private val projectsSharedViewModel: ProjectsViewModel by activityViewModels {
-        val vm = (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
-        Log.d(TAG ,"In projects frag ProjVM is $vm")
-        return@activityViewModels vm
-    }
+    private val projectsSharedViewModel: ProjectsViewModel by viewModels({ activity as ViewModelStoreOwner },
+        { (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory() })
 
     private lateinit var projectsAdapter: ProjectsAdapter
 

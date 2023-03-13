@@ -31,7 +31,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
                 // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
                 projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
             }
-            _projectList.postValue(projects)   // Обновленные данные - в LiveData
+            _projectList.postValue(projects) // Обновленные данные - в LiveData
             viewModelScope.launch(IO) {
                 projectsInteractor.deleteAllProjects()
                 projectsInteractor.addAllProjects(projects)

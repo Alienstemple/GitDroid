@@ -11,6 +11,8 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.FragmentCodeSearchBinding
@@ -35,11 +37,8 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     }
     private lateinit var searchResultAdapter: SearchResultAdapter
 
-    private val projectSharedViewModel: ProjectsViewModel by activityViewModels {
-        val vm = (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
-        Log.d(TAG,"In code search frag ProjVM is $vm")
-        return@activityViewModels vm
-    }
+    private val projectSharedViewModel: ProjectsViewModel by viewModels({ activity as ViewModelStoreOwner },
+        { (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory() })
 
     private lateinit var selectedSearchResult: SearchResultItem
 
