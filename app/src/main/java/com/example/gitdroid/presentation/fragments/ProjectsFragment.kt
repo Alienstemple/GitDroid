@@ -74,15 +74,6 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.projectsRecycler.adapter = projectsAdapter
 
-        if (projectsAdapter.itemCount == 0) {
-            Log.d(TAG, "Error in Firebase. Loading from local DB (collect flow).")
-            lifecycle.coroutineScope.launch {
-                projectsSharedViewModel.allProjects().collect {
-                    projectsAdapter.setList(it)
-                }
-            }
-        }
-
     }
 
     override fun onItemClicked(project: Project) {

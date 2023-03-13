@@ -6,7 +6,9 @@ import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 class ProjectsInteractorImpl(
     private val projectsFirebaseRepository: ProjectsFirebaseRepository,
@@ -15,6 +17,11 @@ class ProjectsInteractorImpl(
 
     override fun addListener(listener: ValueEventListener) {
         projectsFirebaseRepository.addListener(listener)
+    }
+
+    @ExperimentalCoroutinesApi
+    override suspend fun getAllProjects() = callbackFlow<List<Project>> {
+        projectsFirebaseRepository.getAllProjects()
     }
 
     override suspend fun addProject(projectName: String) {
@@ -27,12 +34,9 @@ class ProjectsInteractorImpl(
 
     override suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
 
-        val retreivedProject = projectsRoomRepository.getProjectById(projectId)
-        Log.d(TAG, "Retreived project = $retreivedProject")
-        Log.d(TAG, "Retreived project with new SearchResItem = $retreivedProject")
         // TODO convert Project to ProjectData
-        projectsFirebaseRepository.updateProject(retreivedProject,
-            SearchResultItemConverter().convert(searchResultItem))
+        projectsFirebaseRepository.updateProject(projectId,
+            searchResultItem)
     }
 
     override suspend fun deleteProject(projectId: String) {
@@ -48,11 +52,6 @@ class ProjectsInteractorImpl(
     override suspend fun addAllProjects(projects: List<Project>) {
         Log.d(TAG, "addAllProjects() called with: projects = $projects")
         projectsRoomRepository.addAllProjects(projects)
-    }
-
-    override fun getAllProjects(): Flow<List<Project>> {
-        Log.d(TAG, "getAllProjects() called")
-        return projectsRoomRepository.getAllProjects()
     }
 
     companion object {

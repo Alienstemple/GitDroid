@@ -6,6 +6,7 @@ import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 
 interface ProjectsInteractor {
     fun addListener(listener: ValueEventListener)
@@ -14,5 +15,5 @@ interface ProjectsInteractor {
     suspend fun deleteProject(projectId: String)
     suspend fun addAllProjects(projects: List<Project>)
     suspend fun deleteAllProjects()
-    fun getAllProjects(): Flow<List<Project>>
+    suspend fun getAllProjects(): Flow<List<Project>>
 }
