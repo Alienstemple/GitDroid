@@ -9,9 +9,9 @@ import com.google.firebase.auth.*
 
 class AuthRepositoryImpl(
     private val context: Context,
+    private val auth: FirebaseAuth,
+    private val provider: OAuthProvider.Builder
 ) : AuthRepository {
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val provider = OAuthProvider.newBuilder(PROVIDER_ID)
 
     override fun checkAuthorized(): Boolean {
         if (auth.currentUser != null)
@@ -46,6 +46,5 @@ class AuthRepositoryImpl(
 
     companion object {
         const val TAG = "AuthRepoLog"
-        const val PROVIDER_ID = "github.com"
     }
 }
