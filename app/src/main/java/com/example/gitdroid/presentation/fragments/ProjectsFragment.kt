@@ -25,7 +25,9 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     private lateinit var binding: FragmentProjectsBinding
 
     private val projectsSharedViewModel: ProjectsViewModel by activityViewModels {
-        (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+        val vm = (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+        Log.d(TAG ,"In projects frag ProjVM is $vm")
+        return@activityViewModels vm
     }
 
     private lateinit var projectsAdapter: ProjectsAdapter

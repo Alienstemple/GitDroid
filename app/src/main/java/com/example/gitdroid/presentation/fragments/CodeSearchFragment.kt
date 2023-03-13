@@ -36,7 +36,9 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     private lateinit var searchResultAdapter: SearchResultAdapter
 
     private val projectSharedViewModel: ProjectsViewModel by activityViewModels {
-        (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+        val vm = (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory()
+        Log.d(TAG,"In code search frag ProjVM is $vm")
+        return@activityViewModels vm
     }
 
     private lateinit var selectedSearchResult: SearchResultItem
