@@ -2,8 +2,8 @@ package com.example.gitdroid.data.projects
 
 import android.util.Log
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
+import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
-import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
@@ -43,16 +43,16 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             project
         }
 
-    override suspend fun updateProject(project: Project, searchResultItem: SearchResultItem) {
+    override suspend fun updateProject(project: Project, searchResultItem: SearchResultItemData) {
         Log.d(TAG, "updateProject() called with: project = $project")
 
         databaseReference.child(project.projectId).child("searchResList")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val searchResList = mutableListOf<SearchResultItem>()
+                    val searchResList = mutableListOf<SearchResultItemData>()
                     snapshot.children.map {
-                        searchResList.add(it.getValue(SearchResultItem::class.java)
-                            ?: SearchResultItem())
+                        searchResList.add(it.getValue(SearchResultItemData::class.java)
+                            ?: SearchResultItemData())
                     }
                     Log.d(TAG, "Old search res list: $searchResList")
                     searchResList.add(searchResultItem)  // Adding new item to retreived list

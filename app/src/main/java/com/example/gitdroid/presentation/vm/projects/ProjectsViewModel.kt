@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.projects.ProjectsInteractor
+import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +28,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
             val projects = mutableListOf<Project>()
             snapshot.children.map {
                 Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
+                // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
                 projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
             }
             _projectList.postValue(projects)   // Обновленные данные - в LiveData

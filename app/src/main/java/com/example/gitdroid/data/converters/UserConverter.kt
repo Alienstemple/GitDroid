@@ -6,8 +6,15 @@ import com.example.gitdroid.models.domain.User
 class UserConverter {
     fun convert(userData: UserData): User {
         return User(
-            GhLogin = userData.login,
+            ghLogin = userData.login,
             userId = userData.id
+        )
+    }
+
+    fun convert(user: User): UserData {
+        return UserData(
+            login = user.ghLogin,
+            id = user.userId
         )
     }
 }

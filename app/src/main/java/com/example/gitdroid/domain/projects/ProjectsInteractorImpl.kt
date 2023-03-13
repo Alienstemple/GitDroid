@@ -1,15 +1,17 @@
 package com.example.gitdroid.domain.projects
 
 import android.util.Log
+import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.data.room.ProjectsRoomRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.Flow
 
-class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFirebaseRepository,
-                             private val projectsRoomRepository: ProjectsRoomRepository
-): ProjectsInteractor {
+class ProjectsInteractorImpl(
+    private val projectsFirebaseRepository: ProjectsFirebaseRepository,
+    private val projectsRoomRepository: ProjectsRoomRepository,
+) : ProjectsInteractor {
 
     override fun addListener(listener: ValueEventListener) {
         projectsFirebaseRepository.addListener(listener)
@@ -28,7 +30,9 @@ class ProjectsInteractorImpl(private val projectsFirebaseRepository: ProjectsFir
         val retreivedProject = projectsRoomRepository.getProjectById(projectId)
         Log.d(TAG, "Retreived project = $retreivedProject")
         Log.d(TAG, "Retreived project with new SearchResItem = $retreivedProject")
-        projectsFirebaseRepository.updateProject(retreivedProject, searchResultItem)
+        // TODO convert Project to ProjectData
+        projectsFirebaseRepository.updateProject(retreivedProject,
+            SearchResultItemConverter().convert(searchResultItem))
     }
 
     override suspend fun deleteProject(projectId: String) {

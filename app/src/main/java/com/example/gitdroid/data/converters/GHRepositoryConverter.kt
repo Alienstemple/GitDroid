@@ -12,4 +12,13 @@ class GHRepositoryConverter {
             repoOwner = UserConverter().convert(ghRepositoryData.owner)
         )
     }
+
+    fun convert(ghRepository: GHRepository): GHRepositoryData {
+        return GHRepositoryData (
+            id = ghRepository.repoId,
+            name = ghRepository.repoName,
+            fullName = ghRepository.repoFullName,
+            owner = UserConverter().convert(ghRepository.repoOwner)
+        )
+    }
 }

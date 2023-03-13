@@ -5,5 +5,5 @@ data class SearchResultItem (
     val filePath: String = "",  // путь к файлу
     val htmlFileUrl: String = "",
     val ghRepository: GHRepository = GHRepository(),
-    val searchResScore: Float = 0.0F  // оценка результата поиска
+    val searchResScore: Float = 0.0F // оценка результата поиска
 )
