@@ -16,22 +16,6 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> = _authState
 
-//    init {
-//        Log.d(TAG, "Init AuthVMState")
-//        _authState.postValue(
-//            when (checkAuthorized()) {
-//                true -> {
-//                    Log.d(TAG, "Init AuthVMState, setting up to AUTHORIZED")
-//                    AuthState.AUTHORIZED
-//                }
-//                false -> {
-//                    Log.d(TAG, "Init AuthVMState, setting up to UNAUTHORIZED")
-//                    AuthState.UNAUTHORIZED
-//                }
-//            }
-//        )
-//    }
-
     fun checkAuthorized() {
         Log.d(TAG, "Checking authorized")
         _authState.postValue(

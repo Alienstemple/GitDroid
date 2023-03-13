@@ -51,13 +51,11 @@ class AuthActivity : AppCompatActivity() {
                     // Go to hello screen
                     intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    return@observe
                 }
                 AuthState.UNAUTHORIZED -> {
                     Log.d(TAG, "State is UNauthorized. Before settingAuthClickListener")
                     Log.d(TAG, "Here vm state is: ${authViewModel.authState.value}")
                     setOnClickAuth()
-                    return@observe
                 }
             }
         }
