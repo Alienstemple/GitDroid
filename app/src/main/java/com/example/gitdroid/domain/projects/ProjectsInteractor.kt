@@ -15,5 +15,5 @@ interface ProjectsInteractor {
     suspend fun deleteProject(projectId: String)
     suspend fun addAllProjects(projects: List<Project>)
     suspend fun deleteAllProjects()
-    suspend fun getAllProjects(): Flow<List<Project>>
+    fun getAllProjects(): Flow<List<Project>>
 }

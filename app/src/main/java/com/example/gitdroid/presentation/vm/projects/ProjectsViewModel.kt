@@ -22,34 +22,33 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
     private val _projectList = MutableLiveData<List<Project>>()
     val projectList: LiveData<List<Project>> = _projectList
 
-    private val listener = object : ValueEventListener {
-        override fun onDataChange(snapshot: DataSnapshot) {
-            Log.d(TAG, "Data changed!")
-            val projects = mutableListOf<Project>()
-            snapshot.children.map {
-                Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
-                // TODO Convert
-                // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
-                projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
-            }
-            _projectList.postValue(projects) // Обновленные данные - в LiveData
-            viewModelScope.launch(IO) {
-                projectsInteractor.deleteAllProjects()
-                projectsInteractor.addAllProjects(projects)
-            }
-
-        }
-
-        override fun onCancelled(error: DatabaseError) {
-            Log.d(TAG, "Database error: ${error.code} ${error.message}")
-        }
-    }
+//    private val listener = object : ValueEventListener {
+//        override fun onDataChange(snapshot: DataSnapshot) {
+//            Log.d(TAG, "Data changed!")
+//            val projects = mutableListOf<Project>()
+//            snapshot.children.map {
+//                Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
+//                // TODO Convert
+//                // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
+//                projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
+//            }
+//            _projectList.postValue(projects) // Обновленные данные - в LiveData
+//            viewModelScope.launch(IO) {
+//                projectsInteractor.deleteAllProjects()
+//                projectsInteractor.addAllProjects(projects)
+//            }
+//
+//        }
+//
+//        override fun onCancelled(error: DatabaseError) {
+//            Log.d(TAG, "Database error: ${error.code} ${error.message}")
+//        }
+//    }
 
 
     init {
         // При инициализации VM создаем listener и передаем в interactor - Firebase repo
         Log.d(TAG, "Init Projects VM: before adding listener")
-        projectsInteractor.addListener(listener)
         // Update ProjectList
 //        loadAllProjects()
     }

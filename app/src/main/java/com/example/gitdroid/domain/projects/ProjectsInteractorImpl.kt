@@ -20,9 +20,8 @@ class ProjectsInteractorImpl(
     }
 
     @ExperimentalCoroutinesApi
-    override suspend fun getAllProjects() = callbackFlow<List<Project>> {
+    override fun getAllProjects(): Flow<List<Project>> =
         projectsFirebaseRepository.getAllProjects()
-    }
 
     override suspend fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: projectName = $projectName")

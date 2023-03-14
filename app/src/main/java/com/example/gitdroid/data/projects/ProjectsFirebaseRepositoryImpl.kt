@@ -33,7 +33,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
     }
 
     @ExperimentalCoroutinesApi
-    override suspend fun getAllProjects() = callbackFlow<List<Project>> {
+    override fun getAllProjects() = callbackFlow<List<Project>> {
         Log.d(TAG, "getAllProjects() called")
         val projects = mutableListOf<Project>()
 
@@ -46,12 +46,12 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
                     projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
                 }
                 Log.d(TAG, "Projects from Firebase: $projects")
-                this@callbackFlow.trySendBlocking(projects)
+                trySendBlocking(projects)
             }
 
             override fun onCancelled(error: DatabaseError) {
                 Log.d(TAG, "Database error while updating project!")
-                this@callbackFlow.trySendBlocking(emptyList())
+                trySendBlocking(emptyList())
             }
         }
 
