@@ -2,7 +2,10 @@ package com.example.gitdroid.data.projects
 
 import android.util.Log
 import androidx.lifecycle.asLiveData
+import com.example.gitdroid.data.converters.ProjectConverter
+import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
+import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
@@ -19,33 +22,32 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOf
 
 
-class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
-    private val currentUserUid = Firebase.auth.currentUser!!.uid
+class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConverter,
+                                     private val searchResultItemConverter: SearchResultItemConverter) :
+    ProjectsFirebaseRepository {
+    private val currentUserUid = Firebase.auth.currentUser!!.uid  // TODO move to constructor
     private val databaseReference =
         FirebaseDatabase.getInstance().getReference("users").child(currentUserUid)
-
-    private var listener: ValueEventListener? = null
-
-    override fun addListener(valueEventListener: ValueEventListener) {
-        listener = valueEventListener
-        databaseReference.addValueEventListener(listener!!)
-        Log.d(TAG, "Listener added to firebase repo!")
-    }
 
     @ExperimentalCoroutinesApi
     override fun getAllProjects() = callbackFlow<List<Project>> {
         Log.d(TAG, "getAllProjects() called")
+        val projectDatas = mutableListOf<ProjectData>()
         val projects = mutableListOf<Project>()
 
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.map {
-                    Log.d(ProjectsViewModel.TAG, "Snapshot's child: ${it.value.toString()}")
-                    // TODO Convert
+                    Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
                     // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
-                    projects.add(it.getValue(Project::class.java) ?: Project("", "", emptyList()))  // TODO создание сделать норм
+                    projectDatas.add(it.getValue(ProjectData::class.java) ?: ProjectData("",
+                        "",
+                        emptyList()))
                 }
-                Log.d(TAG, "Projects from Firebase: $projects")
+                Log.d(TAG, "Projects from Firebase: $projectDatas")
+                projectDatas.map {
+                    projects.add(projectConverter.convert(it))
+                }
                 trySendBlocking(projects)
             }
 
@@ -55,15 +57,9 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             }
         }
 
-//        databaseReference.addListenerForSingleValueEvent (
-//            listener
-//        )
+        databaseReference.addValueEventListener(listener)
 
-        databaseReference.addValueEventListener (
-            listener
-        )
-
-        awaitClose {  // FIXME crashes
+        awaitClose {
             Log.d(TAG, "awaitClose() called")
             databaseReference
                 .removeEventListener(listener)
@@ -79,7 +75,7 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
             Log.d(TAG, "ProjectId = $projectId")
             Log.d(TAG, "Project = $project")
 
-            databaseReference.child(projectId).setValue(project)  // TODO convert to data
+            databaseReference.child(projectId).setValue(projectConverter.convert(project))
                 .addOnSuccessListener {
                     Log.d(TAG, "Project inserted successfully")
                 }
@@ -96,13 +92,13 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
         databaseReference.child(projectId).child("searchResList")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val searchResList = mutableListOf<SearchResultItem>()  // TODO ItemData
+                    val searchResList = mutableListOf<SearchResultItemData>()
                     snapshot.children.map {
-                        searchResList.add(it.getValue(SearchResultItem::class.java)
-                            ?: SearchResultItem())
+                        searchResList.add(it.getValue(SearchResultItemData::class.java)
+                            ?: SearchResultItemData())
                     }
                     Log.d(TAG, "Old search res list: $searchResList")
-                    searchResList.add(searchResultItem)  // Adding new item to retreived list
+                    searchResList.add(searchResultItemConverter.convert(searchResultItem))  // Adding new item to retreived list
                     Log.d(TAG, "New search res list: $searchResList")
 
                     databaseReference.child(projectId).child("searchResList")
@@ -113,15 +109,11 @@ class ProjectsFirebaseRepositoryImpl : ProjectsFirebaseRepository {
                         .addOnFailureListener {
                             Log.d(TAG, "Error while updating search res list")
                         }
-
-                   val a = flowOf("a")
-                    a.asLiveData()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.d(TAG, "Database error while updating project!")
                 }
-
             })
     }
 

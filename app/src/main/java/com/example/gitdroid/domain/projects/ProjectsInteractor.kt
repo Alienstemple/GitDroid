@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 interface ProjectsInteractor {
-    fun addListener(listener: ValueEventListener)
     suspend fun addProject(projectName: String)
     suspend fun updateProject(projectName: String, searchResultItem: SearchResultItem)
     suspend fun deleteProject(projectId: String)

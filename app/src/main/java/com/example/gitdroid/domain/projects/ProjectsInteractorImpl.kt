@@ -15,10 +15,6 @@ class ProjectsInteractorImpl(
     private val projectsRoomRepository: ProjectsRoomRepository,
 ) : ProjectsInteractor {
 
-    override fun addListener(listener: ValueEventListener) {
-        projectsFirebaseRepository.addListener(listener)
-    }
-
     @ExperimentalCoroutinesApi
     override fun getAllProjects(): Flow<List<Project>> =
         projectsFirebaseRepository.getAllProjects()

@@ -1,6 +1,8 @@
 package com.example.gitdroid.di
 
 import android.content.Context
+import com.example.gitdroid.data.converters.ProjectConverter
+import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
 import com.example.gitdroid.data.search.room.ProjectDatabase
 import com.example.gitdroid.data.search.room.ProjectsRoomRepository
@@ -27,7 +29,7 @@ class ProjectsModule {
     @Provides
     @Singleton
     fun providesProjectsFirebaseRepository(): ProjectsFirebaseRepository {
-        return ProjectsFirebaseRepositoryImpl()
+        return ProjectsFirebaseRepositoryImpl(ProjectConverter(), SearchResultItemConverter())
     }
 
     @Provides
