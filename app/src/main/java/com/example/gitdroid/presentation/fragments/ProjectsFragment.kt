@@ -47,15 +47,21 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         // Init observer
         setupObserver(projectsSharedViewModel)
 
+        // Load all projects
+        projectsSharedViewModel.loadAllProjects()
+
+        setAddOnClick()
+    }
+
+    private fun setAddOnClick() {
         binding.addBtn.setOnClickListener {
-
-            CoroutineScope(Dispatchers.IO).launch {
-
-                Log.d(TAG, "In coro scope, before adding project")
-                projectsSharedViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
-            }
-
+            projectsSharedViewModel.addProject(binding.enterNewProjNameEditText.text.toString())
         }
+    }
+
+    override fun onDeleteClicked(project: Project) {
+        Log.d(TAG, "onDeleteClicked() called with: project = $project")
+        projectsSharedViewModel.deleteProject(project.projectId)
     }
 
     private fun setupObserver(projectsViewModel: ProjectsViewModel) {
@@ -79,11 +85,6 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     override fun onItemClicked(project: Project) {
         Log.d(MainActivity.TAG, "On item clicked: ${project.projectName}")
         // TODO открыть выпадающий список
-    }
-
-    override fun onDeleteClicked(project: Project) {
-        Log.d(TAG, "onDeleteClicked() called with: project = $project")
-        projectsSharedViewModel.deleteProject(project.projectId)
     }
 
     companion object {

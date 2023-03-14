@@ -94,8 +94,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
         selectedSearchResult = searchResultItem  // Init selected search result
 
-        projectSharedViewModel.projectList
-
         val dialogBox = Dialog(requireContext())
         dialogBox.setContentView(dialogBinding.root)
 
@@ -104,6 +102,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dialogBinding.dialogRecyclerView.adapter = projectsAdapter
 
+        // Setup observer
         projectSharedViewModel.projectList.observe(viewLifecycleOwner) { projectItemsList ->
             projectItemsList?.let {
                 // Обновляем Recycler View
