@@ -57,8 +57,7 @@ class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConver
             }
         }
 
-        databaseReference.addValueEventListener(listener)
-
+        databaseReference.addListenerForSingleValueEvent(listener)
         awaitClose {
             Log.d(TAG, "awaitClose() called")
             databaseReference

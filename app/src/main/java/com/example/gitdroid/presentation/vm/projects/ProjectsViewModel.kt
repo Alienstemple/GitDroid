@@ -50,7 +50,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         Log.d(TAG, "updateProject() called with: projectId = $projectId")
         viewModelScope.launch(Dispatchers.IO) {
             projectsInteractor.updateProject(projectId, searchResultItem)
-            getAllProjects()   // fixme дублирование содержимого списка проектов
+            getAllProjects()
         }
     }
 

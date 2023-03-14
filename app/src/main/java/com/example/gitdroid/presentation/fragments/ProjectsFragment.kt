@@ -69,6 +69,7 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
             if (projectItemsList != null) {
                 Log.d(TAG, "Loading from Firebase.")
                 projectsAdapter.setList(projectItemsList)
+                Log.d(TAG, "Items in adapter: ${projectsAdapter.itemCount}")
             }
         }
     }
