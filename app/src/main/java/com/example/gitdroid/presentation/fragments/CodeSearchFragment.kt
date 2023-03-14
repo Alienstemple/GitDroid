@@ -35,6 +35,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         (activity?.application as GitDroidApplication).appComponent.searchResultViewModelFactory()
     }
     private lateinit var searchResultAdapter: SearchResultAdapter
+    private val projectsAdapter = ProjectsForSearchAdapter(this as ProjectItemClickListener)
 
     private val projectSharedViewModel: ProjectsViewModel by viewModels({ activity as ViewModelStoreOwner },
         { (activity?.application as GitDroidApplication).appComponent.projectsViewModelFactory() })
@@ -55,18 +56,30 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         // Init adapter for recycler
         initAdapter()
         // Init observer
-        setupObserver(searchResultViewModel)
+        setupSearchResObserver()
+        setupProjectsObserver()
+
+        projectSharedViewModel.loadAllProjects()
 
         binding.goBtn.setOnClickListener {
             searchResultViewModel.getCodeSearch(binding.enterSearchQueryEditText.text.toString())
         }
     }
 
-    private fun setupObserver(searchResultViewModel: SearchResultViewModel) {
+    private fun setupSearchResObserver() {
         searchResultViewModel.searchResultItems.observe(viewLifecycleOwner) { searchResItemsList ->
             searchResItemsList?.let {
                 // Обновляем Recycler View
                 searchResultAdapter.setList(it)
+            }
+        }
+    }
+
+    private fun setupProjectsObserver() {
+        projectSharedViewModel.projectList.observe(viewLifecycleOwner) { projectList ->
+            projectList?.let {
+                // Обновляем Recycler View
+                projectsAdapter.setList(it)
             }
         }
     }
@@ -96,7 +109,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         val dialogBox = Dialog(requireContext())
         dialogBox.setContentView(dialogBinding.root)
 
-        val projectsAdapter = ProjectsForSearchAdapter(this)
         dialogBinding.dialogRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dialogBinding.dialogRecyclerView.adapter = projectsAdapter
