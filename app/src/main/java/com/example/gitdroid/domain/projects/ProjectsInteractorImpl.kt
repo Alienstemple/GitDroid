@@ -2,7 +2,7 @@ package com.example.gitdroid.domain.projects
 
 import android.util.Log
 import com.example.gitdroid.data.converters.SearchResultItemConverter
-import com.example.gitdroid.data.room.ProjectsRoomRepository
+import com.example.gitdroid.data.search.room.ProjectsRoomRepository
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.firebase.database.ValueEventListener

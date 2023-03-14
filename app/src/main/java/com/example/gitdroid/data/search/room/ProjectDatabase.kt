@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.room
+package com.example.gitdroid.data.search.room
 
 import android.content.Context
 import androidx.room.Database

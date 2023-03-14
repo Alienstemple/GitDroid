@@ -1,9 +1,9 @@
 package com.example.gitdroid.di
 
 import android.content.Context
-import com.example.gitdroid.data.search.GithubApiService
-import com.example.gitdroid.data.search.NetworkRepositoryImpl
-import com.example.gitdroid.data.search.NetworkService
+import com.example.gitdroid.data.search.network.GithubApiService
+import com.example.gitdroid.data.search.network.NetworkRepositoryImpl
+import com.example.gitdroid.data.search.network.NetworkService
 import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.domain.search.GithubInteractor
 import com.example.gitdroid.domain.search.GithubInteractorImpl

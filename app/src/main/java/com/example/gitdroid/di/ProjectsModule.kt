@@ -2,9 +2,9 @@ package com.example.gitdroid.di
 
 import android.content.Context
 import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
-import com.example.gitdroid.data.room.ProjectDatabase
-import com.example.gitdroid.data.room.ProjectsRoomRepository
-import com.example.gitdroid.data.room.ProjectsRoomRepositoryImpl
+import com.example.gitdroid.data.search.room.ProjectDatabase
+import com.example.gitdroid.data.search.room.ProjectsRoomRepository
+import com.example.gitdroid.data.search.room.ProjectsRoomRepositoryImpl
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.domain.projects.ProjectsInteractorImpl

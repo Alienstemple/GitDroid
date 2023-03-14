@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.room
+package com.example.gitdroid.data.search.room
 
 import android.util.Log
 import com.example.gitdroid.models.domain.Project

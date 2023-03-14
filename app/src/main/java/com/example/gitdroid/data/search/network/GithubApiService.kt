@@ -1,7 +1,6 @@
-package com.example.gitdroid.data.search
+package com.example.gitdroid.data.search.network
 
 import com.example.gitdroid.models.data.SearchResultData
-import com.example.gitdroid.models.domain.SearchResult
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

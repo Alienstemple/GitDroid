@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.room
+package com.example.gitdroid.data.search.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

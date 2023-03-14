@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.search
+package com.example.gitdroid.data.search.network
 
 import android.util.Log
 import com.example.gitdroid.domain.search.NetworkRepository
