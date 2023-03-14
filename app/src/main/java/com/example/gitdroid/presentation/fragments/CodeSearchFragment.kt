@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
@@ -21,6 +19,7 @@ import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
+import com.example.gitdroid.presentation.adapters.ProjectsForSearchAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
@@ -97,7 +96,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         val dialogBox = Dialog(requireContext())
         dialogBox.setContentView(dialogBinding.root)
 
-        val projectsAdapter = ProjectsAdapter(this as ProjectItemClickListener)
+        val projectsAdapter = ProjectsForSearchAdapter(this)
         dialogBinding.dialogRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         dialogBinding.dialogRecyclerView.adapter = projectsAdapter

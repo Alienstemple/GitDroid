@@ -1,6 +1,5 @@
 package com.example.gitdroid.presentation.adapters
 
-import android.R
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +8,10 @@ import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitdroid.databinding.ProjectItemBinding
 import com.example.gitdroid.models.domain.Project
-import com.example.gitdroid.models.domain.SearchResultItem
+import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 
-class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
+class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItemClickListener) :
+    RecyclerView.Adapter<ProjectsForSearchAdapter.ViewHolder>() {
 
     private val projectList = mutableListOf<Project>()
 
@@ -24,7 +24,7 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(projectList[position])
+        holder.bind(projectList[position], projectItemClickListener)
     }
 
     override fun getItemCount() = projectList.size
@@ -41,48 +41,27 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
 
         private val projectItemBinding = binding
 
-        fun bind(projectItem: Project) =
+        fun bind(projectItem: Project, clickListener: ProjectItemClickListener) =
             with(projectItemBinding) {
                 Log.d(TAG, "bind() called ${projectItem.projectName}")
                 projectNameTv.text = projectItem.projectName
 
                 itemView.setOnClickListener {
+                    clickListener.onItemClicked(projectItem)
+                }
 
-                    val searchResItems = projectItem.searchResList
+                shareBtn.setOnClickListener {
+                    // TODO share project via email
+                    Log.d(TAG, "Share Project via email")
+                }
 
-                    if (searchResItems.isNotEmpty()) {
-                        openListSearchResults(searchResItems)
-                    }
+                deleteBtn.setOnClickListener {
+                    clickListener.onDeleteClicked(projectItem)
                 }
             }
-
-        private fun ProjectItemBinding.openListSearchResults(searchResItems: List<SearchResultItem>) {
-            val repoNamesList = mutableListOf<String>()
-            searchResItems.map {
-                repoNamesList.add(it.ghRepository.repoFullName)
-            }
-
-            var listView = projectSearchResList
-            val arrayAdapter = ArrayAdapter(itemView.context,
-                R.layout.simple_list_item_1, repoNamesList)
-            listView.adapter = arrayAdapter
-
-            projectSearchResListScroll.visibility =
-                when (projectSearchResListScroll.visibility) {
-                    View.VISIBLE -> {
-                        View.GONE
-                    }
-                    View.GONE -> {
-                        View.VISIBLE
-                    }
-                    else -> {
-                        View.GONE
-                    }
-                }
-        }
     }
 
     companion object {
-        const val TAG = "ProjForSearAdaptLog"
+        const val TAG = "ProjAdaptLog"
     }
 }

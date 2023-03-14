@@ -6,22 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.coroutineScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
+import com.example.gitdroid.presentation.adapters.ProjectsForSearchAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
@@ -76,16 +71,11 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private fun initAdapter() {
         Log.d(TAG, "initAdapter() called")
-        projectsAdapter = ProjectsAdapter(this as ProjectItemClickListener)
+        projectsAdapter = ProjectsAdapter()
         binding.projectsRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.projectsRecycler.adapter = projectsAdapter
 
-    }
-
-    override fun onItemClicked(project: Project) {
-        Log.d(MainActivity.TAG, "On item clicked: ${project.projectName}")
-        // TODO открыть выпадающий список
     }
 
     companion object {
