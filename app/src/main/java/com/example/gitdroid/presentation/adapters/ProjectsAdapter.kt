@@ -62,13 +62,13 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
                 repoNamesList.add(it.ghRepository.repoFullName)
             }
 
-            var listView = projectSearchResList
+            val listView = projectSearchResList
             val arrayAdapter = ArrayAdapter(itemView.context,
                 R.layout.simple_list_item_1, repoNamesList)
             listView.adapter = arrayAdapter
 
-            projectSearchResListScroll.visibility =
-                when (projectSearchResListScroll.visibility) {
+            projectSearchResList.visibility =
+                when (projectSearchResList.visibility) {
                     View.VISIBLE -> {
                         View.GONE
                     }
