@@ -45,8 +45,6 @@ internal class ProjectsViewModelTest {
     @Before
     fun setUp() {
 
-//        val flow = flowOf(emptyList())
-
         projectInteractor = mockk {
             every { getAllProjects() } returns flow
             coEvery { addProject(projectName)} returns mockk()

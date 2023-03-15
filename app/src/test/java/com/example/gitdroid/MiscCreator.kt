@@ -1,6 +1,8 @@
 package com.example.gitdroid
 
+import com.example.gitdroid.models.data.GHRepositoryData
 import com.example.gitdroid.models.data.SearchResultData
+import com.example.gitdroid.models.data.UserData
 import com.example.gitdroid.models.domain.*
 
 object MiscCreator {
@@ -47,9 +49,16 @@ object MiscCreator {
             repoFullName = "",
             repoOwner = createGhUser()
         )
+
+    fun createGhRepositoryData() =
+        GHRepositoryData()
+
     fun createGhUser() =
         User(
             ghLogin = "",
             userId = 0
         )
+
+    fun createUserData() =
+        UserData()
 }
