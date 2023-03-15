@@ -6,7 +6,6 @@ import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class NetworkRepositoryImplTest {
