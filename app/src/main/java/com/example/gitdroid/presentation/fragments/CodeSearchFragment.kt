@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -97,7 +98,14 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     }
 
     private fun showErrorAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Caution")
+        builder.setMessage("Network error")
 
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
     private fun setupSearchResObserver() {
