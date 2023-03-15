@@ -4,6 +4,7 @@ import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.google.common.truth.Truth.assertThat
+import com.google.firebase.database.DatabaseReference
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
@@ -13,6 +14,8 @@ internal class ProjectsFirebaseRepositoryImplTest {
 
     @MockK
     private lateinit var projectConverter: ProjectConverter
+    @MockK
+    private lateinit var databaseReference: DatabaseReference
 
     @MockK
     private lateinit var searchResItemConverter: SearchResultItemConverter
@@ -22,7 +25,7 @@ internal class ProjectsFirebaseRepositoryImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        projectsFirebaseRepositoryImpl = ProjectsFirebaseRepositoryImpl(projectConverter, searchResItemConverter)
+        projectsFirebaseRepositoryImpl = ProjectsFirebaseRepositoryImpl(projectConverter, searchResItemConverter, databaseReference)
     }
 
     @org.junit.jupiter.api.Test
