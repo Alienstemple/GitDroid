@@ -53,6 +53,7 @@ internal class AuthViewModelTest {
         authViewModel.checkAuthorized()
         // assert
         verify { authStateObserver.onChanged(stubAuthState) }
+        coVerify { authInteractor.checkAuthorized() }
     }
 
     @Test
@@ -61,6 +62,7 @@ internal class AuthViewModelTest {
         authViewModel.signInWithGithubProvider(email, authCallbackInstance)
         // assert
         verify { authStateObserver.onChanged(AuthState.AUTHORIZED) }
+        coVerify { authInteractor.signInWithGithubProvider(email, authCallbackInstance) }
     }
 
     @Test
@@ -69,5 +71,6 @@ internal class AuthViewModelTest {
         authViewModel.logout()
         // assert
         verify { authStateObserver.onChanged(AuthState.UNAUTHORIZED) }
+        coVerify { authInteractor.logout() }
     }
 }
