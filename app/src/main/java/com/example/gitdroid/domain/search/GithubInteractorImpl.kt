@@ -7,8 +7,7 @@ import com.example.gitdroid.models.domain.SearchResult
 class GithubInteractorImpl (private val networkRepository: NetworkRepository): GithubInteractor {
     override suspend fun getCodeSearch(searchQuery: String): SearchResult {
         Log.d(TAG, "getCodeSearch() called with: searchQuery = $searchQuery")
-        val result = networkRepository.getCodeSearch(searchQuery)
-        return SearchResultConverter().convert(result)
+        return networkRepository.getCodeSearch(searchQuery)
     }
 
     companion object {

@@ -1,10 +1,11 @@
 package com.example.gitdroid.di
 
 import android.content.Context
-import com.example.gitdroid.data.search.network.GithubApiService
-import com.example.gitdroid.data.search.network.NetworkRepositoryImpl
-import com.example.gitdroid.data.search.network.NetworkService
+import com.example.gitdroid.data.search.GithubApiService
+import com.example.gitdroid.data.search.NetworkRepositoryImpl
+import com.example.gitdroid.data.search.NetworkService
 import com.example.gitdroid.data.auth.SessionManager
+import com.example.gitdroid.data.converters.SearchResultConverter
 import com.example.gitdroid.domain.search.GithubInteractor
 import com.example.gitdroid.domain.search.GithubInteractorImpl
 import com.example.gitdroid.domain.search.NetworkRepository
@@ -28,7 +29,7 @@ class SearchResultModule {
     fun providesNetworkRepository(
         networkService: NetworkService
     ): NetworkRepository {
-        return NetworkRepositoryImpl(networkService)
+        return NetworkRepositoryImpl(networkService, SearchResultConverter())
     }
 
     @Provides

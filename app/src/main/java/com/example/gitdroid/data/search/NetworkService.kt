@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.search.network
+package com.example.gitdroid.data.search
 
 import android.util.Log
 import com.example.gitdroid.data.auth.SessionManager
@@ -14,11 +14,16 @@ class NetworkService(private val githubApiService: GithubApiService, private val
         Log.d(TAG, "From network we have: ${result.code()} ${result.isSuccessful} ${
             result.body().toString()
         }")
-        result.body()?.let {
-            Log.d(TAG, "From network we have: $it")
-            return it
+
+        if (result.isSuccessful) {
+            result.body()?.let {
+                Log.d(TAG, "From network we have: $it")
+                return it
+            }
+            throw RuntimeException("Blank search body")
+        } else {
+            throw RuntimeException("Error from network: ${result.code()}")
         }
-        throw RuntimeException("Code search returned null") // TODO обработать runtime exception
     }
 
     companion object {

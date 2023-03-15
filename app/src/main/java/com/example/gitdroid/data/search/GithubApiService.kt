@@ -1,4 +1,4 @@
-package com.example.gitdroid.data.search.network
+package com.example.gitdroid.data.search
 
 import com.example.gitdroid.models.data.SearchResultData
 import okhttp3.OkHttpClient

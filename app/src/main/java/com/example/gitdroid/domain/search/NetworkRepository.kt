@@ -4,5 +4,5 @@ import com.example.gitdroid.models.data.SearchResultData
 import com.example.gitdroid.models.domain.SearchResult
 
 interface NetworkRepository {
-    suspend fun getCodeSearch(searchQuery: String): SearchResultData
+    suspend fun getCodeSearch(searchQuery: String): SearchResult
 }
