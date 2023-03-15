@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ProjectsInteractor {
     suspend fun addProject(projectName: String)
-    suspend fun updateProject(projectName: String, searchResultItem: SearchResultItem)
+    suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem)
     suspend fun deleteProject(projectId: String)
     fun getAllProjects(): Flow<List<Project>>
 }

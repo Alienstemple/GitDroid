@@ -5,19 +5,27 @@ import androidx.lifecycle.*
 import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import kotlinx.coroutines.Dispatchers
+import com.example.gitdroid.presentation.vm.search.SearchState
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : ViewModel() {
 
     private val _projectList = MutableLiveData<List<Project>>()
     val projectList: LiveData<List<Project>> = _projectList
 
+    private val _projectLoadState = MutableLiveData<ProjectLoadState>()
+    val projectLoadState: LiveData<ProjectLoadState> = _projectLoadState
+
     fun loadAllProjects() {
-        viewModelScope.launch(IO) {
+
+        val handler = CoroutineExceptionHandler { _, exception ->
+            println("Exception thrown in one of the children. $exception")
+            _projectLoadState.postValue(ProjectLoadState.ERROR)
+        }
+
+        viewModelScope.launch(SupervisorJob() + IO + handler) {
+            _projectLoadState.postValue(ProjectLoadState.LOADING)
             getAllProjects()
         }
     }
@@ -27,6 +35,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
         projectsInteractor.getAllProjects().collect {
             Log.d(TAG, "In collect: $it.")
             _projectList.postValue(it)
+            _projectLoadState.postValue(ProjectLoadState.COMPLETED)
             Log.d(TAG, "After post proj list has ${_projectList.value?.size} items")
         }
     }
