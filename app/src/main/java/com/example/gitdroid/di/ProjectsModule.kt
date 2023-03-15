@@ -6,6 +6,8 @@ import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
 import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -23,7 +25,9 @@ class ProjectsModule {
 
     @Provides
     @Singleton
-    fun providesProjectsFirebaseRepository(): ProjectsFirebaseRepository {
-        return ProjectsFirebaseRepositoryImpl(ProjectConverter(), SearchResultItemConverter())
+    fun providesProjectsFirebaseRepository(auth: FirebaseAuth): ProjectsFirebaseRepository {
+        val databaseReference =
+            FirebaseDatabase.getInstance().getReference("users").child(auth.currentUser!!.uid)
+        return ProjectsFirebaseRepositoryImpl(ProjectConverter(), SearchResultItemConverter(), databaseReference)
     }
 }

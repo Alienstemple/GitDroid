@@ -16,7 +16,7 @@ class AuthModule {
     @Provides
     @Singleton
     fun providesAuthInteractor(
-        authRepository: AuthRepository
+        authRepository: AuthRepository,
     ): AuthInteractor {
         return AuthInteractorImpl(authRepository)
     }
@@ -24,11 +24,17 @@ class AuthModule {
     @Provides
     @Singleton
     fun providesAuthRepository(
-        context: Context
+        context: Context,
+        auth: FirebaseAuth
     ): AuthRepository {
-        val auth = FirebaseAuth.getInstance()
         val provider = OAuthProvider.newBuilder(PROVIDER_ID)
         return AuthRepositoryImpl(context, auth, provider)
+    }
+
+    @Provides
+    @Singleton
+    fun providesAuthInstance(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 
     companion object {

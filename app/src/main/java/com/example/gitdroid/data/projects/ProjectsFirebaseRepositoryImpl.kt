@@ -8,9 +8,11 @@ import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
@@ -23,11 +25,12 @@ import kotlinx.coroutines.withContext
 
 
 class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConverter,
-                                     private val searchResultItemConverter: SearchResultItemConverter) :
+                                     private val searchResultItemConverter: SearchResultItemConverter,
+                                     private val databaseReference: DatabaseReference
+) :
     ProjectsFirebaseRepository {
-    private val currentUserUid = Firebase.auth.currentUser!!.uid  // TODO move to constructor
-    private val databaseReference =
-        FirebaseDatabase.getInstance().getReference("users").child(currentUserUid)
+//    private val databaseReference =
+//        FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid)
 
     @ExperimentalCoroutinesApi
     override fun getAllProjects() = callbackFlow<List<Project>> {
