@@ -88,7 +88,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
                     binding.searchResultsProgress.visibility = View.GONE
                 }
                 null -> {
-                    Log.d(TAG, "Before showing alert dialog")
                     binding.searchResultsRecycler.visibility = View.GONE
                     binding.searchResultsProgress.visibility = View.GONE
                 }
@@ -107,9 +106,24 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         builder.show()
     }
 
+    private fun showBlankResultAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Caution")
+        builder.setMessage("Search returned 0 results. Try again")
+
+        builder.setPositiveButton("OK") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
+
     private fun setupSearchResObserver() {
         searchResultViewModel.searchResultItems.observe(viewLifecycleOwner) { searchResItemsList ->
             searchResItemsList?.let {
+                if (it.isEmpty()) {
+                    Log.d(TAG, "Blank search result")
+                    showBlankResultAlertDialog()
+                }
                 // Обновляем Recycler View
                 searchResultAdapter.setList(it)
             }
