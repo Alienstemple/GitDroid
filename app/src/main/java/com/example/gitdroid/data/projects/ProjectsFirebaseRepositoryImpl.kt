@@ -24,14 +24,11 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.withContext
 
 
-class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConverter,
-                                     private val searchResultItemConverter: SearchResultItemConverter,
-                                     private val databaseReference: DatabaseReference
-) :
-    ProjectsFirebaseRepository {
-//    private val databaseReference =
-//        FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid)
-
+class ProjectsFirebaseRepositoryImpl(
+    private val projectConverter: ProjectConverter,
+    private val searchResultItemConverter: SearchResultItemConverter,
+    private val databaseReference: DatabaseReference,
+) : ProjectsFirebaseRepository {
     @ExperimentalCoroutinesApi
     override fun getAllProjects() = callbackFlow<List<Project>> {
         Log.d(TAG, "getAllProjects() called")
@@ -119,7 +116,7 @@ class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConver
             })
     }
 
-    override suspend fun deleteProject(projectId: String) { /* Что вернуть? Рез-т пустой */
+    override suspend fun deleteProject(projectId: String) {
         databaseReference.child(projectId).removeValue()
             .addOnSuccessListener {
                 Log.d(TAG, "Project deleted successfully")
