@@ -25,6 +25,7 @@ import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
+import com.example.gitdroid.presentation.vm.search.SearchState
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
 
@@ -55,15 +56,48 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         super.onViewCreated(view, savedInstanceState)
         // Init adapter for recycler
         initAdapter()
-        // Init observer
+        // Init observers
         setupSearchResObserver()
         setupProjectsObserver()
+        setupUiStateObserver()
 
         projectSharedViewModel.loadAllProjects()
 
         binding.goBtn.setOnClickListener {
             searchResultViewModel.getCodeSearch(binding.enterSearchQueryEditText.text.toString())
         }
+    }
+
+    private fun setupUiStateObserver() {
+        searchResultViewModel.searchState.observe(viewLifecycleOwner) { uiState ->
+            when(uiState) {
+                SearchState.LOADING -> {
+                    Log.d(TAG, "Making progr bar visible")
+                    binding.searchResultsRecycler.visibility = View.GONE
+                    binding.searchResultsProgress.visibility = View.VISIBLE
+                }
+                SearchState.ERROR -> {
+                    Log.d(TAG, "Before showing alert dialog")
+                    binding.searchResultsRecycler.visibility = View.GONE
+                    binding.searchResultsProgress.visibility = View.GONE
+                    showErrorAlertDialog()
+                }
+                SearchState.COMPLETED -> {
+                    Log.d(TAG, "Making recycler visible")
+                    binding.searchResultsRecycler.visibility = View.VISIBLE
+                    binding.searchResultsProgress.visibility = View.GONE
+                }
+                null -> {
+                    Log.d(TAG, "Before showing alert dialog")
+                    binding.searchResultsRecycler.visibility = View.GONE
+                    binding.searchResultsProgress.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun showErrorAlertDialog() {
+
     }
 
     private fun setupSearchResObserver() {

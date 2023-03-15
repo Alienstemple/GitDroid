@@ -31,12 +31,23 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchResultsRecycler"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterSearchQueryEditText"
         tools:listitem="@layout/search_result_item" />
+
+    <ProgressBar
+        android:id="@+id/searchResultsProgress"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        android:secondaryProgressTint="@color/teal_700"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterSearchQueryEditText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
