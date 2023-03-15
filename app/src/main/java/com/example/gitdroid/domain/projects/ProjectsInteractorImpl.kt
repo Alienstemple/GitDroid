@@ -1,13 +1,10 @@
 package com.example.gitdroid.domain.projects
 
 import android.util.Log
-import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 class ProjectsInteractorImpl(
     private val projectsFirebaseRepository: ProjectsFirebaseRepository

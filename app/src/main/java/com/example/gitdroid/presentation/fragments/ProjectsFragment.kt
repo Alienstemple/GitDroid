@@ -12,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.models.domain.Project
-import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
-import com.example.gitdroid.presentation.adapters.ProjectsForSearchAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 

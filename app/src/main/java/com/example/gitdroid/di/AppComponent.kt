@@ -1,7 +1,6 @@
 package com.example.gitdroid.di
 
 import android.content.Context
-import androidx.fragment.app.FragmentActivity
 import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.fragments.CodeSearchFragment
 import com.example.gitdroid.presentation.fragments.ProjectsFragment

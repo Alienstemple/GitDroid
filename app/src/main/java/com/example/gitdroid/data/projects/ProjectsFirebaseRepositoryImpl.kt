@@ -1,7 +1,6 @@
 package com.example.gitdroid.data.projects
 
 import android.util.Log
-import androidx.lifecycle.asLiveData
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
@@ -9,17 +8,18 @@ import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.channels.trySendBlocking
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.withContext
 
 
 class ProjectsFirebaseRepositoryImpl(private val projectConverter: ProjectConverter,

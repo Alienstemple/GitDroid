@@ -1,6 +1,5 @@
 package com.example.gitdroid.di
 
-import android.content.Context
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl

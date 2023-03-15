@@ -1,11 +1,8 @@
 package com.example.gitdroid.domain.projects
 
-import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 
 interface ProjectsFirebaseRepository {
     fun getAllProjects(): Flow<List<Project>>

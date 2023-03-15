@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthInteractor
-import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

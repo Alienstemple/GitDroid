@@ -1,12 +1,12 @@
 package com.example.gitdroid.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.ActivityAuthBinding
 import com.example.gitdroid.domain.auth.AuthCallback

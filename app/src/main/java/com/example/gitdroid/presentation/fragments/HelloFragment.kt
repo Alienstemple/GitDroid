@@ -1,16 +1,12 @@
 package com.example.gitdroid.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.gitdroid.data.auth.SessionManager
+import androidx.fragment.app.Fragment
 import com.example.gitdroid.databinding.FragmentHelloBinding
-import com.example.gitdroid.presentation.MainActivity
 import com.example.gitdroid.presentation.misc.navigation
-import com.google.firebase.auth.FirebaseAuth
 
 class HelloFragment : Fragment() {
     private lateinit var binding: FragmentHelloBinding

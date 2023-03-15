@@ -2,7 +2,6 @@ package com.example.gitdroid.data.converters
 
 import com.example.gitdroid.models.data.SearchResultData
 import com.example.gitdroid.models.domain.SearchResult
-import com.example.gitdroid.models.domain.SearchResultItem
 
 class SearchResultConverter {
 

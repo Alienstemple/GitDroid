@@ -4,8 +4,9 @@ import android.content.Context
 import android.util.Log
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthRepository
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthCredential
+import com.google.firebase.auth.OAuthProvider
 
 class AuthRepositoryImpl(
     private val context: Context,

@@ -1,7 +1,6 @@
 package com.example.gitdroid.domain.search
 
 import android.util.Log
-import com.example.gitdroid.data.converters.SearchResultConverter
 import com.example.gitdroid.models.domain.SearchResult
 
 class GithubInteractorImpl (private val networkRepository: NetworkRepository): GithubInteractor {

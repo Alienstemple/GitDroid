@@ -1,6 +1,5 @@
 package com.example.gitdroid.models.data
 
-import com.example.gitdroid.models.domain.User
 import com.google.gson.annotations.SerializedName
 
 data class GHRepositoryData(

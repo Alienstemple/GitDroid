@@ -1,10 +1,10 @@
 package com.example.gitdroid.di
 
 import android.content.Context
+import com.example.gitdroid.data.auth.AuthRepositoryImpl
 import com.example.gitdroid.domain.auth.AuthInteractor
 import com.example.gitdroid.domain.auth.AuthInteractorImpl
 import com.example.gitdroid.domain.auth.AuthRepository
-import com.example.gitdroid.data.auth.AuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthProvider
 import dagger.Module

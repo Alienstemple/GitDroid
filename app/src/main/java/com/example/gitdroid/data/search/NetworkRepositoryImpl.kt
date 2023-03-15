@@ -3,7 +3,6 @@ package com.example.gitdroid.data.search
 import android.util.Log
 import com.example.gitdroid.data.converters.SearchResultConverter
 import com.example.gitdroid.domain.search.NetworkRepository
-import com.example.gitdroid.models.data.SearchResultData
 import com.example.gitdroid.models.domain.SearchResult
 
 class NetworkRepositoryImpl(private val networkService: NetworkService,

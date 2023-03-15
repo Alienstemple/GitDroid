@@ -19,13 +19,12 @@ import com.example.gitdroid.databinding.ProjectsDialogBoxBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.MainActivity
-import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.adapters.ProjectsForSearchAdapter
 import com.example.gitdroid.presentation.adapters.SearchResultAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
-import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
+import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 import com.example.gitdroid.presentation.vm.search.SearchState
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
