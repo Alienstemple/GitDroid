@@ -2,7 +2,7 @@ package com.example.gitdroid.presentation.vm.search
 
 import android.util.Log
 import androidx.lifecycle.Observer
-import com.example.gitdroid.data.projects.MiscCreator
+import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.domain.search.GithubInteractorImpl
 import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
