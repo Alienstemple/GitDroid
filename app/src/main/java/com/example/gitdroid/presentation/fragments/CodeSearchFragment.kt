@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
@@ -173,6 +174,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
             projectItemsList?.let {
                 // Обновляем Recycler View
                 projectsAdapter.setList(it)
+                Toast.makeText(requireContext(), "Search result added successfully", Toast.LENGTH_SHORT).show()
             }
         }
 
