@@ -21,6 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
@@ -73,6 +74,8 @@ class ProjectsFirebaseRepositoryImpl(
             project.projectId = projectId
             Log.d(TAG, "ProjectId = $projectId")
             Log.d(TAG, "Project = $project")
+
+            databaseReference.child(projectId).setValue(projectConverter.convert(project)).await()
 
             databaseReference.child(projectId).setValue(projectConverter.convert(project))
                 .addOnSuccessListener {

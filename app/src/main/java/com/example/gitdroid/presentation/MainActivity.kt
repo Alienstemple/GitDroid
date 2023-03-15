@@ -27,7 +27,9 @@ class MainActivity : AppCompatActivity(), Navigation {
 
         initNavDrawer()
 
-        openHello()
+        if (savedInstanceState == null) {
+            openHello()
+        }
     }
 
     private fun logoutAuthFrag() {

@@ -1,6 +1,7 @@
 package com.example.gitdroid.presentation.fragments
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -162,8 +163,12 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
         selectedSearchResult = searchResultItem  // Init selected search result
 
-        val dialogBox = Dialog(requireContext())
-        dialogBox.setContentView(dialogBinding.root)
+        val dialogBox = AlertDialog.Builder(requireContext())
+        dialogBox.setView(dialogBinding.root)
+
+        dialogBox.setOnDismissListener {
+            (dialogBinding.root.parent as ViewGroup).removeView(dialogBinding.root)
+        }
 
         dialogBinding.dialogRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

@@ -16,7 +16,6 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
 
     private val _projectLoadState = MutableLiveData<ProjectLoadState>()
     val projectLoadState: LiveData<ProjectLoadState> = _projectLoadState
-
     fun loadAllProjects() {
 
         val handler = CoroutineExceptionHandler { _, exception ->
