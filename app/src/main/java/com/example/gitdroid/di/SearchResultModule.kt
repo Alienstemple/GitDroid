@@ -58,12 +58,4 @@ class SearchResultModule {
 
         return NetworkService(githubApiService, sessionManager)
     }
-
-    @Provides
-    @Singleton
-    fun providesSessionManager(
-        context: Context,
-    ): SessionManager {
-        return SessionManager(context)
-    }
 }

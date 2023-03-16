@@ -1,6 +1,5 @@
 package com.example.gitdroid.data.auth
 
-import android.content.Context
 import android.util.Log
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthRepository
@@ -9,9 +8,9 @@ import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 
 class AuthRepositoryImpl(
-    private val context: Context,
     private val auth: FirebaseAuth,
     private val provider: OAuthProvider.Builder,
+    private val sessionManager: SessionManager
 ) : AuthRepository {
 
     override fun checkAuthorized(): Boolean {
@@ -22,7 +21,7 @@ class AuthRepositoryImpl(
 
     override fun logout() {
         auth.signOut()
-        SessionManager(context).removeAuthToken()
+        sessionManager.removeAuthToken()
         Log.d(TAG, "Logout success")
     }
 
@@ -42,7 +41,7 @@ class AuthRepositoryImpl(
         Log.d(TAG, "Access token = $accessToken")
 
         // Save access token in shared prefs
-        SessionManager(context).saveAuthToken(accessToken.toString())
+        sessionManager.saveAuthToken(accessToken.toString())
     }
 
     companion object {

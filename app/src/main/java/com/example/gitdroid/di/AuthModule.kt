@@ -2,6 +2,7 @@ package com.example.gitdroid.di
 
 import android.content.Context
 import com.example.gitdroid.data.auth.AuthRepositoryImpl
+import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.domain.auth.AuthInteractor
 import com.example.gitdroid.domain.auth.AuthInteractorImpl
 import com.example.gitdroid.domain.auth.AuthRepository
@@ -24,17 +25,25 @@ class AuthModule {
     @Provides
     @Singleton
     fun providesAuthRepository(
-        context: Context,
         auth: FirebaseAuth,
+        sessionManager: SessionManager
     ): AuthRepository {
         val provider = OAuthProvider.newBuilder(PROVIDER_ID)
-        return AuthRepositoryImpl(context, auth, provider)
+        return AuthRepositoryImpl(auth, provider, sessionManager)
     }
 
     @Provides
     @Singleton
     fun providesAuthInstance(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun providesSessionManager(
+        context: Context,
+    ): SessionManager {
+        return SessionManager(context)
     }
 
     companion object {
