@@ -12,6 +12,7 @@ import com.example.gitdroid.databinding.ActivityMainBinding
 import com.example.gitdroid.presentation.fragments.CodeSearchFragment
 import com.example.gitdroid.presentation.fragments.HelloFragment
 import com.example.gitdroid.presentation.fragments.ProjectsFragment
+import com.example.gitdroid.presentation.fragments.SettingsFragment
 import com.example.gitdroid.presentation.misc.Navigation
 
 
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity(), Navigation {
         val intent = Intent(this, AuthActivity::class.java)
         intent.putExtra("LOGOUT", true)
         startActivity(intent)
-//        finish()  // TODO
     }
 
     private fun initNavDrawer() = with(mainBinding) {
@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity(), Navigation {
                 }
                 R.id.settingsItem -> {
                     Log.d(TAG, "Item 4 selected")
+                    openSettings()
                 }
             }
             true
@@ -95,6 +96,10 @@ class MainActivity : AppCompatActivity(), Navigation {
 
     override fun logout() {
         logoutAuthFrag()
+    }
+
+    override fun openSettings() {
+        launchFragment(SettingsFragment())
     }
 
     private fun launchFragment(fragment: Fragment) {

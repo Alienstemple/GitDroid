@@ -47,15 +47,6 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
                 itemView.setOnClickListener {
                     clickListener.onItemClicked(projectItem)
                 }
-
-                shareBtn.setOnClickListener {
-                    // TODO share project via email
-                    Log.d(TAG, "Share Project via email")
-                }
-
-                deleteBtn.setOnClickListener {
-                    clickListener.onDeleteClicked(projectItem)
-                }
             }
     }
 

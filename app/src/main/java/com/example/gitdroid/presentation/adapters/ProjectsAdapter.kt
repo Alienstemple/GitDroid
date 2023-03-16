@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gitdroid.databinding.ProjectItemBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
+import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 
-class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
+class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickListener) :
+    RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
 
     private val projectList = mutableListOf<Project>()
 
@@ -24,7 +26,7 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(projectList[position])
+        holder.bind(projectList[position], projectItemClickListener)
     }
 
     override fun getItemCount() = projectList.size
@@ -41,7 +43,7 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
 
         private val projectItemBinding = binding
 
-        fun bind(projectItem: Project) =
+        fun bind(projectItem: Project, clickListener: ProjectItemClickListener) =
             with(projectItemBinding) {
                 Log.d(TAG, "bind() called ${projectItem.projectName}")
                 projectNameTv.text = projectItem.projectName
@@ -53,6 +55,15 @@ class ProjectsAdapter : RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
                     if (searchResItems.isNotEmpty()) {
                         openListSearchResults(searchResItems)
                     }
+                }
+
+                shareBtn.setOnClickListener {
+                    Log.d(ProjectsForSearchAdapter.TAG, "Share Project via email")
+                    clickListener.onShareClicked(projectItem)
+                }
+
+                deleteBtn.setOnClickListener {
+                    clickListener.onDeleteClicked(projectItem)
                 }
             }
 

@@ -68,6 +68,7 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.14.1"
     // Images
     implementation "com.squareup.picasso:picasso:2.71828"
+    implementation 'androidx.preference:preference:1.2.0'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter'

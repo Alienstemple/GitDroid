@@ -11,4 +11,5 @@ interface Navigation {
     fun openCodeSearch()
     fun openHello()
     fun logout()
+    fun openSettings()
 }

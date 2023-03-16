@@ -1,16 +1,21 @@
 package com.example.gitdroid.presentation.fragments
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitdroid.GitDroidApplication
+import com.example.gitdroid.R
 import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
@@ -27,6 +32,8 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private lateinit var projectsAdapter: ProjectsAdapter
 
+    private lateinit var prefs: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -37,6 +44,8 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
         // Init adapter for recycler
         initAdapter()
         // Init observer
@@ -98,6 +107,40 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         projectsSharedViewModel.deleteProject(project.projectId)
     }
 
+    override fun onShareClicked(project: Project) {
+        Log.d(TAG, "onShareClicked() called with: project = $project")
+        val userEmail: String = prefs.getString(getString(R.string.email), "").toString()
+
+        if (userEmail.isEmpty()) {
+            Toast.makeText(requireContext(),
+                "Please, specify your email in settings (menu)",
+                Toast.LENGTH_LONG)
+                .show()
+        } else {
+            sendProjectByEmail(project, userEmail)
+        }
+    }
+
+    private fun sendProjectByEmail(project: Project, userEmail: String) {
+        Log.d(TAG, "sendProjectByEmail() called with: project = $project, userEmail = $userEmail")
+
+        var projectMessage = "GitDroidProject: ${project.projectName}"
+        if (project.searchResList.isNotEmpty()) {
+            project.searchResList.map {
+                projectMessage += "\n\t${it.ghRepository.repoFullName}\n\t${it.htmlFileUrl}\n"
+            }
+        }
+
+        Log.d(TAG, "message = $projectMessage")
+
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.putExtra(Intent.EXTRA_EMAIL, userEmail)
+        intent.putExtra(Intent.EXTRA_SUBJECT, "GitDroid project")
+        intent.putExtra(Intent.EXTRA_TEXT, projectMessage)
+        intent.type = "message/rfc822"
+        startActivity(Intent.createChooser(intent, "Select email"))
+    }
+
     private fun setupObserver() {
         projectsSharedViewModel.projectList.observe(viewLifecycleOwner) { projectItemsList ->
             if (projectItemsList != null) {
@@ -110,7 +153,7 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private fun initAdapter() {
         Log.d(TAG, "initAdapter() called")
-        projectsAdapter = ProjectsAdapter()
+        projectsAdapter = ProjectsAdapter(this as ProjectItemClickListener)
         binding.projectsRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.projectsRecycler.adapter = projectsAdapter
