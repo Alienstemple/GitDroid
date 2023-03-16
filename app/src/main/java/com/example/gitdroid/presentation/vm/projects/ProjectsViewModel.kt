@@ -21,6 +21,10 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
 
     private val _projectLoadState = MutableLiveData<ProjectLoadState>()
     val projectLoadState: LiveData<ProjectLoadState> = _projectLoadState
+
+    private val _projectUpdated = MutableLiveData<Boolean>()
+    val projectUpdated: LiveData<Boolean> = _projectUpdated
+
     fun loadAllProjects() {
 
         val handler = CoroutineExceptionHandler { _, exception ->
@@ -47,7 +51,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
     fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: userName = $projectName")
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(IO) {
             projectsInteractor.addProject(projectName)
             getAllProjects()
         }
@@ -55,15 +59,19 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
 
     fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
         Log.d(TAG, "updateProject() called with: projectId = $projectId")
-        viewModelScope.launch(Dispatchers.IO) {
-            projectsInteractor.updateProject(projectId, searchResultItem)
+        viewModelScope.launch(IO) { projectsInteractor.updateProject(projectId, searchResultItem)
+            _projectUpdated.postValue(true)
             getAllProjects()
         }
     }
 
+    fun clearAddState() {
+        _projectUpdated.postValue(false)
+    }
+
     fun deleteProject(projectId: String) {
         Log.d(TAG, "deleteProject() called with: projectId = $projectId")
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(IO) {
             projectsInteractor.deleteProject(projectId)
             getAllProjects()
         }

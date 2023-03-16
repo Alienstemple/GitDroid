@@ -60,11 +60,20 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         setupSearchResObserver()
         setupProjectsObserver()
         setupUiStateObserver()
+        setupProjectUpdatedObserver()
 
         projectSharedViewModel.loadAllProjects()
 
         binding.goBtn.setOnClickListener {
             searchResultViewModel.getCodeSearch(binding.enterSearchQueryEditText.text.toString())
+        }
+    }
+
+    private fun setupProjectUpdatedObserver() {
+        projectSharedViewModel.projectUpdated.observe(viewLifecycleOwner) {
+            if (it)
+                Toast.makeText(requireContext(), "Search result added successfully",
+                    Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -177,9 +186,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
             projectItemsList?.let {
                 // Обновляем Recycler View
                 projectsAdapter.setList(it)
-                Toast.makeText(requireContext(),
-                    "Search result added successfully",
-                    Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -189,6 +195,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     override fun onItemClicked(project: Project) {
         Log.d(TAG, "onItemClicked() called with: project = $project")
         projectSharedViewModel.updateProject(project.projectId, selectedSearchResult)
+        projectSharedViewModel.clearAddState()
     }
 
     companion object {
