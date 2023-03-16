@@ -10,7 +10,7 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 
-internal class ProjectsFirebaseRepositoryImplTest {
+internal class ProjectsRepositoryImplTest {
 
     @MockK
     private lateinit var projectConverter: ProjectConverter
@@ -21,12 +21,12 @@ internal class ProjectsFirebaseRepositoryImplTest {
     @MockK
     private lateinit var searchResItemConverter: SearchResultItemConverter
 
-    private lateinit var projectsFirebaseRepositoryImpl: ProjectsFirebaseRepositoryImpl
+    private lateinit var projectsRepositoryImpl: ProjectsRepositoryImpl
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        projectsFirebaseRepositoryImpl = ProjectsFirebaseRepositoryImpl(projectConverter,
+        projectsRepositoryImpl = ProjectsRepositoryImpl(projectConverter,
             searchResItemConverter,
             databaseReference)
     }
@@ -42,7 +42,7 @@ internal class ProjectsFirebaseRepositoryImplTest {
         val newProject = MiscCreator.createProject()
 
         // act
-        val actual = projectsFirebaseRepositoryImpl.addProject(newProject)
+        val actual = projectsRepositoryImpl.addProject(newProject)
 
         // assert
         assertThat(actual).isEqualTo(newProject)

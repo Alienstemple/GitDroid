@@ -6,29 +6,29 @@ import com.example.gitdroid.models.domain.SearchResultItem
 import kotlinx.coroutines.flow.Flow
 
 class ProjectsInteractorImpl(
-    private val projectsFirebaseRepository: ProjectsFirebaseRepository,
+    private val projectsRepository: ProjectsRepository,
 ) : ProjectsInteractor {
 
     override fun getAllProjects(): Flow<List<Project>> {
-        return projectsFirebaseRepository.getAllProjects()
+        return projectsRepository.getAllProjects()
     }
 
     override suspend fun addProject(projectName: String) {
         Log.d(TAG, "addProject() called with: projectName = $projectName")
         val newProject = Project("", projectName, emptyList())
-        projectsFirebaseRepository.addProject(newProject)
+        projectsRepository.addProject(newProject)
     }
 
     override suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
         Log.d(TAG,
             "updateProject() called with: projectId = $projectId, searchResultItem = $searchResultItem")
-        projectsFirebaseRepository.updateProject(projectId,
+        projectsRepository.updateProject(projectId,
             searchResultItem)
     }
 
     override suspend fun deleteProject(projectId: String) {
         Log.d(TAG, "deleteProject() called with: projectId = $projectId")
-        projectsFirebaseRepository.deleteProject(projectId)
+        projectsRepository.deleteProject(projectId)
     }
 
     companion object {

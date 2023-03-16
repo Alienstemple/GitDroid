@@ -3,7 +3,7 @@ package com.example.gitdroid.data.projects
 import android.util.Log
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
-import com.example.gitdroid.domain.projects.ProjectsFirebaseRepository
+import com.example.gitdroid.domain.projects.ProjectsRepository
 import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.data.SearchResultItemData
 import com.example.gitdroid.models.domain.Project
@@ -20,11 +20,11 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-class ProjectsFirebaseRepositoryImpl(
+class ProjectsRepositoryImpl(
     private val projectConverter: ProjectConverter,
     private val searchResultItemConverter: SearchResultItemConverter,
     private val databaseReference: DatabaseReference,
-) : ProjectsFirebaseRepository {
+) : ProjectsRepository {
     override fun getAllProjects() = callbackFlow<List<Project>> {
         Log.d(TAG, "getAllProjects() called")
         val projectDatas = mutableListOf<ProjectData>()
