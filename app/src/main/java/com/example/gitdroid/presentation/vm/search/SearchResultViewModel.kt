@@ -23,7 +23,7 @@ class SearchResultViewModel(private val githubInteractor: GithubInteractor) : Vi
     fun getCodeSearch(searchQuery: String) {
 
         val handler = CoroutineExceptionHandler { _, exception ->
-            Log.d(TAG,"Exception thrown in one of the children. $exception")
+            Log.d(TAG, "Exception thrown in one of the children. $exception")
             _searchState.postValue(SearchState.ERROR)
         }
 

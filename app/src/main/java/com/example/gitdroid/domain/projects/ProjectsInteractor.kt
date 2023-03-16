@@ -27,6 +27,7 @@ interface ProjectsInteractor {
      * @param projectId
      */
     suspend fun deleteProject(projectId: String)
+
     /**
      * Получение списка всех проектов в виде [Flow]
      */

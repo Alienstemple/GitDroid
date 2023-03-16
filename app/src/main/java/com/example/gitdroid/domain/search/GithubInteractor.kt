@@ -13,6 +13,6 @@ interface GithubInteractor {
      * @param searchQuery поисковый запрос
      * @return [SearchResult]
      * @throws RuntimeException
-    */
+     */
     suspend fun getCodeSearch(searchQuery: String): SearchResult
 }

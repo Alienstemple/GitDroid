@@ -15,7 +15,7 @@ import com.google.firebase.auth.OAuthProvider
 class AuthRepositoryImpl(
     private val auth: FirebaseAuth,
     private val provider: OAuthProvider.Builder,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
 ) : AuthRepository {
 
     override fun checkAuthorized(): Boolean {
