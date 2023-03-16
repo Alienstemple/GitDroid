@@ -3,13 +3,19 @@ package com.example.gitdroid.data.projects
 import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
+import com.example.gitdroid.models.domain.SearchResultItem
+import com.google.android.gms.tasks.Task
 import com.google.common.truth.Truth.assertThat
 import com.google.firebase.database.DatabaseReference
-import io.mockk.MockKAnnotations
+import com.google.firebase.database.ValueEventListener
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class ProjectsRepositoryImplTest {
 
     @MockK
@@ -23,9 +29,25 @@ internal class ProjectsRepositoryImplTest {
 
     private lateinit var projectsRepositoryImpl: ProjectsRepositoryImpl
 
+    private val stubProjectId: String = "id"
+    private val stubSearchResultItem: SearchResultItem = MiscCreator.createSearchResultItem()
+    private val pathString = "searchResList"
+    private val stubDatabaseReference: DatabaseReference = mockk()
+    private val secondStubDatabaseReference: DatabaseReference = mockk()
+    private val thirdStubDatabaseReference: DatabaseReference = mockk()
+    private val stubValueEventListener: ValueEventListener = mockk()
+    private val stubTask: Task<Void> = mockk()
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        every { databaseReference.child(stubProjectId) } returns stubDatabaseReference
+        every { stubDatabaseReference.removeValue() } returns stubTask
+//        every { stubTask.addOnSuccessListener(mockk()) } answers { }
+//        every { stubDatabaseReference.child(pathString) } returns secondStubDatabaseReference  // FIXME doesn't work
+        every { /*thirdStubDatabaseReference*//*secondStubDatabaseReference*/stubDatabaseReference.addListenerForSingleValueEvent(stubValueEventListener) } just runs
+
         projectsRepositoryImpl = ProjectsRepositoryImpl(projectConverter,
             searchResItemConverter,
             databaseReference)
@@ -33,6 +55,7 @@ internal class ProjectsRepositoryImplTest {
 
     @org.junit.jupiter.api.Test
     fun getAllProjects() = runTest {
+
     }
 
     @org.junit.jupiter.api.Test
@@ -48,11 +71,16 @@ internal class ProjectsRepositoryImplTest {
         assertThat(actual).isEqualTo(newProject)
     }
 
-    @org.junit.jupiter.api.Test
-    fun updateProject() {
+    @Test
+    fun updateProject() = runTest{
+        // act
+//        projectsRepositoryImpl.updateProject(stubProjectId, stubSearchResultItem)
+        // assert
+
     }
 
-    @org.junit.jupiter.api.Test
-    fun deleteProject() {
+    @Test
+    fun deleteProject() = runTest{
+//        projectsRepositoryImpl.deleteProject(stubProjectId)
     }
 }
