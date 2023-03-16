@@ -1,17 +1,9 @@
 package com.example.gitdroid.data.converters
 
 import com.example.gitdroid.MiscCreator
-import com.example.gitdroid.models.data.GHRepositoryData
 import com.example.gitdroid.models.data.ProjectData
-import com.example.gitdroid.models.domain.GHRepository
 import com.example.gitdroid.models.domain.Project
 import com.google.common.truth.Truth
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
-
-import org.junit.jupiter.api.Test
 
 internal class ProjectConverterTest {
 

@@ -1,7 +1,5 @@
 package com.example.gitdroid.presentation.fragments
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -72,7 +70,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
     private fun setupUiStateObserver() {
         searchResultViewModel.searchState.observe(viewLifecycleOwner) { uiState ->
-            when(uiState) {
+            when (uiState) {
                 SearchState.LOADING -> {
                     Log.d(TAG, "Making progr bar visible")
                     binding.searchResultsRecycler.visibility = View.GONE
@@ -179,7 +177,9 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
             projectItemsList?.let {
                 // Обновляем Recycler View
                 projectsAdapter.setList(it)
-                Toast.makeText(requireContext(), "Search result added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),
+                    "Search result added successfully",
+                    Toast.LENGTH_SHORT).show()
             }
         }
 

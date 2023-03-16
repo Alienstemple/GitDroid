@@ -1,13 +1,18 @@
 package com.example.gitdroid.presentation.vm.projects
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import com.example.gitdroid.presentation.vm.search.SearchState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : ViewModel() {
 

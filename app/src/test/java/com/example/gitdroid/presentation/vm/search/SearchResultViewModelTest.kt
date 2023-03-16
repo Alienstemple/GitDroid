@@ -1,18 +1,18 @@
 package com.example.gitdroid.presentation.vm.search
 
 import android.util.Log
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.domain.search.GithubInteractorImpl
 import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
+import io.mockk.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import io.mockk.*
 
 internal class SearchResultViewModelTest {
 
@@ -25,7 +25,8 @@ internal class SearchResultViewModelTest {
     private lateinit var githubInteractor: GithubInteractorImpl
     private lateinit var searchResultViewModel: SearchResultViewModel
     private val stubSearchResult: SearchResult = MiscCreator.createSearchResult()
-    private val stubSearchResultItemList: List<SearchResultItem> = MiscCreator.createSearchResultItemList()
+    private val stubSearchResultItemList: List<SearchResultItem> =
+        MiscCreator.createSearchResultItemList()
     private val stubQuery = "Search query"
 
     @Before

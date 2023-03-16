@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class SearchResultViewModel (private val githubInteractor: GithubInteractor) : ViewModel() {
+class SearchResultViewModel(private val githubInteractor: GithubInteractor) : ViewModel() {
 
     private val _searchResultItems = MutableLiveData<List<SearchResultItem>>()
     val searchResultItems: LiveData<List<SearchResultItem>> = _searchResultItems

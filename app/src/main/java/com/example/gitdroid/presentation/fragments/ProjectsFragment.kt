@@ -17,7 +17,6 @@ import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.vm.projects.ProjectLoadState
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
-import com.example.gitdroid.presentation.vm.search.SearchState
 
 class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
@@ -52,7 +51,7 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private fun setupUiStateObserver() {
         projectsSharedViewModel.projectLoadState.observe(viewLifecycleOwner) { uiState ->
-            when(uiState) {
+            when (uiState) {
                 ProjectLoadState.LOADING -> {
                     Log.d(CodeSearchFragment.TAG, "Making progr bar visible")
                     binding.projectsRecycler.visibility = View.GONE

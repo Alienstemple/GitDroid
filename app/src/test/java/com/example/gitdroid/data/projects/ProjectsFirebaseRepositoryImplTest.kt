@@ -14,6 +14,7 @@ internal class ProjectsFirebaseRepositoryImplTest {
 
     @MockK
     private lateinit var projectConverter: ProjectConverter
+
     @MockK
     private lateinit var databaseReference: DatabaseReference
 
@@ -25,7 +26,9 @@ internal class ProjectsFirebaseRepositoryImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        projectsFirebaseRepositoryImpl = ProjectsFirebaseRepositoryImpl(projectConverter, searchResItemConverter, databaseReference)
+        projectsFirebaseRepositoryImpl = ProjectsFirebaseRepositoryImpl(projectConverter,
+            searchResItemConverter,
+            databaseReference)
     }
 
     @org.junit.jupiter.api.Test

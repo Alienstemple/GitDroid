@@ -59,8 +59,10 @@ object MiscCreator {
 
     fun createUserData() =
         UserData()
+
     fun createProjectData() =
         ProjectData()
+
     fun createSearchResultItemData() =
         SearchResultItemData()
 }

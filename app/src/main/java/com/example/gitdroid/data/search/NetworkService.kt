@@ -4,7 +4,10 @@ import android.util.Log
 import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.models.data.SearchResultData
 
-class NetworkService(private val githubApiService: GithubApiService, private val sessionManager: SessionManager) {
+class NetworkService(
+    private val githubApiService: GithubApiService,
+    private val sessionManager: SessionManager,
+) {
 
     suspend fun getCodeSearch(searchQuery: String): SearchResultData {
         Log.d(TAG, "NetworkService called with: searchQuery = $searchQuery")

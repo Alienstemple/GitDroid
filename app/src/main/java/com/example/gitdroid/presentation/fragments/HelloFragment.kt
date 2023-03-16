@@ -37,6 +37,7 @@ class HelloFragment : Fragment() {
 
     companion object {
         const val TAG = "HelloFragmLog"
+
         @JvmStatic
         fun newInstance() =
             HelloFragment()

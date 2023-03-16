@@ -8,7 +8,7 @@ class ProjectConverter {
     private val converter = SearchResultItemConverter()
 
     fun convert(projectData: ProjectData): Project {
-        return Project (
+        return Project(
             projectId = projectData.id,
             projectName = projectData.name,
             searchResList = projectData.searchResList.map {
@@ -18,7 +18,7 @@ class ProjectConverter {
     }
 
     fun convert(project: Project): ProjectData {
-        return ProjectData (
+        return ProjectData(
             id = project.projectId,
             name = project.projectName,
             searchResList = project.searchResList.map {

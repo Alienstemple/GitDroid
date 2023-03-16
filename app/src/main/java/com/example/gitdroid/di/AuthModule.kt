@@ -25,7 +25,7 @@ class AuthModule {
     @Singleton
     fun providesAuthRepository(
         context: Context,
-        auth: FirebaseAuth
+        auth: FirebaseAuth,
     ): AuthRepository {
         val provider = OAuthProvider.newBuilder(PROVIDER_ID)
         return AuthRepositoryImpl(context, auth, provider)

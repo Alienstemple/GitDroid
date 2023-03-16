@@ -5,8 +5,10 @@ import com.example.gitdroid.data.converters.SearchResultConverter
 import com.example.gitdroid.domain.search.NetworkRepository
 import com.example.gitdroid.models.domain.SearchResult
 
-class NetworkRepositoryImpl(private val networkService: NetworkService,
-                            private val searchResultConverter: SearchResultConverter): NetworkRepository {
+class NetworkRepositoryImpl(
+    private val networkService: NetworkService,
+    private val searchResultConverter: SearchResultConverter,
+) : NetworkRepository {
     override suspend fun getCodeSearch(searchQuery: String): SearchResult {
         Log.d(TAG, "getCodeSearch() called with: searchQuery = $searchQuery")
         val result = networkService.getCodeSearch(searchQuery)

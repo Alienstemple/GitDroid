@@ -3,11 +3,10 @@ package com.example.gitdroid.domain.projects
 import android.util.Log
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 
 class ProjectsInteractorImpl(
-    private val projectsFirebaseRepository: ProjectsFirebaseRepository
+    private val projectsFirebaseRepository: ProjectsFirebaseRepository,
 ) : ProjectsInteractor {
 
     override fun getAllProjects(): Flow<List<Project>> {

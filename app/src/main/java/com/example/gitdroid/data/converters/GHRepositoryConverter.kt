@@ -16,7 +16,7 @@ class GHRepositoryConverter {
     }
 
     fun convert(ghRepository: GHRepository): GHRepositoryData {
-        return GHRepositoryData (
+        return GHRepositoryData(
             id = ghRepository.repoId,
             name = ghRepository.repoName,
             fullName = ghRepository.repoFullName,

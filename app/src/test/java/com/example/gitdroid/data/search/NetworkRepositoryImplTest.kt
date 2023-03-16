@@ -2,15 +2,11 @@ package com.example.gitdroid.data.search
 
 import android.util.Log
 import com.example.gitdroid.MiscCreator
-import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultConverter
-import com.example.gitdroid.data.converters.SearchResultItemConverter
-import com.example.gitdroid.data.projects.ProjectsFirebaseRepositoryImpl
 import com.example.gitdroid.models.data.SearchResultData
 import com.example.gitdroid.models.domain.SearchResult
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After

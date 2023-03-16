@@ -28,6 +28,8 @@ class ProjectsModule {
     fun providesProjectsFirebaseRepository(auth: FirebaseAuth): ProjectsFirebaseRepository {
         val databaseReference =
             FirebaseDatabase.getInstance().getReference("users").child(auth.currentUser!!.uid)
-        return ProjectsFirebaseRepositoryImpl(ProjectConverter(), SearchResultItemConverter(), databaseReference)
+        return ProjectsFirebaseRepositoryImpl(ProjectConverter(),
+            SearchResultItemConverter(),
+            databaseReference)
     }
 }
