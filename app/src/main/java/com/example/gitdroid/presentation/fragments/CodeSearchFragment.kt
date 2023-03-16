@@ -70,7 +70,7 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
     private fun setupProjectUpdatedObserver() {
         projectSharedViewModel.projectUpdated.observe(viewLifecycleOwner) {
-            if (it)
+            if (it == true)
                 Toast.makeText(requireContext(), "Search result added successfully",
                     Toast.LENGTH_SHORT).show()
         }
