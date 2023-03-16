@@ -3,7 +3,7 @@ package com.example.gitdroid.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gitdroid.databinding.ProjectItemBinding
+import com.example.gitdroid.databinding.ProjectItemForSearchBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 
@@ -15,7 +15,7 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val binding =
-            ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ProjectItemForSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -33,7 +33,7 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
         notifyDataSetChanged()
     }
 
-    class ViewHolder(binding: ProjectItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(binding: ProjectItemForSearchBinding) : RecyclerView.ViewHolder(binding.root) {
 
         private val projectItemBinding = binding
 
