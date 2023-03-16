@@ -6,25 +6,23 @@ import com.google.common.truth.Truth.assertThat
 import com.google.firebase.auth.*
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class AuthRepositoryImplTest {
 
-    @MockK
-    private lateinit var auth: FirebaseAuth
+    private val auth: FirebaseAuth = mockk()
 
-    @MockK
-    private lateinit var provider: OAuthProvider.Builder
+    private val provider: OAuthProvider.Builder = mockk()
 
-    @MockK
-    private lateinit var sessionManager: SessionManager
+    private val sessionManager: SessionManager = mockk()
 
     private lateinit var authRepository: AuthRepositoryImpl
 
-    private val firebaseUser: FirebaseUser = mockk()
     private val stubEmail = "stub@mail"
     private val stubCallback: AuthCallback = mockk()
     private val paramKey: String = "login"
@@ -37,7 +35,7 @@ internal class AuthRepositoryImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        every { auth.currentUser } returns firebaseUser
+        every { auth.currentUser } returns mockk()
         every { auth.signOut() } just runs
         every { sessionManager.removeAuthToken() } just runs
         every { provider.addCustomParameter(paramKey, paramValue) } returns mockk()
@@ -46,7 +44,7 @@ internal class AuthRepositoryImplTest {
         every { stubCallback.onRegister(auth, stubOAuthProvider) } returns stubAuthResult
         every { stubAuthResult.credential } returns stubOAuthCredential
         every { stubOAuthCredential.accessToken } returns stubAccessToken
-        every { sessionManager.saveAuthToken(stubAccessToken) } returns mockk()
+        every { sessionManager.saveAuthToken(stubAccessToken) } just runs
         authRepository = AuthRepositoryImpl(auth, provider, sessionManager)
 
         mockkStatic(Log::class)
@@ -64,6 +62,15 @@ internal class AuthRepositoryImplTest {
         val actual = authRepository.checkAuthorized()
         // assert
         assertThat(actual).isEqualTo(true)
+    }
+
+    @Test
+    fun `checkAuthorized negative result`() {
+        every { auth.currentUser } returns null
+        // act
+        val actual = authRepository.checkAuthorized()
+        // assert
+        assertThat(actual).isEqualTo(false)
     }
 
     @Test
