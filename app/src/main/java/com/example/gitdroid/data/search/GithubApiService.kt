@@ -15,27 +15,4 @@ interface GithubApiService {
 
     @GET("search/code")
     suspend fun getCodeSearch(@Header("Authorization") token: String, @Query("q") searchQuery: String): Response<SearchResultData>
-
-    companion object {
-        var retrofitService: GithubApiService? = null
-        fun getInstance(): GithubApiService {
-            if (retrofitService == null) {
-
-                val logging = HttpLoggingInterceptor()
-                logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                val okHttp = OkHttpClient.Builder()
-                    .addInterceptor(logging)
-                    .build()
-
-                val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.github.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttp)
-                    .build()
-                retrofitService = retrofit.create(GithubApiService::class.java)
-            }
-            return retrofitService!!
-        }
-
-    }
 }

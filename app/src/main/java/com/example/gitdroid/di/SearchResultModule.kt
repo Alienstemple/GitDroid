@@ -11,6 +11,10 @@ import com.example.gitdroid.domain.search.GithubInteractorImpl
 import com.example.gitdroid.domain.search.NetworkRepository
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -19,7 +23,7 @@ class SearchResultModule {
     @Provides
     @Singleton
     fun providesGithubInteractor(
-        networkRepository: NetworkRepository
+        networkRepository: NetworkRepository,
     ): GithubInteractor {
         return GithubInteractorImpl(networkRepository)
     }
@@ -27,7 +31,7 @@ class SearchResultModule {
     @Provides
     @Singleton
     fun providesNetworkRepository(
-        networkService: NetworkService
+        networkService: NetworkService,
     ): NetworkRepository {
         return NetworkRepositoryImpl(networkService, SearchResultConverter())
     }
@@ -35,16 +39,30 @@ class SearchResultModule {
     @Provides
     @Singleton
     fun providesNetworkService(
-        sessionManager: SessionManager
+        sessionManager: SessionManager,
     ): NetworkService {
 
-        return NetworkService(GithubApiService.getInstance(), sessionManager)
+
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val okHttp = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.github.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttp)
+            .build()
+        val githubApiService = retrofit.create(GithubApiService::class.java)
+
+        return NetworkService(githubApiService, sessionManager)
     }
 
     @Provides
     @Singleton
     fun providesSessionManager(
-        context: Context
+        context: Context,
     ): SessionManager {
         return SessionManager(context)
     }
