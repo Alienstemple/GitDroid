@@ -87,5 +87,6 @@ internal class AuthRepositoryImplTest {
         authRepository.signInWithGithubProvider(stubEmail, stubCallback)
         // assert
         verify { sessionManager.saveAuthToken(stubAccessToken) }
+        verify { stubCallback.onRegister(auth, stubOAuthProvider) }
     }
 }
