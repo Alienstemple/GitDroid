@@ -30,7 +30,6 @@ class ProjectsFirebaseRepositoryImpl(
     private val searchResultItemConverter: SearchResultItemConverter,
     private val databaseReference: DatabaseReference,
 ) : ProjectsFirebaseRepository {
-    @ExperimentalCoroutinesApi
     override fun getAllProjects() = callbackFlow<List<Project>> {
         Log.d(TAG, "getAllProjects() called")
         val projectDatas = mutableListOf<ProjectData>()

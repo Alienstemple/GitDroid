@@ -10,7 +10,6 @@ class ProjectsInteractorImpl(
     private val projectsFirebaseRepository: ProjectsFirebaseRepository
 ) : ProjectsInteractor {
 
-    @ExperimentalCoroutinesApi
     override fun getAllProjects(): Flow<List<Project>> {
         return projectsFirebaseRepository.getAllProjects()
     }
