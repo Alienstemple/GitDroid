@@ -4,12 +4,15 @@ import com.example.gitdroid.models.data.ProjectData
 import com.example.gitdroid.models.domain.Project
 
 class ProjectConverter {
+
+    private val converter = SearchResultItemConverter()
+
     fun convert(projectData: ProjectData): Project {
         return Project (
             projectId = projectData.id,
             projectName = projectData.name,
             searchResList = projectData.searchResList.map {
-                SearchResultItemConverter().convert(it)
+                converter.convert(it)
             }
         )
     }
@@ -19,7 +22,7 @@ class ProjectConverter {
             id = project.projectId,
             name = project.projectName,
             searchResList = project.searchResList.map {
-                SearchResultItemConverter().convert(it)
+                converter.convert(it)
             }
         )
     }
