@@ -6,11 +6,14 @@
         android:title="Search" />
     <item
         android:id="@+id/myProjItem"
+        android:icon="@drawable/icon_bookmark_small"
         android:title="My projects" />
     <item
         android:id="@+id/logoutItem"
+        android:icon="@android:drawable/ic_menu_revert"
         android:title="Logout" />
     <item
         android:id="@+id/settingsItem"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:title="Settings" />
 </menu>

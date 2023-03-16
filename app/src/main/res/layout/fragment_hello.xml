@@ -46,7 +46,7 @@
         android:layout_marginLeft="90dp"
         android:layout_marginRight="90dp"
         android:backgroundTint="#fff"
-        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:drawableLeft="@drawable/icon_bookmark_small"
         android:drawablePadding="8dp"
         android:padding="8dp"
         android:textColor="#000"
@@ -59,10 +59,10 @@
         android:layout_marginLeft="90dp"
         android:layout_marginRight="90dp"
         android:backgroundTint="#fff"
-        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:drawableLeft="@android:drawable/ic_menu_revert"
         android:drawablePadding="8dp"
         android:padding="8dp"
-        android:textColor="#000"
-        android:text="Logout" />
+        android:text="Logout"
+        android:textColor="#000" />
 
 </LinearLayout>
