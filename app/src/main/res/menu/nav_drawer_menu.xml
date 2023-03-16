@@ -3,17 +3,17 @@
     <item
         android:id="@+id/searchItem"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/myProjItem"
         android:icon="@drawable/icon_bookmark_small"
-        android:title="My projects" />
+        android:title="@string/my_projects" />
     <item
         android:id="@+id/logoutItem"
         android:icon="@android:drawable/ic_menu_revert"
-        android:title="Logout" />
+        android:title="@string/logout" />
     <item
         android:id="@+id/settingsItem"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="Settings" />
+        android:title="@string/settings" />
 </menu>

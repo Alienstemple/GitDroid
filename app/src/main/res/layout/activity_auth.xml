@@ -9,23 +9,23 @@
     <EditText
         android:id="@+id/enterEmailEditText"
         android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="240dp"
-        android:hint="Enter email"
+        android:layout_height="@dimen/medium_layout_height"
+        android:layout_marginTop="@dimen/big_top_margin"
+        android:hint="@string/enter_email"
         app:layout_constraintEnd_toEndOf="@+id/authBtn"
         app:layout_constraintStart_toStartOf="@+id/authBtn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/authBtn"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/email_field_width"
         android:layout_height="wrap_content"
-        android:backgroundTint="#fff"
-        android:drawableLeft="@drawable/icon_github_small"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="Authorize on GitHub"
-        android:textColor="#000"
+        android:backgroundTint="@color/white"
+        android:drawableStart="@drawable/icon_github_small"
+        android:drawablePadding="@dimen/medium_padding"
+        android:padding="@dimen/medium_padding"
+        android:text="@string/authorize_on_github"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/enterEmailEditText" />

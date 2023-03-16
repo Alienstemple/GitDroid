@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="@dimen/big_layout_width"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="@dimen/big_text_size"
         android:textStyle="bold"
-        android:text="Select project in which we add result" />
+        android:text="@string/select_project_in_which_we_add_result" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dialog_recycler_view"
         android:layout_width="match_parent"

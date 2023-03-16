@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="20dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    app:cardElevation="@dimen/card_elev"
+    app:cardCornerRadius="@dimen/card_radius"
+    android:layout_marginRight="@dimen/proj_margin"
+    android:layout_marginLeft="@dimen/proj_margin"
+    android:layout_marginTop="@dimen/double_small_margin"
+    android:layout_marginBottom="@dimen/double_small_margin"
     app:cardBackgroundColor="@color/white"
-    app:cardMaxElevation="12dp"
+    app:cardMaxElevation="@dimen/card_elevation"
     app:cardPreventCornerOverlap="true">
 
 
@@ -19,9 +19,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_margin="18dp"
-        android:text="Repo name"
-        android:textSize="20sp"
+        android:layout_margin="@dimen/proj_tv_margin"
+        android:text="@string/repo_name"
+        android:textSize="@dimen/big_text_size"
         android:textStyle="bold" />
 
     <ImageButton
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/medium_margin"
         app:srcCompat="@drawable/icon_bookmark_small" />
 
 </androidx.cardview.widget.CardView>

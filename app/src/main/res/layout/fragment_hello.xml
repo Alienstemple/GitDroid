@@ -10,19 +10,19 @@
     <TextView
         android:id="@+id/welcomeTv"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="90dp"
+        android:layout_height="@dimen/big_layout_height"
+        android:layout_marginTop="@dimen/hello_top_margin"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="@dimen/big_text_size"
         android:textStyle="bold"
-        android:text="Welcome to GitDroid!"
-        android:textColor="#000" />
+        android:text="@string/welcome_to_gitdroid"
+        android:textColor="@color/black" />
 
 
     <ImageView
         android:id="@+id/userAvatarImg"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="@dimen/big_icon_size"
+        android:layout_height="@dimen/big_icon_size"
         android:layout_gravity="center"
         android:src="@drawable/icon_github" />
 
@@ -30,39 +30,39 @@
         android:id="@+id/searchBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="#fff"
-        android:drawableLeft="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:textColor="#000"
-        android:text="Search" />
+        android:layout_marginLeft="@dimen/hello_top_margin"
+        android:layout_marginRight="@dimen/hello_top_margin"
+        android:backgroundTint="@color/white"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="@dimen/medium_padding"
+        android:padding="@dimen/medium_padding"
+        android:textColor="@color/black"
+        android:text="@string/search" />
 
     <Button
         android:id="@+id/myProjBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="#fff"
-        android:drawableLeft="@drawable/icon_bookmark_small"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:textColor="#000"
-        android:text="My projects" />
+        android:layout_marginLeft="@dimen/hello_top_margin"
+        android:layout_marginRight="@dimen/hello_top_margin"
+        android:backgroundTint="@color/white"
+        android:drawableStart="@drawable/icon_bookmark_small"
+        android:drawablePadding="@dimen/medium_padding"
+        android:padding="@dimen/medium_padding"
+        android:textColor="@color/black"
+        android:text="@string/my_projects" />
 
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="#fff"
-        android:drawableLeft="@android:drawable/ic_menu_revert"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="Logout"
-        android:textColor="#000" />
+        android:layout_marginLeft="@dimen/hello_top_margin"
+        android:layout_marginRight="@dimen/hello_top_margin"
+        android:backgroundTint="@color/white"
+        android:drawableStart="@android:drawable/ic_menu_revert"
+        android:drawablePadding="@dimen/medium_padding"
+        android:padding="@dimen/medium_padding"
+        android:text="@string/logout"
+        android:textColor="@color/black" />
 
 </LinearLayout>

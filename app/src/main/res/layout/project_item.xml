@@ -9,14 +9,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="@dimen/proj_margin"
+        android:layout_marginTop="@dimen/double_small_margin"
+        android:layout_marginRight="@dimen/proj_margin"
+        android:layout_marginBottom="@dimen/double_small_margin"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="10dp"
-        app:cardMaxElevation="12dp"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:cardElevation="@dimen/proj_margin"
+        app:cardMaxElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="true">
 
         <TextView
@@ -24,9 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_margin="18dp"
-            android:text="Project name"
-            android:textSize="20sp"
+            android:layout_margin="@dimen/proj_tv_margin"
+            android:text="@string/project_name"
+            android:textSize="@dimen/big_text_size"
             android:textStyle="bold" />
 
         <ImageButton
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="58dp"
+            android:layout_marginEnd="@dimen/proj_margin_end"
             app:srcCompat="@android:drawable/ic_menu_share" />
 
         <ImageButton
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="@dimen/double_small_margin"
             app:srcCompat="@android:drawable/ic_menu_delete" />
     </androidx.cardview.widget.CardView>
 
@@ -50,7 +50,7 @@
     <ListView
         android:id="@+id/projectSearchResList"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="@dimen/proj_list_size"
         android:visibility="gone"/>
 
 </LinearLayout>

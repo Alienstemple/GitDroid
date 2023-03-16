@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="email_field_width">240dp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="medium_margin">8dp</dimen>
+    <dimen name="proj_margin">10dp</dimen>
+    <dimen name="proj_margin_end">58dp</dimen>
+    <dimen name="proj_tv_margin">18dp</dimen>
+    <dimen name="small_margin">2dp</dimen>
+    <dimen name="double_small_margin">4dp</dimen>
+    <dimen name="medium_layout_height">42dp</dimen>
+    <dimen name="big_top_margin">240dp</dimen>
+    <dimen name="hello_top_margin">90dp</dimen>
+    <dimen name="big_icon_size">90dp</dimen>
+    <dimen name="medium_top_margin">40dp</dimen>
+    <dimen name="big_layout_height">48dp</dimen>
+    <dimen name="proj_layout_size">164dp</dimen>
+    <dimen name="proj_list_size">200dp</dimen>
+    <dimen name="progress_bar_size">164dp</dimen>
+    <dimen name="big_text_size">20sp</dimen>
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="card_elevation">12dp</dimen>
+    <dimen name="card_elev">10dp</dimen>
+    <dimen name="big_layout_width">300dp</dimen>
+
+</resources>
