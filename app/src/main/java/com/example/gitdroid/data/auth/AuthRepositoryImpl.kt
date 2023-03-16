@@ -7,6 +7,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
 
+/**
+ * Имплементирует интерфейс [AuthRepository]
+ * Отвечает за авторизацию, проверку авторизации и логаут
+ * @constructor Принимает экземпляры [FirebaseAuth], [OAuthProvider.Builder], [SessionManager]
+ */
 class AuthRepositoryImpl(
     private val auth: FirebaseAuth,
     private val provider: OAuthProvider.Builder,
@@ -29,13 +34,10 @@ class AuthRepositoryImpl(
         email: String,
         authCallbackInstance: AuthCallback,
     ) {
-        Log.d(TAG,
-            "signInWithGithubProvider() called with: email = $email")
         provider.addCustomParameter("login", email)
         provider.scopes = listOf("user:email")
 
         val result = authCallbackInstance.onRegister(auth, provider.build())
-        Log.d(TAG, "Back to AuthRepo to save token")
 
         val accessToken = (result.credential as OAuthCredential).accessToken
         Log.d(TAG, "Access token = $accessToken")

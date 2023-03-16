@@ -9,7 +9,6 @@ import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
@@ -28,7 +27,7 @@ class ProjectsViewModel(private val projectsInteractor: ProjectsInteractor) : Vi
     fun loadAllProjects() {
 
         val handler = CoroutineExceptionHandler { _, exception ->
-            println("Exception thrown in one of the children. $exception")
+            Log.d(TAG, "Exception thrown in one of the children. $exception")
             _projectLoadState.postValue(ProjectLoadState.ERROR)
         }
 

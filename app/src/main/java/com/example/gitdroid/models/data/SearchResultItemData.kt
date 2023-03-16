@@ -2,6 +2,9 @@ package com.example.gitdroid.models.data
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Элемент поискового ответа
+ */
 data class SearchResultItemData(
     @SerializedName("name") val name: String = "",  // имя файла
     @SerializedName("path") val path: String = "",  // путь к файлу

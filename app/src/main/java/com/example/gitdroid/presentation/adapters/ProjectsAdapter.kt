@@ -18,8 +18,6 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
     private val projectList = mutableListOf<Project>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d(TAG, "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
-
         val binding =
             ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -45,7 +43,6 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
 
         fun bind(projectItem: Project, clickListener: ProjectItemClickListener) =
             with(projectItemBinding) {
-                Log.d(TAG, "bind() called ${projectItem.projectName}")
                 projectNameTv.text = projectItem.projectName
 
                 itemView.setOnClickListener {
@@ -58,7 +55,6 @@ class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickList
                 }
 
                 shareBtn.setOnClickListener {
-                    Log.d(ProjectsForSearchAdapter.TAG, "Share Project via email")
                     clickListener.onShareClicked(projectItem)
                 }
 

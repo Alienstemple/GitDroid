@@ -3,9 +3,9 @@ package com.example.gitdroid.di
 import com.example.gitdroid.data.converters.ProjectConverter
 import com.example.gitdroid.data.converters.SearchResultItemConverter
 import com.example.gitdroid.data.projects.ProjectsRepositoryImpl
-import com.example.gitdroid.domain.projects.ProjectsRepository
 import com.example.gitdroid.domain.projects.ProjectsInteractor
 import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
+import com.example.gitdroid.domain.projects.ProjectsRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module

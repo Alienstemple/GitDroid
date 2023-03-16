@@ -1,6 +1,5 @@
 package com.example.gitdroid.di
 
-import android.content.Context
 import com.example.gitdroid.data.auth.SessionManager
 import com.example.gitdroid.data.converters.SearchResultConverter
 import com.example.gitdroid.data.search.GithubApiService

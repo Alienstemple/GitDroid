@@ -16,15 +16,12 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     val authState: LiveData<AuthState> = _authState
 
     fun checkAuthorized() {
-        Log.d(TAG, "Checking authorized")
         _authState.postValue(
             when (authInteractor.checkAuthorized()) {
                 true -> {
-                    Log.d(TAG, "Init AuthVMState, setting up to AUTHORIZED")
                     AuthState.AUTHORIZED
                 }
                 false -> {
-                    Log.d(TAG, "Init AuthVMState, setting up to UNAUTHORIZED")
                     AuthState.UNAUTHORIZED
                 }
             }
@@ -32,18 +29,14 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
     }
 
     fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
-        Log.d(TAG,
-            "signInWithGithubProvider() called with: email = $email")
         viewModelScope.launch(Dispatchers.IO) {
             authInteractor.signInWithGithubProvider(email, authCallbackInstance)
-            Log.d(TAG, "Sign In successfully, ${AuthState.AUTHORIZED}")
             _authState.postValue(AuthState.AUTHORIZED)
         }
     }
 
     fun logout() {
         authInteractor.logout()
-        Log.d(TAG, "Logout successfully, ${AuthState.UNAUTHORIZED}")
         _authState.value = AuthState.UNAUTHORIZED
     }
 

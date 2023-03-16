@@ -14,7 +14,6 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
     private val projectList = mutableListOf<Project>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d(TAG, "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
 
         val binding =
             ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,7 +40,6 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
 
         fun bind(projectItem: Project, clickListener: ProjectItemClickListener) =
             with(projectItemBinding) {
-                Log.d(TAG, "bind() called ${projectItem.projectName}")
                 projectNameTv.text = projectItem.projectName
 
                 itemView.setOnClickListener {

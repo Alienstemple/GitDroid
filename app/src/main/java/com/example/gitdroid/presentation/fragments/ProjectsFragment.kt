@@ -62,18 +62,15 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
         projectsSharedViewModel.projectLoadState.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 ProjectLoadState.LOADING -> {
-                    Log.d(CodeSearchFragment.TAG, "Making progr bar visible")
                     binding.projectsRecycler.visibility = View.GONE
                     binding.projListProgress.visibility = View.VISIBLE
                 }
                 ProjectLoadState.ERROR -> {
-                    Log.d(CodeSearchFragment.TAG, "Before showing alert dialog")
                     binding.projectsRecycler.visibility = View.GONE
                     binding.projListProgress.visibility = View.GONE
                     showErrorAlertDialog()
                 }
                 ProjectLoadState.COMPLETED -> {
-                    Log.d(CodeSearchFragment.TAG, "Making recycler visible")
                     binding.projectsRecycler.visibility = View.VISIBLE
                     binding.projListProgress.visibility = View.GONE
                 }
@@ -103,12 +100,10 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     }
 
     override fun onDeleteClicked(project: Project) {
-        Log.d(TAG, "onDeleteClicked() called with: project = $project")
         projectsSharedViewModel.deleteProject(project.projectId)
     }
 
     override fun onShareClicked(project: Project) {
-        Log.d(TAG, "onShareClicked() called with: project = $project")
         val userEmail: String = prefs.getString(getString(R.string.email), "").toString()
 
         if (userEmail.isEmpty()) {
@@ -122,7 +117,6 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     }
 
     private fun sendProjectByEmail(project: Project, userEmail: String) {
-        Log.d(TAG, "sendProjectByEmail() called with: project = $project, userEmail = $userEmail")
 
         var projectMessage = "GitDroidProject: ${project.projectName}"
         if (project.searchResList.isNotEmpty()) {
@@ -130,8 +124,6 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
                 projectMessage += "\n\t${it.ghRepository.repoFullName}\n\t${it.htmlFileUrl}\n"
             }
         }
-
-        Log.d(TAG, "message = $projectMessage")
 
         val intent = Intent(Intent.ACTION_SEND)
         intent.putExtra(Intent.EXTRA_EMAIL, userEmail)
@@ -144,15 +136,12 @@ class ProjectsFragment : Fragment(), ProjectItemClickListener {
     private fun setupObserver() {
         projectsSharedViewModel.projectList.observe(viewLifecycleOwner) { projectItemsList ->
             if (projectItemsList != null) {
-                Log.d(TAG, "Loading from Firebase.")
                 projectsAdapter.setList(projectItemsList)
-                Log.d(TAG, "Items in adapter: ${projectsAdapter.itemCount}")
             }
         }
     }
 
     private fun initAdapter() {
-        Log.d(TAG, "initAdapter() called")
         projectsAdapter = ProjectsAdapter(this as ProjectItemClickListener)
         binding.projectsRecycler.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

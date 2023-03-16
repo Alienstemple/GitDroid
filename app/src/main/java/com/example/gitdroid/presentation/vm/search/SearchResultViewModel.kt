@@ -21,15 +21,13 @@ class SearchResultViewModel(private val githubInteractor: GithubInteractor) : Vi
     val searchState: LiveData<SearchState> = _searchState
 
     fun getCodeSearch(searchQuery: String) {
-        Log.d(TAG, "getCodeSearch() called with: searchQuery = $searchQuery")
 
         val handler = CoroutineExceptionHandler { _, exception ->
-            println("Exception thrown in one of the children. $exception")
+            Log.d(TAG,"Exception thrown in one of the children. $exception")
             _searchState.postValue(SearchState.ERROR)
         }
 
         viewModelScope.launch(SupervisorJob() + Dispatchers.IO + handler) {
-            Log.d(TAG, Thread.currentThread().toString())
             _searchState.postValue(SearchState.LOADING)
             val searchResult = githubInteractor.getCodeSearch(searchQuery)
             _searchResultItems.postValue(searchResult.searchResultItems)

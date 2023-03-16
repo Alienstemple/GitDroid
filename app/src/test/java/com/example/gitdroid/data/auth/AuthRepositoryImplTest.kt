@@ -3,19 +3,13 @@ package com.example.gitdroid.data.auth
 import android.util.Log
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.google.common.truth.Truth.assertThat
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.OAuthCredential
-import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.*
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.any
 
 internal class AuthRepositoryImplTest {
 

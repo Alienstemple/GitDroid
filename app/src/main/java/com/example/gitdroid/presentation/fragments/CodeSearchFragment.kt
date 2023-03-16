@@ -81,18 +81,15 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
         searchResultViewModel.searchState.observe(viewLifecycleOwner) { uiState ->
             when (uiState) {
                 SearchState.LOADING -> {
-                    Log.d(TAG, "Making progr bar visible")
                     binding.searchResultsRecycler.visibility = View.GONE
                     binding.searchResultsProgress.visibility = View.VISIBLE
                 }
                 SearchState.ERROR -> {
-                    Log.d(TAG, "Before showing alert dialog")
                     binding.searchResultsRecycler.visibility = View.GONE
                     binding.searchResultsProgress.visibility = View.GONE
                     showErrorAlertDialog()
                 }
                 SearchState.COMPLETED -> {
-                    Log.d(TAG, "Making recycler visible")
                     binding.searchResultsRecycler.visibility = View.VISIBLE
                     binding.searchResultsProgress.visibility = View.GONE
                 }
@@ -157,7 +154,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
 
     override fun onItemClicked(searchResultItem: SearchResultItem) {
         // Open chrome custom tab
-        Log.d(MainActivity.TAG, "On item clicked: ${searchResultItem.ghRepository.repoName}")
         val url = searchResultItem.htmlFileUrl
         val builder = CustomTabsIntent.Builder()
         val customTabsIntent = builder.build()
@@ -165,8 +161,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     }
 
     override fun onAddToProjectClicked(searchResultItem: SearchResultItem) {
-        Log.d(ProjectsFragment.TAG,
-            "onAddToProjectClicked() called with: searchResultItem = $searchResultItem")
 
         selectedSearchResult = searchResultItem  // Init selected search result
 
@@ -193,7 +187,6 @@ class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectIte
     }
 
     override fun onItemClicked(project: Project) {
-        Log.d(TAG, "onItemClicked() called with: project = $project")
         projectSharedViewModel.updateProject(project.projectId, selectedSearchResult)
         projectSharedViewModel.clearAddState()
     }

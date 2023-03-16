@@ -14,7 +14,6 @@ class SearchResultAdapter(private val searchResultItemClickListener: SearchResul
     private val searchResItemList = mutableListOf<SearchResultItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d(TAG, "onCreateViewHolder() called with: parent = $parent, viewType = $viewType")
 
         val binding =
             SearchResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,7 +27,7 @@ class SearchResultAdapter(private val searchResultItemClickListener: SearchResul
     override fun getItemCount() = searchResItemList.size
 
     fun setList(newList: List<SearchResultItem>) {
-        searchResItemList.apply {  // TODO DiffUtil
+        searchResItemList.apply {
             clear()
             addAll(newList)
         }
@@ -41,10 +40,8 @@ class SearchResultAdapter(private val searchResultItemClickListener: SearchResul
 
         fun bind(searchResultItem: SearchResultItem, clickListener: SearchResultItemClickListener) =
             with(searchResItemBinding) {
-                Log.d(TAG, "bind() called ${searchResultItem.fileName}")
                 resultRepoNameTv.text = searchResultItem.ghRepository.repoName
                 addToProjectBtn.setOnClickListener {
-                    Log.d(TAG, "Add to project")
                     clickListener.onAddToProjectClicked(searchResultItem)
                 }
                 itemView.setOnClickListener {

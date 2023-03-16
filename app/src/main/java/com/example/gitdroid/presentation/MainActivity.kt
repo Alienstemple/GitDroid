@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), Navigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate() called with: savedInstanceState = $savedInstanceState")
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity(), Navigation {
     }
 
     private fun logoutAuthFrag() {
-        Log.d(TAG, "logoutAuthFrag() called")
         val intent = Intent(this, AuthActivity::class.java)
         intent.putExtra("LOGOUT", true)
         startActivity(intent)
@@ -54,19 +52,15 @@ class MainActivity : AppCompatActivity(), Navigation {
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.searchItem -> {
-                    Log.d(TAG, "Item 1 selected")
                     openCodeSearch()
                 }
                 R.id.myProjItem -> {
-                    Log.d(TAG, "Item 2 selected")
                     openProjects()
                 }
                 R.id.logoutItem -> {
-                    Log.d(TAG, "Logout selected")
                     logoutAuthFrag()
                 }
                 R.id.settingsItem -> {
-                    Log.d(TAG, "Item 4 selected")
                     openSettings()
                 }
             }

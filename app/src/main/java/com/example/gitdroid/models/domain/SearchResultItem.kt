@@ -1,5 +1,8 @@
 package com.example.gitdroid.models.domain
 
+/**
+ * Элемент поискового ответа
+ */
 data class SearchResultItem(
     val fileName: String,  // имя файла
     val filePath: String,  // путь к файлу

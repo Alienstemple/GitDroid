@@ -19,27 +19,28 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
+/**
+ * Имплементирует интерфейс [ProjectsRepository]
+ * Отвечает за получение списка всех проектов, добавление, удаление и обновление проекта
+ * @constructor Принимает экземпляры [ProjectConverter], [SearchResultItemConverter], [DatabaseReference]
+ */
 class ProjectsRepositoryImpl(
     private val projectConverter: ProjectConverter,
     private val searchResultItemConverter: SearchResultItemConverter,
     private val databaseReference: DatabaseReference,
 ) : ProjectsRepository {
     override fun getAllProjects() = callbackFlow<List<Project>> {
-        Log.d(TAG, "getAllProjects() called")
         val projectDatas = mutableListOf<ProjectData>()
         val projects = mutableListOf<Project>()
 
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.map {
-                    Log.d(TAG, "Snapshot's child: ${it.value.toString()}")
                     // Default конструктор нужен для Project, SearchResItem, т к иначе Database error
                     projectDatas.add(it.getValue(ProjectData::class.java) ?: ProjectData("",
                         "",
                         emptyList()))
                 }
-                Log.d(TAG, "Projects from Firebase: $projectDatas")
                 projectDatas.map {
                     projects.add(projectConverter.convert(it))
                 }
@@ -54,7 +55,6 @@ class ProjectsRepositoryImpl(
 
         databaseReference.addListenerForSingleValueEvent(listener)
         awaitClose {
-            Log.d(TAG, "awaitClose() called")
             databaseReference
                 .removeEventListener(listener)
         }
@@ -62,12 +62,9 @@ class ProjectsRepositoryImpl(
 
     override suspend fun addProject(project: Project): Project =
         withContext(Dispatchers.IO) {
-            Log.d(TAG, "In addProject in repo")
 
             val projectId = databaseReference.push().key.toString()
             project.projectId = projectId
-            Log.d(TAG, "ProjectId = $projectId")
-            Log.d(TAG, "Project = $project")
 
             databaseReference.child(projectId).setValue(projectConverter.convert(project)).await()
 
@@ -83,7 +80,6 @@ class ProjectsRepositoryImpl(
         }
 
     override suspend fun updateProject(projectId: String, searchResultItem: SearchResultItem) {
-        Log.d(TAG, "updateProject() called with: project = $projectId")
 
         databaseReference.child(projectId).child("searchResList")
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -93,9 +89,7 @@ class ProjectsRepositoryImpl(
                         searchResList.add(it.getValue(SearchResultItemData::class.java)
                             ?: SearchResultItemData())
                     }
-                    Log.d(TAG, "Old search res list: $searchResList")
                     searchResList.add(searchResultItemConverter.convert(searchResultItem))  // Adding new item to retreived list
-                    Log.d(TAG, "New search res list: $searchResList")
 
                     databaseReference.child(projectId).child("searchResList")
                         .setValue(searchResList)
