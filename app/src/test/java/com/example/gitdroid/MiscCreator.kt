@@ -1,9 +1,6 @@
 package com.example.gitdroid
 
-import com.example.gitdroid.models.data.GHRepositoryData
-import com.example.gitdroid.models.data.ProjectData
-import com.example.gitdroid.models.data.SearchResultData
-import com.example.gitdroid.models.data.UserData
+import com.example.gitdroid.models.data.*
 import com.example.gitdroid.models.domain.*
 
 object MiscCreator {
@@ -64,4 +61,6 @@ object MiscCreator {
         UserData()
     fun createProjectData() =
         ProjectData()
+    fun createSearchResultItemData() =
+        SearchResultItemData()
 }

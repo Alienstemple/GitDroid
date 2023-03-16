@@ -15,27 +15,19 @@ import org.junit.jupiter.api.Test
 
 internal class ProjectConverterTest {
 
-    private val projectConverter: ProjectConverter = mockk()
+    private val projectConverter = ProjectConverter()
     private val stubProjectData: ProjectData = MiscCreator.createProjectData()
     private val stubProject: Project = MiscCreator.createProject()
 
     @org.junit.Test
     fun convertFrom() {
-        every { projectConverter.convert(stubProjectData) } returns stubProject
-
         val result = projectConverter.convert((stubProjectData))
-
-        verify { projectConverter.convert(stubProjectData) }
         Truth.assertThat(result).isEqualTo(stubProject)
     }
 
     @org.junit.Test
     fun convertTo() {
-        every { projectConverter.convert(stubProject) } returns stubProjectData
-
         val result = projectConverter.convert((stubProject))
-
-        verify { projectConverter.convert(stubProject) }
         Truth.assertThat(result).isEqualTo(stubProjectData)
     }
 }
