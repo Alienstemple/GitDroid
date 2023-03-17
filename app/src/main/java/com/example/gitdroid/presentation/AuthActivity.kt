@@ -67,7 +67,7 @@ class AuthActivity : AppCompatActivity() {
                     .show()
             } else {
                 Log.d(TAG, "Before calling VM for authorize")
-                authViewModel.signInWithGithubProvider(email, object : AuthCallback {
+                authViewModel.signIn(email, object : AuthCallback {
                     override fun onRegister(a: FirebaseAuth, p: OAuthProvider): AuthResult {
 
                         return Tasks.await(

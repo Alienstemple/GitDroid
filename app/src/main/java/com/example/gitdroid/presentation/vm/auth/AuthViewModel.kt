@@ -27,9 +27,9 @@ class AuthViewModel(private val authInteractor: AuthInteractor) : ViewModel() {
         )
     }
 
-    fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback) {
+    fun signIn(email: String, authCallbackInstance: AuthCallback) {
         viewModelScope.launch(Dispatchers.IO) {
-            authInteractor.signInWithGithubProvider(email, authCallbackInstance)
+            authInteractor.signIn(email, authCallbackInstance)
             _authState.postValue(AuthState.AUTHORIZED)
         }
     }

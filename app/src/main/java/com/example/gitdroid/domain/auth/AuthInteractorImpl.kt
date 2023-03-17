@@ -7,11 +7,11 @@ package com.example.gitdroid.domain.auth
 class AuthInteractorImpl(private val authRepository: AuthRepository) : AuthInteractor {
     override fun checkAuthorized() = authRepository.checkAuthorized()
 
-    override suspend fun signInWithGithubProvider(
+    override suspend fun signIn(
         email: String,
         authCallbackInstance: AuthCallback,
     ) {
-        authRepository.signInWithGithubProvider(email, authCallbackInstance)
+        authRepository.signIn(email, authCallbackInstance)
     }
 
     override fun logout() {

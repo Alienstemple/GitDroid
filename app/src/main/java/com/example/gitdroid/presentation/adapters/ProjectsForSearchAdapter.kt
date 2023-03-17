@@ -26,7 +26,7 @@ class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItem
     override fun getItemCount() = projectList.size
 
     fun setList(newList: List<Project>) {
-        projectList.apply {  // TODO DiffUtil
+        projectList.apply {
             clear()
             addAll(newList)
         }

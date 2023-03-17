@@ -28,7 +28,7 @@ internal class AuthViewModelTest {
     @Before
     fun setUp() {
         authInteractor = mockk {
-            coEvery { signInWithGithubProvider(email, authCallbackInstance) } returns mockk()
+            coEvery { signIn(email, authCallbackInstance) } returns mockk()
             every { checkAuthorized() } returns true
             coEvery { logout() } returns mockk()
         }
@@ -59,10 +59,10 @@ internal class AuthViewModelTest {
     @Test
     fun `signIn positive result`() {
         // act
-        authViewModel.signInWithGithubProvider(email, authCallbackInstance)
+        authViewModel.signIn(email, authCallbackInstance)
         // assert
         verify { authStateObserver.onChanged(AuthState.AUTHORIZED) }
-        coVerify { authInteractor.signInWithGithubProvider(email, authCallbackInstance) }
+        coVerify { authInteractor.signIn(email, authCallbackInstance) }
     }
 
     @Test

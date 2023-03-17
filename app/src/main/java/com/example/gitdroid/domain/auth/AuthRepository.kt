@@ -15,7 +15,7 @@ interface AuthRepository {
      * @param email Email пользователя
      * @param authCallbackInstance Коллбэк для запуска авторизации с контекстом Activity
      */
-    suspend fun signInWithGithubProvider(email: String, authCallbackInstance: AuthCallback)
+    suspend fun signIn(email: String, authCallbackInstance: AuthCallback)
 
     /**
      * Выполняет логаут

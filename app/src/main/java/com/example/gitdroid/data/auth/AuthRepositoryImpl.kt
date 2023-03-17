@@ -30,7 +30,7 @@ class AuthRepositoryImpl(
         Log.d(TAG, "Logout success")
     }
 
-    override suspend fun signInWithGithubProvider(
+    override suspend fun signIn(
         email: String,
         authCallbackInstance: AuthCallback,
     ) {

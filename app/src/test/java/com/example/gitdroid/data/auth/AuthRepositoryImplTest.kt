@@ -83,9 +83,9 @@ internal class AuthRepositoryImplTest {
     }
 
     @Test
-    fun `signInWithGithubProvider positive result`() = runTest {
+    fun `signIn positive result`() = runTest {
         // act
-        authRepository.signInWithGithubProvider(stubEmail, stubCallback)
+        authRepository.signIn(stubEmail, stubCallback)
         // assert
         verify { sessionManager.saveAuthToken(stubAccessToken) }
         verify { stubCallback.onRegister(auth, stubOAuthProvider) }
