@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 /**
  * Результат поискового запроса
+ * @property totalCount Общее число результатов поиска
+ * @property incompleteResults Неполные результаты
+ * @property items Список элементов поисковой выдачи
  */
 data class SearchResultData(
     @SerializedName("total_count") val totalCount: Long,

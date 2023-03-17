@@ -26,6 +26,9 @@ import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
 import com.example.gitdroid.models.domain.SearchState
 
+/**
+ * Фрагмент поиска по коду
+ */
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
 
     private lateinit var binding: FragmentCodeSearchBinding

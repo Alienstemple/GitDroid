@@ -7,6 +7,9 @@ import com.example.gitdroid.databinding.ProjectItemForSearchBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 
+/**
+ * Адаптер для списка проектов внутри диалогового окна на фрагменте поиска
+ */
 class ProjectsForSearchAdapter(private val projectItemClickListener: ProjectItemClickListener) :
     RecyclerView.Adapter<ProjectsForSearchAdapter.ViewHolder>() {
 

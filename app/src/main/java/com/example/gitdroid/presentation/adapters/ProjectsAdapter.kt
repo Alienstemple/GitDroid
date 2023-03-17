@@ -11,6 +11,9 @@ import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 
+/**
+ * Адаптер для списка проектов
+ */
 class ProjectsAdapter(private val projectItemClickListener: ProjectItemClickListener) :
     RecyclerView.Adapter<ProjectsAdapter.ViewHolder>() {
 

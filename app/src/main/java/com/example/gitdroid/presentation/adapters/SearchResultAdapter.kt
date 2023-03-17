@@ -7,6 +7,9 @@ import com.example.gitdroid.databinding.SearchResultItemBinding
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 
+/**
+ * Адаптер для списка результатов поиска
+ */
 class SearchResultAdapter(private val searchResultItemClickListener: SearchResultItemClickListener) :
     RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 

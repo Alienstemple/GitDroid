@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.example.gitdroid.databinding.FragmentHelloBinding
 import com.example.gitdroid.presentation.misc.navigation
 
+/**
+ * Старотовый фрагмент
+ */
 class HelloFragment : Fragment() {
     private lateinit var binding: FragmentHelloBinding
 

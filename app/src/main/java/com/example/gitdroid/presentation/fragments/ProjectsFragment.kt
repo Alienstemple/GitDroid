@@ -22,6 +22,9 @@ import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.models.domain.ProjectLoadState
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 
+/**
+ * Фрагмент списка проектов
+ */
 class ProjectsFragment : Fragment(), ProjectItemClickListener {
 
     private lateinit var binding: FragmentProjectsBinding
