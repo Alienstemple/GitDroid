@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
 import com.example.gitdroid.models.domain.Project
+import com.example.gitdroid.models.domain.ProjectLoadState
 import com.example.gitdroid.models.domain.SearchResultItem
 import io.mockk.*
 import kotlinx.coroutines.flow.Flow

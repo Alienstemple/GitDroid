@@ -7,6 +7,7 @@ import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.domain.search.GithubInteractorImpl
 import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
+import com.example.gitdroid.models.domain.SearchState
 import io.mockk.*
 import org.junit.After
 import org.junit.Before

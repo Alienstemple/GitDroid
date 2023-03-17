@@ -24,7 +24,7 @@ import com.example.gitdroid.presentation.misc.ProjectItemClickListener
 import com.example.gitdroid.presentation.misc.SearchResultItemClickListener
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 import com.example.gitdroid.presentation.vm.search.SearchResultViewModel
-import com.example.gitdroid.presentation.vm.search.SearchState
+import com.example.gitdroid.models.domain.SearchState
 
 class CodeSearchFragment : Fragment(), SearchResultItemClickListener, ProjectItemClickListener {
 

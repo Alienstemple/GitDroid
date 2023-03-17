@@ -19,7 +19,7 @@ import com.example.gitdroid.databinding.FragmentProjectsBinding
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.presentation.adapters.ProjectsAdapter
 import com.example.gitdroid.presentation.misc.ProjectItemClickListener
-import com.example.gitdroid.presentation.vm.projects.ProjectLoadState
+import com.example.gitdroid.models.domain.ProjectLoadState
 import com.example.gitdroid.presentation.vm.projects.ProjectsViewModel
 
 class ProjectsFragment : Fragment(), ProjectItemClickListener {

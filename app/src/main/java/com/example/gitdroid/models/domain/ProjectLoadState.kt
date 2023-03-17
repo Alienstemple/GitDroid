@@ -1,4 +1,4 @@
-package com.example.gitdroid.presentation.vm.projects
+package com.example.gitdroid.models.domain
 
 enum class ProjectLoadState {
     LOADING, COMPLETED, ERROR

@@ -5,6 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.gitdroid.domain.auth.AuthCallback
 import com.example.gitdroid.domain.auth.AuthInteractorImpl
+import com.example.gitdroid.models.domain.AuthState
 import io.mockk.*
 import org.junit.After
 import org.junit.Before

@@ -10,13 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.gitdroid.GitDroidApplication
 import com.example.gitdroid.databinding.ActivityAuthBinding
 import com.example.gitdroid.domain.auth.AuthCallback
-import com.example.gitdroid.presentation.vm.auth.AuthState
+import com.example.gitdroid.models.domain.AuthState
 import com.example.gitdroid.presentation.vm.auth.AuthViewModel
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthProvider
 
+/**
+ * Activity авторизации. Входная точка приложения. Прежде чем допустить пользователя
+ * к функционалу приложения, выполняется проверка авторизации и авторизация.
+ */
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthBinding
 

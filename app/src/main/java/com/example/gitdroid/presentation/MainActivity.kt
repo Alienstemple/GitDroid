@@ -15,7 +15,12 @@ import com.example.gitdroid.presentation.fragments.ProjectsFragment
 import com.example.gitdroid.presentation.fragments.SettingsFragment
 import com.example.gitdroid.presentation.misc.Navigation
 
-
+/**
+ * Основная Activity приложения. По умолчанию запускает Hello-фрагмент [HelloFragment] с основным меню,
+ * а также фрагменты поиска [CodeSearchFragment], проектов [ProjectsFragment], логаут.
+ * Для навигации между фрагментами реализует интерфейс [Navigation]
+ * Также реализует Action Drawer Menu
+ */
 class MainActivity : AppCompatActivity(), Navigation {
     private lateinit var mainBinding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle

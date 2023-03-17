@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gitdroid.domain.search.GithubInteractor
 import javax.inject.Inject
 
+/**
+ * Фабрика для создания [SearchResultViewModel]
+ */
 class SearchResultViewModelFactory @Inject constructor(private val githubInteractor: GithubInteractor) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
