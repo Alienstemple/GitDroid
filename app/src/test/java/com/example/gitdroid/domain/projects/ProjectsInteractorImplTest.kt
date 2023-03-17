@@ -7,14 +7,12 @@ import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.Test
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class ProjectsInteractorImplTest {

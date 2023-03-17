@@ -8,14 +8,12 @@ import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
 import com.example.gitdroid.models.domain.Project
 import com.example.gitdroid.models.domain.SearchResultItem
 import io.mockk.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
 import org.junit.rules.TestRule
 
 internal class ProjectsViewModelTest {
@@ -24,6 +22,7 @@ internal class ProjectsViewModelTest {
 
     private val projectListObserver: Observer<List<Project>> = mockk(relaxed = true)
     private val projectLoadStateObserver: Observer<ProjectLoadState> = mockk(relaxed = true)
+    private val projectUpdatedObserver: Observer<Boolean> = mockk(relaxed = true)
 
     private lateinit var projectInteractor: ProjectsInteractorImpl
     private lateinit var projectsViewModel: ProjectsViewModel
@@ -34,7 +33,6 @@ internal class ProjectsViewModelTest {
     private val projectList: List<Project> = MiscCreator.createProjectList()
     private val flow: Flow<List<Project>> = flowOf(projectList)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
 
@@ -49,6 +47,7 @@ internal class ProjectsViewModelTest {
 
         projectsViewModel.projectList.observeForever(projectListObserver)
         projectsViewModel.projectLoadState.observeForever(projectLoadStateObserver)
+        projectsViewModel.projectUpdated.observeForever(projectUpdatedObserver)
 
         mockkStatic(Log::class)
         every { Log.d(any(), any()) } returns 0
@@ -58,10 +57,10 @@ internal class ProjectsViewModelTest {
     fun tearDown() {
         projectsViewModel.projectList.removeObserver(projectListObserver)
         projectsViewModel.projectLoadState.removeObserver(projectLoadStateObserver)
+        projectsViewModel.projectUpdated.removeObserver(projectUpdatedObserver)
         unmockkStatic(Log::class)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun loadAllProjects() {
         // act
@@ -73,21 +72,39 @@ internal class ProjectsViewModelTest {
         verify { projectLoadStateObserver.onChanged(ProjectLoadState.COMPLETED) }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun addProject() {
         // act
         projectsViewModel.addProject(projectName)
         // assert
-//        coVerify { projectInteractor.addProject(projectName) }
-        verify { projectListObserver.onChanged(projectList) }
+        coVerify { projectInteractor.addProject(projectName) }
+        verify { projectListObserver.onChanged(projectList) }  // get all called
     }
 
     @Test
     fun updateProject() {
+        // act
+        projectsViewModel.updateProject(projectId, searchResultItem)
+        // assert
+        coVerify { projectInteractor.updateProject(projectId, searchResultItem) }
+        verify { projectListObserver.onChanged(projectList) }
+        verify { projectUpdatedObserver.onChanged(true) }
+    }
+
+    @Test
+    fun clearAddState() {
+        // act
+        projectsViewModel.clearAddState()
+        // assert
+        verify { projectUpdatedObserver.onChanged(false) }
     }
 
     @Test
     fun deleteProject() {
+        // act
+        projectsViewModel.deleteProject(projectId)
+        // assert
+        coVerify { projectInteractor.deleteProject(projectId) }
+        verify { projectListObserver.onChanged(projectList) }
     }
 }

@@ -5,7 +5,6 @@ import com.example.gitdroid.domain.auth.AuthCallback
 import com.google.common.truth.Truth.assertThat
 import com.google.firebase.auth.*
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After

@@ -46,7 +46,9 @@ internal class ProjectsRepositoryImplTest {
         every { stubDatabaseReference.removeValue() } returns stubTask
 //        every { stubTask.addOnSuccessListener(mockk()) } answers { }
 //        every { stubDatabaseReference.child(pathString) } returns secondStubDatabaseReference  // FIXME doesn't work
-        every { /*thirdStubDatabaseReference*//*secondStubDatabaseReference*/stubDatabaseReference.addListenerForSingleValueEvent(stubValueEventListener) } just runs
+        every { /*thirdStubDatabaseReference*//*secondStubDatabaseReference*/stubDatabaseReference.addListenerForSingleValueEvent(
+            stubValueEventListener)
+        } just runs
 
         projectsRepositoryImpl = ProjectsRepositoryImpl(projectConverter,
             searchResItemConverter,
@@ -72,7 +74,7 @@ internal class ProjectsRepositoryImplTest {
     }
 
     @Test
-    fun updateProject() = runTest{
+    fun updateProject() = runTest {
         // act
 //        projectsRepositoryImpl.updateProject(stubProjectId, stubSearchResultItem)
         // assert
@@ -80,7 +82,7 @@ internal class ProjectsRepositoryImplTest {
     }
 
     @Test
-    fun deleteProject() = runTest{
+    fun deleteProject() = runTest {
 //        projectsRepositoryImpl.deleteProject(stubProjectId)
     }
 }

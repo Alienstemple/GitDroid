@@ -2,7 +2,6 @@ package com.example.gitdroid.data.converters
 
 import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.models.data.SearchResultItemData
-import com.example.gitdroid.models.domain.SearchResult
 import com.example.gitdroid.models.domain.SearchResultItem
 import com.google.common.truth.Truth.assertThat
 

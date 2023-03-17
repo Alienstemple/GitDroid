@@ -2,19 +2,15 @@ package com.example.gitdroid.domain.search
 
 import com.example.gitdroid.MiscCreator
 import com.example.gitdroid.data.search.NetworkRepositoryImpl
-import com.example.gitdroid.models.data.SearchResultData
 import com.example.gitdroid.models.domain.SearchResult
 import com.google.common.truth.Truth.assertThat
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -40,7 +36,7 @@ internal class GithubInteractorImplTest {
     }
 
     @Test
-    fun getCodeSearch() = runTest{
+    fun getCodeSearch() = runTest {
         // act
         val actual = githubInteractorImpl.getCodeSearch(stubQuery)
         // assert

@@ -1,16 +1,12 @@
 package com.example.gitdroid.domain.auth
 
 import com.example.gitdroid.data.auth.AuthRepositoryImpl
-import com.example.gitdroid.data.projects.ProjectsRepositoryImpl
-import com.example.gitdroid.domain.projects.ProjectsInteractorImpl
 import com.google.common.truth.Truth.assertThat
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
