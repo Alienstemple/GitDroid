@@ -44,7 +44,7 @@ internal class ProjectsRepositoryImplTest {
 
         every { databaseReference.child(stubProjectId) } returns stubDatabaseReference
         every { stubDatabaseReference.removeValue() } returns stubTask
-//        every { stubTask.addOnSuccessListener(mockk()) } answers { }
+//        every { stubTask.addOnSuccessListener(mockk()) } answers { }  // TODO mock Task https://github.com/awesome-academy/CooktailDB/blob/f11b32dc3ed2b3a6f5e77b3e31ed147c7e5097be/app/src/test/java/com/example/cooktaildb/ui/filter_fragment/FilterFragmentPresenterTest.kt
 //        every { stubDatabaseReference.child(pathString) } returns secondStubDatabaseReference  // FIXME doesn't work
         every { /*thirdStubDatabaseReference*//*secondStubDatabaseReference*/stubDatabaseReference.addListenerForSingleValueEvent(
             stubValueEventListener)
